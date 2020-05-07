@@ -2,34 +2,10 @@
   .flex-container
     %h3
       = link_to_if can?(:read, contact), contact.full_name(current_user.preference[:contacts_naming]), contact
-    .tools
-      = hook(:contact_tools_before, self, contact: contact)
-      - if can?(:update, contact)
-        = link_to_edit(contact)
-      - if shown_on_landing_page?
-        = link_to_discard(contact)
-      - if can?(:destroy, contact)
-        = link_to_delete(contact)
-  %span
-    = brief_account_info(contact)
-    - if (lead = contact.lead) and lead.referred_by?
-      &ndash;
-      == #{t :referred_by_small} #{lead.referred_by}
-  %span
-    - if can?(:read, contact)
-      - if contact.email.present?
-        = link_to_email(contact.email)
-        |
-      - if contact.phone.present?
-        == #{t :phone_small}:
-        %b.phone-number= contact.phone
-      |
-      - if contact.mobile.present?
-        == #{t :mobile_small}:
-        %b.phone-number= contact.mobile
-        |
-    = t(:added_ago, value: timeago(contact.created_at)).html_safe
+    = render "contacts/contact_tools", contact: contact
+  = render "contacts/lead_referral", contact: contact
+  - if can?(:read, contact)
+    = render "contacts/contact_details", contact: contact
   - if contact.tags.present?
-    %span
-      .tags= tags_for_index(contact)
+    .tags= tags_for_index(contact)
   = hook(:contact_bottom, self, contact: contact)

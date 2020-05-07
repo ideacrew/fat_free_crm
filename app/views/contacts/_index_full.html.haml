@@ -3,16 +3,7 @@
   .flex-container
     %h3
       = link_to_if can?(:read, contact), contact.full_name(current_user.preference[:contacts_naming]), contact
-    .tools
-      = hook(:contact_tools_before, self, contact: contact)
-      - if can?(:update, contact)
-        = link_to_edit(contact)
-
-      - if shown_on_landing_page?
-        = link_to_discard(contact)
-
-      - if can?(:destroy, contact)
-        = link_to_delete(contact)
+    = render "contacts/contact_tools", contact: contact
   %span
     - if contact.title? && contact.department?
       == #{contact.title}, #{contact.department}
@@ -23,20 +14,8 @@
     - if (lead = contact.lead) and lead.referred_by?
       &ndash;
       == #{t :referred_by_small} #{lead.referred_by}
-  %span
-    - if can?(:read, contact)
-      - if contact.email.present?
-        = link_to_email(contact.email)
-        |
-      - if contact.phone.present?
-        == #{t :phone_small}:
-        %b.phone-number= contact.phone
-        |
-      - if contact.mobile.present?
-        == #{t :mobile_small}:
-        %b.phone-number= contact.mobile
-        |
-    = t(:added_ago, value: timeago(contact.created_at)).html_safe
+  - if can?(:read, contact)
+    = render "contacts/contact_details", contact: contact
   - if contact.tags.present?
     .tags= tags_for_index(contact)
   = hook(:contact_bottom, self, contact: contact)
@@ -44,5 +23,5 @@
     = render "contacts/section_general", contact: contact
     = render "contacts/section_extra", contact: contact
     = render "entities/section_custom_fields", entity: contact
-    = render "comments/new", commentable: contact
+    -# = render "comments/new", commentable: contact
   = render partial: "shared/timeline", collection: (contact.comments + contact.emails).sort { |x, y| y.created_at <=> x.created_at }
