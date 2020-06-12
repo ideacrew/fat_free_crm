@@ -46,7 +46,8 @@
 
 .idc-form-group,
 .idc-panel,
-.idc-addresses {
+.idc-addresses,
+.idc-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-gap: 1rem;

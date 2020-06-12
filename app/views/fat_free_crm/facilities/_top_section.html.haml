@@ -34,11 +34,11 @@
       }
 
     - if entity.new_record?
-      = link_to("New Level", new_level_admin_facilities_path, remote: true, class: 'mt-3 btn btn-primary')
+      = link_to("New Level", new_level_admin_facilities_path, remote: true, class: 'mt-3 btn btn-primary one-sixth')
     -else
-      = link_to("New Level", new_level_admin_facility_path(@facility), remote: true, class: 'mt-3 btn btn-primary')
+      = link_to("New Level", new_level_admin_facility_path(@facility), remote: true, class: 'mt-3 btn btn-primary one-sixth')
 
-    .form-group.shove-down
+    .form-group.full-width
       %label #{t :accounts}:
       = f.collection_check_boxes(:account_ids, @accounts, :id, :name ) do |b|
         .d-block
