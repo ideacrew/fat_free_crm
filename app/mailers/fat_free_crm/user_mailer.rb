@@ -52,8 +52,7 @@ module FatFreeCrm
 
     def manager_email
      #TODO need to update to manager of that contact
-      # "angus.irvine@ideacrew.com"
-      "harshavardhan.ellanki@ideacrew.com"
+      "angus.irvine@ideacrew.com"
     end
   end
 end
