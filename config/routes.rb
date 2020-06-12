@@ -51,6 +51,7 @@ FatFreeCrm::Engine.routes.draw do
       match :auto_complete, via: %i[get post]
       get :redraw
       get :versions
+      get :decrypt_email_link
     end
     member do
       put :attach

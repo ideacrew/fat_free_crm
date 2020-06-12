@@ -25,10 +25,11 @@ module FatFreeCrm
     end
 
     def index_case_notification_to_manager(entity)
-      @entity_url = url_for(entity)
+      url = url_for(entity)
+      @signature = create_access_signature(url)
       @facility =  entity.contact.assignments.current.first&.facility
       @account = entity.contact.account
-      if manager_email.present?
+      if @signature.present? && manager_email.present?
         mail({to: manager_email, subject: "COVID-19 Test Positive", from: from_address}) do |format|
           format.html {render "index_case_notification_to_manager", locals: {index_case: entity}}
         end
@@ -37,13 +38,22 @@ module FatFreeCrm
 
     private
 
+    def verifier
+      ActiveSupport::MessageVerifier.new(Rails.application.secrets.secret_key_base, serializer: JSON, digest: 'SHA256')
+    end
+
+    def create_access_signature(url)
+      verifier.generate(url)
+    end
+
     def from_address
       Setting.dig(:smtp, :from).presence || "COMPASS Contact Tracing <noreply@fatfreecrm.com>"
     end
 
     def manager_email
      #TODO need to update to manager of that contact
-      "angus.irvine@ideacrew.com"
+      # "angus.irvine@ideacrew.com"
+      "harshavardhan.ellanki@ideacrew.com"
     end
   end
 end

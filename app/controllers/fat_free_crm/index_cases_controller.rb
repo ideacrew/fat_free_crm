@@ -134,6 +134,13 @@ module FatFreeCrm
       @investigation = @index_case.investigations.build
     end
 
+    def decrypt_email_link
+      signature = params[:signature]
+      link = verifier.verify(signature)
+
+      redirect_to link
+    end
+
     private
 
     # #----------------------------------------------------------------------------

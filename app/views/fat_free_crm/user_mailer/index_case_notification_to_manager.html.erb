@@ -4,22 +4,18 @@
 	  <b>Subject: COVID-19 Test Positive</b>
 	  <br /><br />
 	  <div>
-			An individual in your organization has reported testing positive for COVID-19. Following is known information about the exposure timeline and business location. An investigation and contact trace effort has been launched to identify additional exposures.
+			An individual in your organization has reported testing positive for COVID-19. Following is known information about the  business divison and location. An investigation and contact trace effort has been launched to identify additional exposures.
 	  </div>
 	  <table>
+	  	<%reports_to = @account&.division_name || @account&.reports_to&.name %>
 		  <tr>
-		    <td>Division: <%= @account&.division_name || @account&.reports_to&.name %></td>
-		  </tr>
-		  <tr>
-		    <td>Sub Division: <%= @account&.name %></td>
+		    <td>Division: <%= reports_to.present? ? reports_to+"/"+@account&.name : @account&.name %></td>
 		  </tr>
 		  <tr>
 		    <td>Location: <%= @facility&.name %> </td>
 		  </tr>
 		</table>
 	  <br />
-	  Please click on the link to see employee details
-	  <br />
-	   <a href=@entity_url target="_blank"><%= index_case.contact.full_name %></a>
+	  Please <a href=decrypt_email_link_index_cases_url(signature: @signature) target="_blank"><b>Click Here</b></a> to see employee details.
 	</body>
 </html>
