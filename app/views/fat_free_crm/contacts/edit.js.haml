@@ -32,4 +32,22 @@
     crm.flip_form('edit_#{entity_name}');
     crm.set_title('edit_#{entity_name}', "#{t :edit} #{h @entity.full_name}");
 
+  var facility_and_level = #{raw FatFreeCrm::Level.all.group_by(&:facility_id).reduce({}) { |result, (facility_id, levels)| result.merge facility_id => levels.map(&:attributes) }.to_json}
+  var assignments = document.querySelector('.contact-assignments')
+  assignments.addEventListener('change', function(event) {
+  if (event.target.classList.contains('facility-select')) {
+  var level_select = event.target.closest('.contact_assignment').querySelector('select[name*="level_id"]');
+  if (facility_and_level[event.target.value]) {
+  while (level_select.firstChild) {
+  level_select.removeChild(level_select.firstChild);
+  }
+  facility_and_level[event.target.value].forEach(function(level) {
+  level_select.add(new Option(level.name, level.id))
+  })
+  level_select.parentNode.classList.remove('d-none');
+  } else {
+  level_select.parentNode.classList.add('d-none');
+  }
+  }
+  });
   crm.create_or_select_account(#{ request.referer =~ /\/accounts\// || @account.id.blank? });
