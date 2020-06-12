@@ -3,6 +3,7 @@ module FatFreeCrm
     belongs_to :facility, class_name: "FatFreeCrm::Facility"
     belongs_to :contact
     belongs_to :account
+    belongs_to :level
 
     def self.facility_class
       @@facility_class.constantize
