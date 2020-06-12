@@ -247,6 +247,7 @@ FatFreeCrm::Engine.routes.draw do
         match :auto_complete, via: %i[get post]
         get :redraw
         get :versions
+        get :new_level
       end
       member do
         put :attach
@@ -254,6 +255,7 @@ FatFreeCrm::Engine.routes.draw do
         post :subscribe
         post :unsubscribe
         get :contacts
+        get :new_level
       end
     end
 

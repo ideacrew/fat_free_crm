@@ -1,0 +1,6 @@
+.level_info
+  .form-group
+    %label #{t :name}:
+    = text_field_tag "facility[levels_attributes][#{time = Time.now.to_i}][name]", nil, class: 'form-control'
+  .one-sixth.shove-down
+    = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "this.closest('.level_info').remove()"

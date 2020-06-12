@@ -7,12 +7,7 @@
       %label #{t :facility_kind}
       /= f.select :facility_kind, Setting.unroll(:facility_kind), { selected: @facility.facility_kind || "other", include_blank: t(:other) }, { class: 'form-control', multiple: true }
       = f.select(:facility_kind, Setting.unroll(:facility_kind).map(&:first), {selected: @facility.facility_kind || "Unknown", include_blank: t(:unknown)}, :class => "form-control")
-    .form-group.one-quarter
-      %label #{t :accounts}:
-      = f.collection_check_boxes(:account_ids, @accounts, :id, :name ) do |b|
-        .d-block
-          = b.check_box
-          = b.label
+
     .form-group.one-quarter
       %label #{t :facility_status}
       = f.select(:status, FatFreeCrm::Facility.statuses.map { |(w)| [w.humanize, w] }, {selected: @facility.status || "Unknown", include_blank: t(:unknown)}, :class => "form-control")
@@ -20,5 +15,34 @@
       .form-group.one-third
         %label= t(:background_info) + ':'
         = f.text_area(:background_info, {})
+
+    .full-width.levels
+      = f.fields_for :levels, @facility.levels.each do |level_fields|
+        = render 'fat_free_crm/facilities/level', f: level_fields, entity: @facility
+
+      #new_level
+
+    :javascript
+      function deleteLevel(el) {
+        text = "Are you sure you wish to delete this absence?"
+        response = confirm(text)
+        if (response == true) {
+          hidden_input_id = el.closest('.level_info').querySelector('input[type="text"]').id.replace('item', '_destroy');
+          el.closest('.full-width').parentNode.querySelector('input[id="' + hidden_input_id + '"]').value = true;
+          el.closest('.level_info').remove();
+        }
+      }
+
+    - if entity.new_record?
+      = link_to("New Level", new_level_admin_facilities_path, remote: true, class: 'mt-3 btn btn-primary')
+    -else
+      = link_to("New Level", new_level_admin_facility_path(@facility), remote: true, class: 'mt-3 btn btn-primary')
+
+    .form-group.shove-down
+      %label #{t :accounts}:
+      = f.collection_check_boxes(:account_ids, @accounts, :id, :name ) do |b|
+        .d-block
+          = b.check_box
+          = b.label
 
     = hook(:facility_top_section_bottom, self, f: f)

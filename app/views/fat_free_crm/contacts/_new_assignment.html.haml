@@ -7,9 +7,12 @@
   .form-group.one-quarter
     %label #{t :end_on}:
     = date_field_tag("contact[assignments_attributes][#{time = Time.now.to_i}][end_on]", nil, class: 'form-control')
-  .form-group.one-third
-    %label #{t :facility}:
-    = select_tag("contact[assignments_attributes][#{time = Time.now.to_i}]facility_id", options_from_collection_for_select(facilities, 'id', 'name'), {include_blank: true, required: true, class: 'form-control'})
+  - if entity.account.present?
+    .form-group.one-quarter
+      %label #{t :facility}:
+      = select_tag("contact[assignments_attributes][#{time = Time.now.to_i}]facility_id", options_from_collection_for_select(facilities, 'id', 'name'), {include_blank: true, required: true, class: 'form-control'})
+    .form-group.one-quarter
+      = select_tag("contact[assignments_attributes][#{time = Time.now.to_i}]level_id", [], class: 'form-control')
   .one-sixth.shove-down
     = link_to_function(raw("<i class='fa fa-2x fa-trash'></i>"), "this.closest('.idc-form-group').remove()")
 

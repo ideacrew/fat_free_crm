@@ -1,0 +1,7 @@
+= f.hidden_field :_destroy
+= f.hidden_field :id, value: f.object.id
+.form-group.level_info
+  %label #{t :name}:
+  = f.text_field :name, class: 'form-control'
+.one-sixth.shove-down
+= link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteLevel(this)"

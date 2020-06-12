@@ -2,7 +2,6 @@
 %details.idc-panel.contact-identifiers
   %summary #{t :identifiers}
   #contact_extra_intro.full-width
-    =# t(:intro, t(:identifiers_info_small))
     = f.fields_for :identifiers, entity.identifiers.each do |identifier_fields|
       = render "fat_free_crm/contacts/identifier", f: identifier_fields, entity: entity
 

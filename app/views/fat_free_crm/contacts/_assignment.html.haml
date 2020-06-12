@@ -9,9 +9,11 @@
   .form-group.one-quarter
     %label #{t :end_on}:
     = f.date_field(:end_on, class: 'form-control')
-  .form-group.one-third
+  .form-group.one-quarter
     %label #{t :facility}:
     = f.select(:facility_id, options_from_collection_for_select(facilities, 'id', 'name', f.object.facility_id), {include_blank: true}, {class: 'form-control'})
+  .form-group.one-quarter
+    = f.select(:level_id, [], {}, class: 'form-control')
   .one-sixth.shove-down
     = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteAssignment(this)"
 

@@ -138,6 +138,13 @@ module FatFreeCrm
         end
       end
 
+      def new_level
+        @facility ||= FatFreeCrm::Facility.new
+        @level = @facility.levels.build
+
+        render 'fat_free_crm/facilities/new_level'
+      end
+
       private
 
       # #----------------------------------------------------------------------------
