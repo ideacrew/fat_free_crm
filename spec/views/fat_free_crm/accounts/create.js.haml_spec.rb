@@ -17,16 +17,17 @@ module FatFreeCrm
     # Note: [Create Account] is only called from Accounts index. Unlike other
     # core object Account partial is not embedded.
     describe "create success" do
+      let!(:account) { create(:account) }
       before do
-        assign(:account, @account = build_stubbed(:account))
-        assign(:accounts, [@account].paginate)
+        assign(:account, account)
+        assign(:accounts, [build_stubbed(:account, id: 10)].paginate)
         assign(:account_category_total, Hash.new(1))
         render
       end
 
       it "should hide [Create Account] form and insert account partial" do
-        expect(rendered).to include("$('#accounts').prepend('<li class=\\'highlight account\\' id=\\'account_#{@account.id}\\'")
-        expect(rendered).to include(%/$('#account_#{@account.id}').effect("highlight"/)
+        expect(rendered).to include("$('#accounts').prepend('<li class=\\'highlight account\\' id=\\'account_#{account.id}\\'")
+        expect(rendered).to include(%/$('#account_#{account.id}').effect("highlight"/)
       end
 
       it "should update pagination" do

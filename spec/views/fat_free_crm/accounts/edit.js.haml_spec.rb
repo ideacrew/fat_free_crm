@@ -13,6 +13,8 @@ module FatFreeCrm
     before do
       login
       assign(:account, @account = build_stubbed(:account, user: current_user))
+      assign(:accounts, [build_stubbed(:account, id: 10)].paginate)
+      assign(:facilities, [FatFreeCrm::Facility.new].paginate)
       assign(:users, [current_user])
     end
 

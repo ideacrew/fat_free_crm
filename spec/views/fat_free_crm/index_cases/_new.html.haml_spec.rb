@@ -15,7 +15,6 @@ module FatFreeCrm
       # Form
       expect(rendered).to include('<form class="edit_index_case"')
       # Top Section
-      expect(rendered).to include("class='remote'")
       expect(rendered).to include("<label>Phone:</label>")
       expect(rendered).to include("<label>Email:</label>")
       expect(rendered).to include("<label>Window Start Date:</label>")
