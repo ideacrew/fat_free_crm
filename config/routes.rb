@@ -74,6 +74,8 @@ FatFreeCrm::Engine.routes.draw do
       match :auto_complete, via: %i[get post]
       get :redraw
       get :versions
+      get :new_investigation
+      get :new_exposure
     end
     member do
       put :attach

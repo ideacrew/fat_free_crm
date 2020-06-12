@@ -13,6 +13,8 @@ module FatFreeCrm
     before do
       login
       assign(:account, Account.new)
+      assign(:accounts, [create(:account)])
+      assign(:facilities, [create(:facility)])
       assign(:users, [current_user])
     end
 
