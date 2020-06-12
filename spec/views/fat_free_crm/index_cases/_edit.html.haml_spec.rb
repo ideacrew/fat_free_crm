@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module FatFreeCrm
-  describe "/fat_free_crm/index_cases/_new" do
+  describe "/fat_free_crm/index_cases/_edit" do
     let(:contact) { create(:contact) }
     let(:index_case) { create(:index_case, contact: contact) }
 
@@ -10,12 +10,13 @@ module FatFreeCrm
       assign(:index_case, index_case)
     end
 
-    it "should render [create index_case] form" do
+    it "should render [edit index_case] form" do
       render
       # Form
       expect(rendered).to include('<form class="edit_index_case"')
       # Top Section
-      expect(rendered).to include("class='remote'")
+      # Remote only appears on edit
+      expect(rendered).to include("<div class='remote'>")
       expect(rendered).to include("<label>Phone:</label>")
       expect(rendered).to include("<label>Email:</label>")
       expect(rendered).to include("<label>Window Start Date:</label>")
