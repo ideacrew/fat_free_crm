@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 module FatFreeCrm
   describe IndexCase do
+    
     let!(:user) { create(:user) }
     let(:new_index_case) { IndexCase.new(user_id: user.id) }
 
