@@ -58,8 +58,6 @@ module FatFreeCrm
     has_many :assignments, dependent: :destroy
     has_many :absences, dependent: :destroy
 
-    has_many :assignments
-
     delegate :campaign, to: :lead, allow_nil: true
 
     enum gender: {male: 'Male', female: 'Female', other: 'Other', unknown: 'Unknown'}
