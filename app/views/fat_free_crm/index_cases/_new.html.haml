@@ -4,7 +4,7 @@
 
   = f.error_messages object_name: t('index_case')
 
-  = render "fat_free_crm/index_cases/top_section",  f: f
+  = render "fat_free_crm/index_cases/top_section",  f: f, entity: @index_case
   /= render "fat_free_crm/index_cases/contact_info", f: f
   = render "fat_free_crm/entities/permissions",  f: f, entity: @index_case
   = hook(:entity_form, self, {f: f, entity: @index_case})
