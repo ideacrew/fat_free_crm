@@ -40,7 +40,7 @@ module FatFreeCrm
     acts_as_taggable_on :tags
     has_paper_trail versions: {class_name: "FatFreeCrm::Version"}, ignore: [:subscribed_users]
 
-    has_ransackable_associations %w[opportunity]
+    has_ransackable_associations %w[contacts opportunity tags exposures emails investigations comments tasks]
     ransack_can_autocomplete
 
     accepts_nested_attributes_for :exposures, allow_destroy: true
