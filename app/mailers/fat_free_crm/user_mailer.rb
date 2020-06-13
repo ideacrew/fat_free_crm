@@ -38,8 +38,12 @@ module FatFreeCrm
 
     private
 
+    def secret_key_base
+      Rails.application.credentials.secret_key_base || Rails.application.secrets.secret_key_base
+    end
+
     def verifier
-      ActiveSupport::MessageVerifier.new(Rails.application.secrets.secret_key_base, serializer: JSON, digest: 'SHA256')
+      ActiveSupport::MessageVerifier.new(secret_key_base, serializer: JSON, digest: 'SHA256')
     end
 
     def create_access_signature(url)

@@ -57,6 +57,7 @@ module FatFreeCrm
     has_many :identifiers, as: :identifiable, dependent: :destroy
     has_many :assignments, dependent: :destroy
     has_many :absences, dependent: :destroy
+    has_many :index_cases, dependent: :destroy
 
     delegate :campaign, to: :lead, allow_nil: true
 
