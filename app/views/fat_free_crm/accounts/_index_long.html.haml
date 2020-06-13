@@ -1,3 +1,4 @@
+- tab ||= 1
 - amount = account.pipeline_opportunities.map(&:weighted_amount).sum
 %li.highlight.account{id: "account_#{account.id}"}
   .flex-container
@@ -16,8 +17,13 @@
     -# = stars_for(account)
     = " | ".html_safe << link_to(account.website, account.website.to_url) if account.website.present?
     = " | ".html_safe << link_to_email(account.email) if account.email.present?
-    = " | ".html_safe << t(:phone_small) << ": " << .phone-number=(account.toll_free_phone? ? account.toll_free_phone : account.phone) if account.toll_free_phone? || account.phone?
+    - if account.toll_free_phone? || account.phone?
+      .phone-number
+        = " | ".html_safe << t(:phone_small) << ": " << (account.toll_free_phone? ? account.toll_free_phone : account.phone) 
   - if account.tags.present?
     .tags= tags_for_index(account)
+
+- account.reporting_accounts.each do |reporting_account|
+  = render reporting_account, tab: tab + 1
 
   = hook(:account_bottom, self, account: account)

@@ -16,7 +16,9 @@
     -# = stars_for(facility)
     = " | ".html_safe << link_to(facility.website, facility.website.to_url) if facility.website.present?
     = " | ".html_safe << link_to_email(facility.email) if facility.email.present?
-    = " | ".html_safe << t(:phone_small) << ": " << .phone-number=(facility.toll_free_phone? ? facility.toll_free_phone : facility.phone) if facility.toll_free_phone? || facility.phone?
+    - if facility.toll_free_phone? || facility.phone?
+      .phone-number
+        = " | ".html_safe << t(:phone_small) << ": " << (facility.toll_free_phone? ? facility.toll_free_phone : facility.phone) 
   - if facility.tags.present?
     .tags= tags_for_index(facility)
 
