@@ -1,5 +1,5 @@
 - model = entity.class.name.underscore
-- facilities = (entity.account&.facilities&.length || 0) > 0 ? entity.account&.facilities.sort_by(&:name) : FatFreeCrm::Facility.all.facilities.sort_by(&:name)
+- facilities = (entity.account&.facilities&.length || 0) > 0 ? entity.account&.facilities.sort_by(&:name) : FatFreeCrm::Facility.all.sort_by(&:name)
 - account_id = entity.account&.id
 - assignment_index = Time.now.to_i
 .idc-form-group.contact_assignment
