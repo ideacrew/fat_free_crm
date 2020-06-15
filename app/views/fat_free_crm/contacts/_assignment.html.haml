@@ -2,6 +2,7 @@
 - facilities = entity.account&.facilities&.length > 0 ? entity.account&.facilities : FatFreeCrm::Facility.all
 = f.hidden_field :_destroy
 = f.hidden_field :id, value: f.object.id
+= f.hidden_field :account_id, value: entity.account&.id
 .idc-form-group.contact_assignment
   .form-group.one-quarter
     %label #{t :start_on}:

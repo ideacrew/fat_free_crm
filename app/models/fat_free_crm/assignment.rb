@@ -5,6 +5,10 @@ module FatFreeCrm
     belongs_to :account
     belongs_to :level
 
+    validates_presence_of :facility_id
+    validates_presence_of :account_id
+    validates_presence_of :contact_id
+
     def self.facility_class
       @@facility_class.constantize
     end
