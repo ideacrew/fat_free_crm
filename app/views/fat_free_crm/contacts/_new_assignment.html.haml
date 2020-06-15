@@ -1,5 +1,5 @@
 - model = entity.class.name.underscore
-- facilities = (entity.account&.facilities&.length || 0) > 0 ? entity.account&.facilities : FatFreeCrm::Facility.all
+- facilities = (entity.account&.facilities&.length || 0) > 0 ? entity.account&.facilities.sort_by(&:name) : FatFreeCrm::Facility.all.facilities.sort_by(&:name)
 = f.hidden_field :account_id, value: entity.account&.id
 .idc-form-group.contact_assignment
   .form-group.one-quarter
@@ -11,7 +11,7 @@
   - if entity.account.present?
     .form-group.one-quarter
       %label #{t :facility}:
-      = select_tag("contact[assignments_attributes][#{time = Time.now.to_i}][facility_id]", options_from_collection_for_select(entity.account.facilities, 'id', 'name'), {include_blank: true, required: true, class: 'form-control facility-select'})
+      = select_tag("contact[assignments_attributes][#{time = Time.now.to_i}][facility_id]", options_from_collection_for_select(entity.account.facilities.sort_by(&:name), 'id', 'name'), {include_blank: true, required: true, class: 'form-control facility-select'})
     .form-group.one-sixth.d-none
       %label #{t :level}:
       = select_tag("contact[assignments_attributes][#{time = Time.now.to_i}][level_id]", [], class: 'form-control')
