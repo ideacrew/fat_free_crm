@@ -1,19 +1,21 @@
 - model = entity.class.name.underscore
 - facilities = (entity.account&.facilities&.length || 0) > 0 ? entity.account&.facilities : FatFreeCrm::Facility.all
-= f.hidden_field :account_id, value: entity.account&.id
+- account_id = entity.account&.id
+- assignment_index = Time.now.to_i
 .idc-form-group.contact_assignment
+  = hidden_field_tag("contact[assignments_attributes][#{assignment_index}][start_on]", account_id)
   .form-group.one-quarter
     %label #{t :start_on}:
-    = date_field_tag("contact[assignments_attributes][#{time = Time.now.to_i}][start_on]", nil, class: 'form-control', required: true)
+    = date_field_tag("contact[assignments_attributes][#{assignment_index}][start_on]", nil, class: 'form-control', required: true)
   .form-group.one-quarter
     %label #{t :end_on}:
-    = date_field_tag("contact[assignments_attributes][#{time = Time.now.to_i}][end_on]", nil, class: 'form-control')
+    = date_field_tag("contact[assignments_attributes][#{assignment_index}][end_on]", nil, class: 'form-control')
   - if entity.account.present?
     .form-group.one-quarter
       %label #{t :facility}:
-      = select_tag("contact[assignments_attributes][#{time = Time.now.to_i}][facility_id]", options_from_collection_for_select(entity.account.facilities, 'id', 'name'), {include_blank: true, required: true, class: 'form-control facility-select'})
+      = select_tag("contact[assignments_attributes][#{assignment_index}][facility_id]", options_from_collection_for_select(entity.account.facilities, 'id', 'name'), {include_blank: true, required: true, class: 'form-control facility-select'})
     .form-group.one-sixth.d-none
       %label #{t :level}:
-      = select_tag("contact[assignments_attributes][#{time = Time.now.to_i}][level_id]", [], class: 'form-control')
+      = select_tag("contact[assignments_attributes][#{assignment_index}][level_id]", [], class: 'form-control')
   .form-group
     = link_to_function(raw("<i class='fa fa-2x fa-trash'></i>"), "this.closest('.idc-form-group').remove()")
