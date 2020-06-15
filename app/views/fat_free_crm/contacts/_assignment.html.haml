@@ -1,5 +1,5 @@
 - model = entity.class.name.underscore
-- facilities = entity.account&.facilities&.length > 0 ? entity.account&.facilities.facilities&.sort_by(&:name) : FatFreeCrm::Facility.all.facilities.sort_by(&:name)
+- facilities = entity.account&.facilities&.length > 0 ? entity.account&.facilities&.sort_by(&:name) : FatFreeCrm::Facility.all.facilities.sort_by(&:name)
 = f.hidden_field :_destroy
 = f.hidden_field :id, value: f.object.id
 = f.hidden_field :account_id, value: entity.account&.id
