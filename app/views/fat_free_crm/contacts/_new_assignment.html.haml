@@ -1,5 +1,5 @@
 - model = entity.class.name.underscore
-- facilities = entity.account&.facilities&.length > 0 ? entity.account&.facilities : FatFreeCrm::Facility.all
+- facilities = (entity.account&.facilities&.length || 0) > 0 ? entity.account&.facilities : FatFreeCrm::Facility.all
 .idc-form-group.contact_assignment
   .form-group.one-quarter
     %label #{t :start_on}:
