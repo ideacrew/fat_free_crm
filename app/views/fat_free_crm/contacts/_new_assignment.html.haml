@@ -3,7 +3,7 @@
 - account_id = entity.account&.id
 - assignment_index = Time.now.to_i
 .idc-form-group.contact_assignment
-  = hidden_field_tag("contact[assignments_attributes][#{assignment_index}][start_on]", account_id)
+  = hidden_field_tag("contact[assignments_attributes][#{assignment_index}][account_id]", account_id)
   .form-group.one-quarter
     %label #{t :start_on}:
     = date_field_tag("contact[assignments_attributes][#{assignment_index}][start_on]", nil, class: 'form-control', required: true)
