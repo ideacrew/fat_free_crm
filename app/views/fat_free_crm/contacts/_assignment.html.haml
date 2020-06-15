@@ -1,5 +1,5 @@
 - model = entity.class.name.underscore
-- facilities = entity.account&.facilities&.length > 0 ? entity.account&.facilities&.sort_by(&:name) : FatFreeCrm::Facility.all.facilities.sort_by(&:name)
+- facilities = (entity.account&.facilities&.length || 0) > 0 ? entity.account&.facilities.sort_by(&:name) : FatFreeCrm::Facility.all.sort_by(&:name)
 = f.hidden_field :_destroy
 = f.hidden_field :id, value: f.object.id
 = f.hidden_field :account_id, value: entity.account&.id
@@ -15,7 +15,7 @@
     = f.select(:facility_id, options_from_collection_for_select(facilities, 'id', 'name', f.object.facility_id), {include_blank: true}, {class: 'form-control facility-select'})
   .form-group.one-sixth{class: ("d-none" unless f.object.level_id)}
     %label #{t :level}:
-    = f.select(:level_id, options_from_collection_for_select(f.object.facility.levels, 'id', 'name', f.object.level_id), {}, class: 'form-control')
+    = f.select(:level_id, options_from_collection_for_select(f.object.facility&.levels, 'id', 'name', f.object.level_id), {}, class: 'form-control')
   .form-group
     = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteAssignment(this)"
 
