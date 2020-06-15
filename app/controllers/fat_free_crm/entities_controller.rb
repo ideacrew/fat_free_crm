@@ -234,6 +234,14 @@ module FatFreeCrm
       [0, page].max if page
     end
 
+    def secret_key_base
+      Rails.application.credentials.secret_key_base || Rails.application.secrets.secret_key_base
+    end
+
+    def verifier
+      ActiveSupport::MessageVerifier.new(secret_key_base, serializer: JSON, digest: 'SHA256')
+    end
+
     def guess_related_account(id, url, user)
       return Account.find(id) unless id.blank?
 

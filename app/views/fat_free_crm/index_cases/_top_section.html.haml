@@ -2,23 +2,23 @@
   .idc-panel
     .full-width
       %h3
-        = @index_case.contact.full_name
+        = entity.contact.full_name
     .form-group.one-sixth
       %label #{t :phone}:
       .form-control
-        = @index_case.contact.phone
+        = entity.contact.phone
     .form-group.one-third
       %label #{t :email}:
       .form-control
-        = @index_case.contact.email
+        = entity.contact.email
     .form-group.one-quarter
       %label #{t :window_start_date}:
       .form-control
-        = l(@index_case.window_start_date, format: :long)
+        = l(entity.window_start_date, format: :long)
     .form-group.one-quarter
       %label #{t :window_end_date}:
       .form-control
-        = l(@index_case.window_end_date, format: :long)
+        = l(entity.window_end_date, format: :long)
     .form-group.one-quarter
       %label #{t :mtb_projected_return_date}:
       = f.date_field(:projected_return_date, class: 'form-control')

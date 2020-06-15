@@ -16,7 +16,9 @@
     -# = stars_for(index_case)
     = " | ".html_safe << link_to(index_case.website, index_case.website.to_url) if index_case.website.present?
     = " | ".html_safe << link_to_email(index_case.email) if index_case.email.present?
-    = " | ".html_safe << t(:phone_small) << ": " << .phone-number=(index_case.toll_free_phone? ? index_case.toll_free_phone : index_case.phone) if index_case.toll_free_phone? || index_case.phone?
+    - if index_case.toll_free_phone? || index_case.phone?
+      .phone-number
+        = " | ".html_safe << t(:phone_small) << ": " << (index_case.toll_free_phone? ? index_case.toll_free_phone : index_case.phone) 
   - if index_case.tags.present?
     .tags= tags_for_index(index_case)
 

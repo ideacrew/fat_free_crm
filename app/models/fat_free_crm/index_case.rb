@@ -1,3 +1,24 @@
+# Attributes
+# id: nil
+# user_id: nil,
+# assigned_to: nil,
+# access: nil,
+# source: nil,
+# background_info: nil,
+# created_at: nil,
+# updated_at: nil,
+# category: nil,
+# opportunity_id: nil,
+# window_start_date: nil,
+# window_end_date: nil,
+# opened_at: nil,
+# closed_at: nil,
+# projected_return_date: nil,
+# contact_id: nil,
+# subscribed_users: #<Set: {}>,
+# case_number: nil,
+# tag_list: nil> 
+
 module FatFreeCrm
   class IndexCase < ActiveRecord::Base
   	belongs_to :user
@@ -19,7 +40,7 @@ module FatFreeCrm
     acts_as_taggable_on :tags
     has_paper_trail versions: {class_name: "FatFreeCrm::Version"}, ignore: [:subscribed_users]
 
-    has_ransackable_associations %w[opportunity]
+    has_ransackable_associations %w[contacts opportunity tags exposures emails investigations comments tasks]
     ransack_can_autocomplete
 
     accepts_nested_attributes_for :exposures, allow_destroy: true

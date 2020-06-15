@@ -21,7 +21,7 @@
       = fields_for(:opportunity, opportunity = FatFreeCrm::Opportunity.new) do |o|
         .form-group.one-half
           .label #{t :case_type}
-          = select_tag("opportunity_id", options_for_select(FatFreeCrm::Opportunity.all.pluck(:name, :id)), { class: 'form-control' })
+          = select_tag("opportunity_id", options_for_select(FatFreeCrm::Opportunity.all.pluck(:name, :id), selected: "Tested Positive"), { class: 'form-control' })
         #tested-positive.idc-panel.full-width.nested
           .form-group.one-quarter
             .label #{t :symptom_onset_at}:

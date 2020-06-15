@@ -127,11 +127,24 @@ module FatFreeCrm
     end
 
     def new_exposure
+      # TODO: Look into if this is needed here if index case can be nil
+      # index_case = FatFreeCrm::IndexCase.find_by(id: params[:id])
+      # @index_case = index_case.present? ? index_case : FatFreeCrm::IndexCase.new
       @exposure = @index_case.exposures.build
     end
 
     def new_investigation
+      # TODO: Look into if this is needed here if index case can be nil
+      # index_case = FatFreeCrm::IndexCase.find_by(id: params[:id])
+      # @index_case = index_case.present? ? index_case : FatFreeCrm::IndexCase.new
       @investigation = @index_case.investigations.build
+    end
+
+    def decrypt_email_link
+      signature = params[:signature]
+      link = verifier.verify(signature)
+
+      redirect_to link
     end
 
     private

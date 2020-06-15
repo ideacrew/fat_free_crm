@@ -51,6 +51,7 @@ FatFreeCrm::Engine.routes.draw do
       match :auto_complete, via: %i[get post]
       get :redraw
       get :versions
+      get :decrypt_email_link
     end
     member do
       put :attach
@@ -73,6 +74,8 @@ FatFreeCrm::Engine.routes.draw do
       match :auto_complete, via: %i[get post]
       get :redraw
       get :versions
+      get :new_investigation
+      get :new_exposure
     end
     member do
       put :attach
@@ -117,6 +120,7 @@ FatFreeCrm::Engine.routes.draw do
       get :new_identifier
       get :new_assignment
       get :new_absence
+      get :new_exposure
     end
     member do
       put :attach
