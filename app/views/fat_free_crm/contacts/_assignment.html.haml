@@ -1,5 +1,5 @@
 - model = entity.class.name.underscore
-- facilities = entity.account&.facilities || FatFreeCrm::Facility.all
+- facilities = entity.account&.facilities&.length > 0 ? entity.account&.facilities : FatFreeCrm::Facility.all
 = f.hidden_field :_destroy
 = f.hidden_field :id, value: f.object.id
 .idc-form-group.contact_assignment
