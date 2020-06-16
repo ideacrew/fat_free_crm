@@ -16,6 +16,6 @@
 		  </tr>
 		</table>
 	  <br />
-	  Please <a href=decrypt_email_link_index_cases_url(signature: @signature) target="_blank"><b>Click Here</b></a> to see employee details.
+	  Please <%= link_to("click here", decrypt_email_link_index_cases_url(signature: @signature), :target => "_blank") %> to see employee details.
 	</body>
 </html>
