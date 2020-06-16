@@ -13,9 +13,10 @@
   .form-group.one-quarter
     %label #{t :facility}:
     = f.select(:facility_id, options_from_collection_for_select(facilities, 'id', 'name', f.object.facility_id), {include_blank: true}, {class: 'form-control facility-select'})
-  .form-group.one-sixth{class: ("d-none" unless f.object.level_id)}
-    %label #{t :level}:
-    = f.select(:level_id, options_from_collection_for_select(f.object.facility&.levels, 'id', 'name', f.object.level_id), {}, class: 'form-control')
+  - if f.object.level_id
+    .form-group.one-sixth
+      %label #{t :level}:
+      = f.select(:level_id, options_from_collection_for_select(f.object.facility&.levels, 'id', 'name', f.object.level_id), {}, class: 'form-control')
   .form-group
     = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteAssignment(this)"
 

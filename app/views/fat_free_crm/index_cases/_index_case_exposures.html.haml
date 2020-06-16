@@ -1,7 +1,7 @@
 - model = entity.class.name.underscore
 %details.idc-panel.index_case_exposures
   %summary #{t :exposures}
-  #contact_extra_intro.full-width
+  .full-width
     = f.fields_for :exposures, entity.exposures.each do |exposure_fields|
       = render "fat_free_crm/index_cases/exposure", f: exposure_fields, entity: entity
 

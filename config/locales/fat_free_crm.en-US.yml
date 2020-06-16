@@ -535,7 +535,7 @@ en-US:
   covid_19_quarantine: In Quarantine
   assignments: Assignments
   new_assignment: New Assignment
-  exposed_contact: Save Exposure
+  exposed_contact: Save Case
   case_type: Case Type
   symptom_onset_at: Symptom Onset At
   source_name: Source Name
