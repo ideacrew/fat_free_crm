@@ -49,9 +49,9 @@ en-US:
   contacted: Contacted
   branch: Full Service Branch
   office: Commercial Office
-  branch_office: Commercial Office/Full Service Branch
+  branch_office: Commercial Office
   corporate_headquarters: Corporate Headquarters
-  branch_headquarters: Regional Headquarters/Full Service Branch
+  branch_headquarters: Regional Headquarters
 
 
   isolation: Isolation
