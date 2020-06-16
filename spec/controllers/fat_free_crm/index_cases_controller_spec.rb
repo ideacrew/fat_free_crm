@@ -67,6 +67,13 @@ module FatFreeCrm
       end
     end
 
+    describe "responding to GET redraw" do
+      it "should save user selected index case preference" do
+        get :redraw, params: { per_page: 42, view: "brief", sort_by: "user_id" }, xhr: true
+        expect(response.status).to eq(200)
+      end
+    end
+
     describe "responding to GET advanced_search" do
       xit "" do
 
@@ -76,7 +83,7 @@ module FatFreeCrm
     describe "responding to POST filter" do
       it "should respond with a filtered index case collection" do
         post :filter, xhr: true
-        expect(response).to eq(200)
+        expect(response.status).to eq(200)
       end
     end
 
