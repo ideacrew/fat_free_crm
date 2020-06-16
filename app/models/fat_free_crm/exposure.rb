@@ -1,3 +1,20 @@
+# frozen_string_literal: true
+# == Schema Information
+#
+# Table name: exposures
+#  index_case_id      :integer
+#  started_at         :datetime
+#  ended_at           :datetime
+#  level              :string
+#  contact_id         :integer
+#  facility_id        :integer
+#  used_mask          :bool
+#  user_id            :integer
+#  assigned_to_id     : integer
+#  subscribed_users
+#  created_at         :datetime
+#  updated_at         :datetime
+
 module FatFreeCrm
   class Exposure < ActiveRecord::Base
   	belongs_to :user

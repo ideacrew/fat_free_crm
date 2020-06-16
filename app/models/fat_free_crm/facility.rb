@@ -17,7 +17,7 @@ module FatFreeCrm
     acts_as_taggable_on :tags
     has_paper_trail versions: {class_name: "FatFreeCrm::Version"}, ignore: [:subscribed_users]
 
-    has_ransackable_associations %w[account addresses comments]
+    has_ransackable_associations %w[accounts addresses comments]
     ransack_can_autocomplete
 
     enum status: {open: 'Open', close: 'Close'}
