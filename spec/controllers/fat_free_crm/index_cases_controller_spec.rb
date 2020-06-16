@@ -7,7 +7,7 @@ module FatFreeCrm
     routes { FatFreeCrm::Engine.routes }
     let(:account) { create(:account, user: current_user) }
     let(:contact) { create(:contact) }
-    let(:index_case) {create(:index_case, user: current_user, contact: contact)}
+    let(:index_case) {create(:index_case, user: current_user, contact: contact, id: 50)}
     render_views
 
     before do
@@ -17,9 +17,73 @@ module FatFreeCrm
       set_current_tab(:index_cases)
     end
 
+    describe "responding to GET new" do
+      it "should expose a new index_case as @index_case and render [new] template" do
+        get :new, xhr: true
+        expect(assigns[:index_case].class).to eq(FatFreeCrm::IndexCase)
+        expect(assigns[:index_case].persisted?).to eq(false)
+        expect(response.status).to eq(200)
+        # expect(response).to render_template("index_cases/new")
+      end
+    end
+
+    describe "responding to GET edit" do
+      it "should expose the requested contact as @index_case and render [edit] template" do
+        @previous = index_case
+        allow(IndexCase).to receive(:my).with(current_user).and_return(index_case)
+
+        get :edit, params: { id: 50 }, xhr: true
+        expect(assigns[:previous]).to eq(@index_case)
+        expect(response.status).to eq(200)
+        # expect(response).to render_template("contacts/edit")
+      end
+    end
+
+    describe "responding to POST create" do
+      # NOTE: There are no validations on IndexCase
+      describe "with valid params" do
+        it "should expose a newly created contact as @index_case and render [create] template" do
+          @index_case = IndexCase.new
+          allow(IndexCase).to receive(:new).and_return(@index_case)
+
+          post :create,
+          params: {
+            index_case: {
+              user_id: current_user.id,
+              access: 'Public',
+              window_start_date: "2020-01-01",
+              window_end_date: "2020-02-02",
+              projected_return_date: "2020-04-04",
+              contact_id: contact.id
+            }
+          },
+          xhr: true
+          expect(assigns(:index_case)).to eq(@index_case)
+          expect(response.status).to eq(200)
+          expect(IndexCase.last.user_id).to eq(current_user.id)
+          # expect(assigns(:index_case).reload.persisted?).to eq(true)
+          # expect(response).to render_template("index_case/create")
+        end
+      end
+    end
+
+    describe "responding to GET redraw" do
+      it "should save user selected index case preference" do
+        get :redraw, params: { per_page: 42, view: "brief", sort_by: "user_id" }, xhr: true
+        expect(response.status).to eq(200)
+      end
+    end
+
     describe "responding to GET advanced_search" do
       xit "" do
 
+      end
+    end
+
+    describe "responding to POST filter" do
+      it "should respond with a filtered index case collection" do
+        post :filter, xhr: true
+        expect(response.status).to eq(200)
       end
     end
 
