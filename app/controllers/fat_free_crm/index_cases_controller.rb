@@ -75,7 +75,16 @@ module FatFreeCrm
       respond_with(@index_case) do |_format|
         # Must set access before user_ids, because user_ids= method depends on access value.
         @index_case.access = params[:index_case][:access] if params[:index_case][:access]
-        get_data_for_sidebar if @index_case.update(resource_params)
+        if @index_case.update!(resource_params)
+          get_data_for_sidebar
+          @index_case.exposures.each do |exposure|
+            unless exposure.contact.absences.any? { |absence| absence.kind == 'covid_19_quarantine' && exposure.ended_at && absence.end_on > exposure.ended_at }
+              exposure.contact.absences.create(kind: 'covid_19_quarantine',
+                start_on: exposure.ended_at.beginning_of_day,
+                end_on: exposure.ended_at.end_of_day + 13.days)
+            end
+          end
+        end
       end
     end
 

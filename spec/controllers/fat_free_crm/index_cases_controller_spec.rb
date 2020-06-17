@@ -159,5 +159,15 @@ module FatFreeCrm
         end
       end
     end
+
+    describe "UPDATE action" do
+      let(:index_case) { create(:index_case, user: current_user, access: "Public") }
+      let(:contact) { create(:contact, user: current_user, access: "Public") }
+      it 'creates absences for exposed people' do
+        put :update, params: { id: index_case.id, index_case: { exposures_attributes: { 0 => { start_on: 3.days.ago, end_on: 1.day.ago, contact: contact} } } }, xhr: true
+        puts response.body.inspect
+        expect(contact.reload.absences).to_not be_empty
+      end
+    end
   end
 end
