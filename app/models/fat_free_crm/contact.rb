@@ -44,12 +44,21 @@ module FatFreeCrm
     belongs_to :lead
     belongs_to :assignee, class_name: "User", foreign_key: :assigned_to
     belongs_to :reporting_user, class_name: "User", foreign_key: :reports_to
+    
     has_one :account_contact, dependent: :destroy
     has_one :account, through: :account_contact
-    has_many :contact_opportunities
+
+    has_many :contact_opportunities, dependent: :destroy
     has_many :opportunities, -> { order("fat_free_crm_opportunities.id DESC").distinct }, through: :contact_opportunities
+
+    has_many :contact_index_cases, dependent: :destroy
+    has_many :index_cases, -> { distinct }, through: :contact_index_cases
+
+    has_many :contact_exposure_cases, dependent: :destroy
+    has_many :exposure_cases, -> { distinct }, through: :contact_exposure_cases
+
     has_many :tasks, as: :asset, dependent: :destroy # , :order => 'created_at DESC'
-    has_one :business_address, -> { where(address_type: "Business") }, dependent: :destroy, as: :addressable, class_name: "Address"
+    has_one  :business_address, -> { where(address_type: "Business") }, dependent: :destroy, as: :addressable, class_name: "Address"
     has_many :addresses, dependent: :destroy, as: :addressable, class_name: "Address" # advanced search uses this
     has_many :emails, as: :mediator
     has_many :exposures, class_name: "FatFreeCrm::Exposure"
