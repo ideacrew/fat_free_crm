@@ -29,14 +29,20 @@
 
 module FatFreeCrm
   class Opportunity < ActiveRecord::Base
+    include FatFreeCrm::Fields
+
     belongs_to :user
     belongs_to :campaign
     belongs_to :assignee, class_name: "User", foreign_key: :assigned_to
+
     has_one :facility
+
     has_one :account_opportunity, dependent: :destroy
     has_one :account, through: :account_opportunity
+
     has_many :contact_opportunities, dependent: :destroy
     has_many :contacts, -> { order("#{table_name}.id DESC").distinct }, through: :contact_opportunities
+
     has_many :tasks, as: :asset, dependent: :destroy # , :order => 'created_at DESC'
     has_many :emails, as: :mediator
 
@@ -47,6 +53,7 @@ module FatFreeCrm
     }
     scope :created_by,  ->(user) { where("#{table_name}.user_id = ?", user.id) }
     scope :assigned_to, ->(user) { where("#{table_name}.assigned_to = ?", user.id) }
+   
     scope :won,         -> { where("#{table_name}.stage = 'won'") }
     scope :lost,        -> { where("#{table_name}.stage = 'lost'") }
     scope :not_lost,    -> { where("#{table_name}.stage <> 'lost'") }
@@ -76,7 +83,7 @@ module FatFreeCrm
     uses_comment_extensions
     acts_as_taggable_on :tags
     has_paper_trail versions: {class_name: "FatFreeCrm::Version"}, ignore: [:subscribed_users]
-    include FatFreeCrm::Fields
+
     has_fields
     exportable
     sortable by: ["name ASC", "amount DESC", "amount*probability DESC", "probability DESC", "closes_on ASC", "created_at DESC", "updated_at DESC"], default: "created_at DESC"
