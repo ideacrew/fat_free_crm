@@ -47,5 +47,22 @@ module FatFreeCrm
     accepts_nested_attributes_for :investigations, allow_destroy: true
 
   	sortable by: ["name ASC", "rating DESC", "created_at DESC", "updated_at DESC"], default: "created_at DESC"
+    scope :text_search, ->(query) { ransack('name_or_email_cont' => query).result }
+
+    # Attach given attachment to the index_case if it hasn't been attached already.
+    #----------------------------------------------------------------------------
+    def attach!(attachment)
+      send(attachment.class.name.demodulize.tableize) << attachment unless send("#{attachment.class.name.demodulize.downcase}_ids").include?(attachment.id)
+    end
+
+    # Discard given attachment from the index_case.
+    #----------------------------------------------------------------------------
+    def discard!(attachment)
+      if attachment.is_a?(Task)
+        attachment.update_attribute(:asset, nil)
+      else # Contacts, Opportunities
+        send(attachment.class.name.demodulize.tableize).delete(attachment)
+      end
+    end
   end
 end

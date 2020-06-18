@@ -183,7 +183,7 @@ module FatFreeCrm
         # At this point render default destroy.js
       else # :html request
         self.current_page = 1 # Reset current page to 1 to make sure it stays valid.
-        flash[:notice] = t(:msg_asset_deleted, @index_case.name)
+        flash[:notice] = t(:msg_asset_deleted, @index_case.contact.full_name)
         redirect_to index_cases_path
       end
     end
