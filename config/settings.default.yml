@@ -447,9 +447,7 @@ facility_kind:
   - :branch
   - :office
   - :branch_office
-  - :corporate_headquarters
-  - :branch_headquarters
-
+  - :corporate_office
 
 task_category_color:
   :call         : Silver
