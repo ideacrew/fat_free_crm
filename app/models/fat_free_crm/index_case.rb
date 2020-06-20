@@ -28,8 +28,10 @@ module FatFreeCrm
  		belongs_to :opportunity, class_name: "::FatFreeCrm::Opportunity"
  		has_many :tasks, as: :asset, dependent: :destroy # , :order => 'created_at DESC'
     has_many :emails, as: :mediator
-    has_many :exposures, dependent: :destroy
-    has_many :investigations, dependent: :destroy
+
+    has_one :index_case_investigation, class_name: "::FatFreeCrm::Investigations::IndexCaseInvestigation"
+    has_one :contact_elicitation_investigation, class_name: "::FatFreeCrm::Investigations::ContactElicitationInvestigation"
+    has_many :clinical_investigations, class_name: "::FatFreeCrm::Investigations::ClinicalInvestigation"
 
     serialize :subscribed_users, Set
 
@@ -43,10 +45,7 @@ module FatFreeCrm
     has_ransackable_associations %w[contacts opportunity tags exposures emails investigations comments tasks]
     ransack_can_autocomplete
 
-    accepts_nested_attributes_for :exposures, allow_destroy: true
-    accepts_nested_attributes_for :investigations, allow_destroy: true
-
-  	sortable by: ["name ASC", "rating DESC", "created_at DESC", "updated_at DESC"], default: "created_at DESC"
+    sortable by: ["created_at DESC", "updated_at DESC"], default: "created_at DESC"
     scope :text_search, ->(query) { ransack('name_or_email_cont' => query).result }
 
     # Attach given attachment to the index_case if it hasn't been attached already.

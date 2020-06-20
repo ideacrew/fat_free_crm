@@ -1,0 +1,19 @@
+class CreateInvestigationsExposureCaseSimpleInvestigations < ActiveRecord::Migration[6.0]
+  def change
+    create_table :investigations_exposure_case_simple_investigations do |t|
+      t.references :exposure_case
+      t.references :contact_representative
+
+      t.datetime   :interview_at
+      t.boolean    :can_self_quarantine
+      t.boolean    :need_assitance_to_self_quarantine
+      t.string     :guidance
+      t.date       :projected_return_date
+      t.datetime   :deleted_at
+
+      t.timestamps
+    end
+  end
+end
+
+
