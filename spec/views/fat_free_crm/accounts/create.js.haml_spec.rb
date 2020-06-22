@@ -26,7 +26,7 @@ module FatFreeCrm
       end
 
       it "should hide [Create Account] form and insert account partial" do
-        expect(rendered).to include("$('#accounts').prepend('<li class=\\'highlight account\\' id=\\'account_#{account.id}\\'")
+        expect(rendered).to include("$('#accounts').prepend('<div class=\\'form-group one-half reporting-account\\'>\\n<li class=\\'highlight account\\' id=\\'account_#{account.id}\\'")
         expect(rendered).to include(%/$('#account_#{account.id}').effect("highlight"/)
       end
 
@@ -44,6 +44,8 @@ module FatFreeCrm
     describe "create failure" do
       it "should re-render [create] template in :create_account div" do
         assign(:account, build(:account, name: nil)) # make it invalid
+        assign(:accounts, [build_stubbed(:account, id: 10)].paginate)
+        assign(:facilities, [build_stubbed(:facility)])
         assign(:users, [current_user])
         render
 

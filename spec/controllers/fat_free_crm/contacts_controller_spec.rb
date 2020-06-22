@@ -491,10 +491,9 @@ module FatFreeCrm
             xhr: true
           )
           expect(assigns[:contact].first_name).to eq("Hello")
-          @contact.reload
-          expect(@contact.assignments.last.facility_id).to eq(@facility.id)
-          expect(@contact.absences.last.kind).to eq("covid_19_isolation")
-          expect(@contact.identifiers.last.kind).to eq("employee_id")
+          expect(assigns[:contact].assignments.last.facility_id).to eq(@facility.id)
+          expect(assigns[:contact].absences.last.kind).to eq("covid_19_isolation")
+          expect(assigns[:contact].identifiers.last.kind).to eq("employee_id")
           expect(response).to render_template("contacts/update")
         end
 
