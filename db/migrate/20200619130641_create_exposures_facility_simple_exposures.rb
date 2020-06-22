@@ -1,7 +1,7 @@
 class CreateExposuresFacilitySimpleExposures < ActiveRecord::Migration[6.0]
   def change
     create_table :exposures_facility_simple_exposures do |t|
-      t.references :facility
+      t.references :facility, index: {:name => "facility_simple_exposures_facility_id"}
 
       t.integer    :priority_level
       t.string     :congregate_setting

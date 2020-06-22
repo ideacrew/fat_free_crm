@@ -6,7 +6,7 @@ class CreateFacilityFacilityCases < ActiveRecord::Migration[6.0]
 
       t.references :facility
       t.references :faciltiy_case
-      t.references :contact_elicitation_investigation
+      t.references :contact_elicitation_investigation, index: {:name => "facility_facility_cases_contact_elicitation_investigation_id"}
 
       t.string     :case_id
       t.integer    :investigation_priority

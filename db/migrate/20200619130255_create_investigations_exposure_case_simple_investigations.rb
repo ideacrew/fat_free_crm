@@ -1,8 +1,8 @@
 class CreateInvestigationsExposureCaseSimpleInvestigations < ActiveRecord::Migration[6.0]
   def change
     create_table :investigations_exposure_case_simple_investigations do |t|
-      t.references :exposure_case
-      t.references :contact_representative
+      t.references :exposure_case, index: {:name => "exposure_case_simple_investigations_exposure_case_id"}
+      t.references :contact_representative, index: {:name => "exposure_case_simple_investigations_contact_representative_id"}
 
       t.datetime   :interview_at
       t.boolean    :can_self_quarantine

@@ -6,7 +6,7 @@ class CreateContactExposureCases < ActiveRecord::Migration[6.0]
 
       t.references :contact
       t.references :exposure_case
-      t.references :contact_elicitation_investigation
+      t.references :contact_elicitation_investigation, index: {:name => "contact_exposure_cases_contact_elicitation_investigation_id"}
       t.references :facility
       t.references :facility_case
 

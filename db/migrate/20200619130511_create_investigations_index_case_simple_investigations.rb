@@ -1,7 +1,7 @@
 class CreateInvestigationsIndexCaseSimpleInvestigations < ActiveRecord::Migration[6.0]
   def change
     create_table :investigations_index_case_simple_investigations do |t|
-      t.references :index_case
+      t.references :index_case, index: {:name => "index_case_simple_investigations_index_case_id"}
 
       t.boolean  :can_self_isolate
       t.boolean  :need_assistance_to_self_isolate
