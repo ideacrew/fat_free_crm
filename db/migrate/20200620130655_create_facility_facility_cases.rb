@@ -2,7 +2,7 @@ class CreateFacilityFacilityCases < ActiveRecord::Migration[6.0]
 
   def change
     
-    create_table :facility_facility_cases do |t|
+    create_table :fat_free_crm_facility_facility_cases do |t|
 
       t.references :facility
       t.references :faciltiy_case

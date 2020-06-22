@@ -2,7 +2,7 @@ class CreateContactIndexCases < ActiveRecord::Migration[6.0]
 
   def change
     
-    create_table :contact_index_cases do |t|
+    create_table :fat_free_crm_contact_index_cases do |t|
 
       t.references :contact
       t.references :index_case

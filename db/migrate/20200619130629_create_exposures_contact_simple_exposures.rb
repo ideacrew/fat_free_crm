@@ -1,6 +1,6 @@
 class CreateExposuresContactSimpleExposures < ActiveRecord::Migration[6.0]
   def change
-    create_table :exposures_contact_simple_exposures do |t|
+    create_table :fat_free_crm_exposures_contact_simple_exposures do |t|
   	
   	  t.references :contact_exposure_case, index: {:name => "contact_simple_exposures_contact_exposure_case_id"}
   	  t.references :facility, index: {:name => "contact_simple_exposures_contact_facility_id"}

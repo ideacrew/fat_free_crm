@@ -1,6 +1,6 @@
 class CreateInvestigationsClinicalSimpleInvestigations < ActiveRecord::Migration[6.0]
   def change
-    create_table :investigations_clinical_simple_investigations do |t|
+    create_table :fat_free_crm_investigations_clinical_simple_investigations do |t|
   
       t.references :index_case, index: {:name => "clinical_simple_investigation_index_case_id"}
       t.references :exposure_case, index: {:name => "clinical_simple_investigation_exposure_case_id"}

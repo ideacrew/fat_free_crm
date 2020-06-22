@@ -1,6 +1,6 @@
 class CreateExposureCases < ActiveRecord::Migration[6.0]
   def change
-    create_table :exposure_cases do |t|
+    create_table :fat_free_crm_exposure_cases do |t|
       
       t.references :user
       t.references :contact
