@@ -6,6 +6,7 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 require 'spec_helper'
+require 'capybara-screenshot/rspec'
 
 # Put your acceptance spec helpers inside /spec/features/support
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }

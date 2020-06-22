@@ -42,6 +42,7 @@ Gem::Specification.new do |gem|
   #-----------------------------------------------------------------
   gem.add_development_dependency 'pry-byebug'
   gem.add_development_dependency 'capybara'
+  gem.add_development_dependency 'capybara-screenshot'
   gem.add_development_dependency 'rspec-rails'
   gem.add_development_dependency 'rspec-activemodel-mocks'
   gem.add_development_dependency 'headless'

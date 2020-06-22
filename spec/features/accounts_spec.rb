@@ -6,7 +6,7 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 require 'features/acceptance_helper'
-require 'pry'
+
 feature 'Accounts', '
   In order to increase customer satisfaction
   As a user
@@ -20,7 +20,6 @@ feature 'Accounts', '
   scenario 'should view a list of accounts' do
     2.times { |i| create(:account, name: "Account #{i}") }
     visit accounts_page
-    binding.pry
     expect(page).to have_content('Account 0')
     expect(page).to have_content('Account 1')
     expect(page).to have_content('Create Account')

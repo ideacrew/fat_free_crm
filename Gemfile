@@ -54,6 +54,8 @@ group :development, :test do
   gem 'headless'
   gem 'byebug'
   gem 'pry-rails' unless ENV["CI"]
+  gem 'pry-stack_explorer'
+  gem 'pry-byebug'
   gem 'factory_bot_rails', '~> 4.0' # Pinned due to minor failing view tests
   gem 'rubocop', '~> 0.76.0' # Pinned because upgrades require regenerating rubocop_todo.yml
   gem 'rainbow'
