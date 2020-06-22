@@ -12,8 +12,8 @@ class CreateContactExposureCases < ActiveRecord::Migration[6.0]
 
       # t.string :index_case_id
       # t.string :reporting_agency_id
-      t.string :case_id
-      t.integer :investigation_priority
+      t.string   :case_id
+      t.integer  :investigation_priority
       t.datetime :window_opens_at
       t.datetime :window_closes_at
       # t.string :exposure_detail_id

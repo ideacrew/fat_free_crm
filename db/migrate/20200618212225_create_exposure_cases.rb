@@ -3,6 +3,7 @@ class CreateExposureCases < ActiveRecord::Migration[6.0]
     create_table :exposure_cases do |t|
       
       t.references :user
+      t.references :contact
 
       t.integer    :assigned_to
       t.integer    :case_number
