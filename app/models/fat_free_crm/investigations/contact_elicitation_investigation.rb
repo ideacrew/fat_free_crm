@@ -5,6 +5,7 @@ module FatFreeCrm
 
       belongs_to :index_case, class_name: "::FatFreeCrm::IndexCase"
       belongs_to :facility_case, class_name: "::FatFreeCrm::FacilityCase"
+      belongs_to :contact_representative, class_name: "::FatFreeCrm::Contact"
 
       has_many   :contact_exposure_cases, class_name: "::FatFreeCrm::ContactExposureCase"
       has_many   :facility_facility_cases, class_name: "::FatFreeCrm::FacilityFacilityCase"

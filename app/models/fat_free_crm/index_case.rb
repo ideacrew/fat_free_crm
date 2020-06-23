@@ -29,9 +29,9 @@ module FatFreeCrm
  		has_many :tasks, as: :asset, dependent: :destroy # , :order => 'created_at DESC'
     has_many :emails, as: :mediator
 
-    has_one  :index_case_investigation, class_name: "::FatFreeCrm::Investigations::IndexCaseInvestigation"
+    has_one  :index_case_investigation, class_name: "::FatFreeCrm::Investigations::IndexCaseSimpleInvestigation"
     has_one  :contact_elicitation_investigation, class_name: "::FatFreeCrm::Investigations::ContactElicitationInvestigation"
-    has_many :clinical_investigations, class_name: "::FatFreeCrm::Investigations::ClinicalInvestigation"
+    has_many :clinical_investigations, class_name: "::FatFreeCrm::Investigations::ClinicalSimpleInvestigation"
 
     serialize :subscribed_users, Set
 
