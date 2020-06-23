@@ -1,7 +1,6 @@
 class CreateInvestigationsClinicalSimpleInvestigations < ActiveRecord::Migration[6.0]
   def change
     create_table :fat_free_crm_investigations_clinical_simple_investigations do |t|
-  
       t.references :index_case, index: {:name => "clinical_simple_investigation_index_case_id"}
       t.references :exposure_case, index: {:name => "clinical_simple_investigation_exposure_case_id"}
       t.references :health_care_provider, index: {:name => "clinical_simple_investigation_health_care_provider_id"}
@@ -14,6 +13,7 @@ class CreateInvestigationsClinicalSimpleInvestigations < ActiveRecord::Migration
       t.boolean 	 :death_event
       t.boolean    :none_of_the_above
       t.date    	 :event_on
+      t.string     :guidance
       t.datetime   :deleted_at
 
       t.timestamps

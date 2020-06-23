@@ -8,7 +8,6 @@ class CreateInvestigationsExposureCaseSimpleInvestigations < ActiveRecord::Migra
       t.boolean    :can_self_quarantine
       t.boolean    :need_assitance_to_self_quarantine
       t.string     :guidance
-      t.date       :projected_return_date
       t.datetime   :deleted_at
 
       t.timestamps

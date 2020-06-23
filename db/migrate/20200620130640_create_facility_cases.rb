@@ -1,7 +1,6 @@
 class CreateFacilityCases < ActiveRecord::Migration[6.0]
   def change
     create_table :fat_free_crm_facility_cases do |t|
-      
       t.references :user
       t.references :facility
 
