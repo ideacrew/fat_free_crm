@@ -3,10 +3,13 @@
   <head>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= yield(:head) %>
+    <%= yield :dashboard_head %>
   </head>
 
   <body>
     <%= yield(:body) %>
+    <%= content_for?(:dashboard_body) ? yield(:dashboard_body) : "" %>
   </body>
 </html>

@@ -7,14 +7,6 @@
 #------------------------------------------------------------------------------
 Capaybara.app_host = ENV['APP_URL'] if ENV['APP_URL']
 Capybara.default_max_wait_time = 7
-Capybara.server = :puma
-
-require "puma"
-Capybara.register_server("puma") do |app, port|
-  server = Puma::Server.new(app)
-  server.add_tcp_listener(Capybara.server_host, port)
-  server.run
-end
 
 if ENV['BROWSER'] == 'firefox'
   Capybara.register_driver :selenium do |app|
