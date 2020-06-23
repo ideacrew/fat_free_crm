@@ -44,3 +44,5 @@ else
     )
   end
 end
+
+Capybara.default_driver = :selenium

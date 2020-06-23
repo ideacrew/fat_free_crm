@@ -6,7 +6,6 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 require 'spec_helper'
-require 'rails_helper'
 require 'capybara-screenshot/rspec'
 
 ENV["RAILS_ROOT"] ||= File.expand_path(File.dirname(__FILE__) + '/dummy')
