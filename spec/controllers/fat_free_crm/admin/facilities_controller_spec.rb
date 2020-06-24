@@ -14,7 +14,7 @@ module FatFreeCrm::Admin
 
     before do
       login
-      current_user.update_attributes(admin: true)
+      current_user.update(admin: true)
       set_current_tab('/facilities')
     end
 

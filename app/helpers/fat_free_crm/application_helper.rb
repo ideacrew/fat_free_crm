@@ -37,7 +37,6 @@ module FatFreeCrm
     # Show existing flash or embed hidden paragraph ready for flash[:notice]
     #----------------------------------------------------------------------------
     def show_flash(options = { sticky: false })
-      puts flash.inspect
       %i[error warning info notice alert].each do |type|
         next unless flash[type]
 

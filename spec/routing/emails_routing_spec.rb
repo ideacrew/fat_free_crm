@@ -11,31 +11,31 @@ module FatFreeCrm
   describe EmailsController do
     describe "routing" do
       it "should not recognize #index" do
-        expect(get: "fat_free_crm/emails").not_to be_routable
+        expect(get: "crm/emails").not_to be_routable
       end
 
       it "should not recognize #new" do
-        expect(get: "fat_free_crm/emails/new").not_to be_routable
+        expect(get: "crm/emails/new").not_to be_routable
       end
 
       it "should not recognize #show" do
-        expect(get: "fat_free_crm/emails/1").not_to be_routable
+        expect(get: "crm/emails/1").not_to be_routable
       end
 
       it "should not recognize #edit" do
-        expect(get: "fat_free_crm/emails/1/edit").not_to be_routable
+        expect(get: "crm/emails/1/edit").not_to be_routable
       end
 
       it "should not recognize #create" do
-        expect(post: "fat_free_crm/emails").not_to be_routable
+        expect(post: "crm/emails").not_to be_routable
       end
 
       it "should not recognize #update" do
-        expect(put: "fat_free_crm/emails/1").not_to be_routable
+        expect(put: "crm/emails/1").not_to be_routable
       end
 
       it "recognizes and generates #destroy" do
-        expect(delete: "fat_free_crm/emails/1").to route_to(controller: "fat_free_crm/emails", action: "destroy", id: "1")
+        expect(delete: "crm/emails/1").to route_to(controller: "fat_free_crm/emails", action: "destroy", id: "1")
       end
     end
   end

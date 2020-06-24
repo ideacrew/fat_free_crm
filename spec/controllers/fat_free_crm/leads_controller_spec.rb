@@ -233,7 +233,7 @@ module FatFreeCrm
 
           get :new, params: { related: "campaign_#{@campaign.id}" }, xhr: true
           expect(flash[:warning]).not_to eq(nil)
-          expect(response.body).to eq('window.location.href = "/fat_free_crm/campaigns";')
+          expect(response.body).to eq('window.location.href = "/crm/campaigns";')
         end
 
         it "should redirect to parent asset's index page with the message if parent asset got protected" do
@@ -241,7 +241,7 @@ module FatFreeCrm
 
           get :new, params: { related: "campaign_#{@campaign.id}" }, xhr: true
           expect(flash[:warning]).not_to eq(nil)
-          expect(response.body).to eq('window.location.href = "/fat_free_crm/campaigns";')
+          expect(response.body).to eq('window.location.href = "/crm/campaigns";')
         end
       end
     end
