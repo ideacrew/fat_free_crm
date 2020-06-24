@@ -8,7 +8,8 @@
 
 .remote#options{ hidden }
 
-= render 'list_accounts'
+%ul.list#accounts
+  = render 'list_accounts'
 
 #paginate= render "fat_free_crm/shared/paginate_with_per_page"
 #export= render "fat_free_crm/shared/export"

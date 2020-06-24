@@ -59,6 +59,7 @@ module FatFreeCrm
     #----------------------------------------------------------------------------
     def create
       @comment_body = params[:comment_body]
+      @accounts = get_accounts
       get_facilities
       respond_with(@account) do |_format|
         if @account.save

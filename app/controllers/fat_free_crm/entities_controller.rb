@@ -174,7 +174,6 @@ module FatFreeCrm
       end
 
       scope = scope.includes(*list_includes) if respond_to?(:list_includes, true)
-
       scope
     end
 
