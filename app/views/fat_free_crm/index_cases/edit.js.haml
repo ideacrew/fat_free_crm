@@ -32,6 +32,51 @@
     crm.flip_form('edit_#{entity_name}');
     crm.set_title('edit_#{entity_name}', "#{t :edit} #{j @entity.contact.full_name}");
 
+  function getFormattedDate(date){
+  var new_date = new Date(date)
+  var dd = new_date.getDate();
+  var MM = new_date.getMonth()+1;
+  var yyyy = new_date.getFullYear();
+  var hh = new_date.getHours();
+  var mm = new_date.getMinutes();
+  if(dd<10) {
+  dd='0'+dd
+  }
+  if(MM<10) {
+  MM='0'+MM
+  }
+  if(hh<10) {
+  hh='0'+hh
+  }
+  if(mm<10) {
+  mm='0'+mm
+  }
+
+  formatted_date = yyyy+'-'+MM+'-'+dd+'T'+hh+':'+mm;
+  return formatted_date;
+  }
+
+  function getIsolationPeriodEnd(date) {
+  return getFormattedDate(date.setDate(date.getDate()+14));
+  }
+
+  var infectious_period_end = document.querySelector('#infectious-period-end input[type="datetime-local"]')
+  infectious_period_end.addEventListener("change", function(event) {
+  var infectious_period_end = new Date(event.currentTarget.value)
+  if (infectious_period_end) {
+  document.querySelector('#isolation-period-start input[type="datetime-local"]').value = event.currentTarget.value
+  document.querySelector('#isolation-period-end input[type="datetime-local"]').value = getIsolationPeriodEnd(infectious_period_end)
+  }
+  })
+
+  var symptom_onset_at = document.querySelector('#symptom-onset-at input[type="datetime-local"]')
+  symptom_onset_at.addEventListener("change", function(event) {
+  var symptom_onset_date = new Date(event.currentTarget.value)
+  if (symptom_onset_date) {
+  document.querySelector('#infectious-period-start input[type="datetime-local"]').value = getFormattedDate(symptom_onset_date.setHours(-48))
+  }
+  })
+
   var contact_inputs = document.querySelectorAll('.contact-field input[type="text"]');
   contact_inputs.forEach(function(input){
   new Awesomplete(input, {list: #{contacts.to_json.html_safe},
