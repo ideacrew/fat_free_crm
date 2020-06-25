@@ -49,11 +49,7 @@ module FatFreeCrm
     def edit
       @previous = IndexCase.my(current_user).find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i if params[:previous].to_s =~ /(\d+)\z/
       get_opportunities
-
-  
       @index_case.build_index_case_investigation if @index_case.index_case_investigation.blank?
-      # @index_case.clinical_investigations.build if @index_case.clinical_investigations.empty?
-      puts "--->>>#{@index_case.clinical_investigations.inspect}"
 
       respond_with(@index_case)
     end

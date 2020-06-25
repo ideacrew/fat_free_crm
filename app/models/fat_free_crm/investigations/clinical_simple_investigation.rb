@@ -12,6 +12,22 @@ module FatFreeCrm
       
       acts_as_commentable
       uses_comment_extensions
+
+      def health_event
+        [:hcp_consult_event, :hospitalized_event, :emergency_room_event, :death_event, :none_of_the_above].detect do |event_name|
+          self.send(event_name) == true
+        end
+      end
+
+      def health_event=(value)
+        [:hcp_consult_event, :hospitalized_event, :emergency_room_event, :death_event, :none_of_the_above].detect do |event_name|
+          if event_name.to_s == value
+            self.send "#{event_name}=", true
+          else
+            self.send "#{event_name}=", false
+          end
+        end
+      end
     end
   end
 end

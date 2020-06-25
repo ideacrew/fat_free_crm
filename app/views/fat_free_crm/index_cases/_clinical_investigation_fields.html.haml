@@ -1,7 +1,6 @@
 / #- model = entity.class.name.underscore
 / #= f.hidden_field :_destroy
 /#= f.hidden_field :id, value: f.object&.id
-- nested_form_path = "index_case[clinical_investigations][#{f.index}]"
 .idc-form-group#index-case-investigation
   / .form-group.one-quarter
   / %label #{t :status}:
@@ -25,22 +24,10 @@
     .form-control.border-0.bg-white
       = f.date_field(:projected_return_date, class: 'form-control')
   .form-group.one-quarter
-    .label #{t :health_event}:
-    .form-check
-      = radio_button_tag("#{nested_form_path}[health_event]", 'hcp_consult_event', { class: 'form-check-input' })
-      = label_tag("#{nested_form_path}[hcp_consult_event]", t(:hcp_consult_event), { style: "cursor:pointer", class: 'form-check-label' })
-    .form-check
-      = radio_button_tag("#{nested_form_path}[health_event]", 'hospitalized_event', {class: 'form-check-input'})
-      = label_tag("#{nested_form_path}[hospitalized_event]", t(:hospitalized_event), { style: "cursor:pointer", class: 'form-check-label' })
-    .form-check
-      = radio_button_tag("#{nested_form_path}[health_event]", 'emergency_room_event', {class: 'form-check-input'})
-      = label_tag("#{nested_form_path}[emergency_room_event]", t(:emergency_room_event), { style: "cursor:pointer", class: 'form-check-label' })
-    .form-check
-      = radio_button_tag("#{nested_form_path}[health_event]", 'death_event', {class: 'form-check-input'})
-      = label_tag("#{nested_form_path}[death_event]", t(:death_event), { style: "cursor:pointer", class: 'form-check-label' })
-    .form-check
-      = radio_button_tag("#{nested_form_path}[health_event]", 'none_of_the_above', {class: 'form-check-input'})
-      = label_tag("#{nested_form_path}[none_of_the_above]", t(:none_of_the_above), { style: "cursor:pointer", class: 'form-check-label' })
+    %label #{t :health_event}:
+    = f.collection_radio_buttons(:health_event, [[:hcp_consult_event], [:hospitalized_event],[:emergency_room_event],[:death_event],[:none_of_the_above]], :first, :first) do |b|
+      .form-check
+        = b.label(:"data-value" => b.value, style: "cursor:pointer", class: 'form-check-label') { b.radio_button(checked: (f.object.health_event == b.value), class: 'form-check-input') + t(b.text) }
   .form-group.one-quarter
     .label #{t :event_on}:
     .form-control.border-0.bg-white

@@ -570,8 +570,8 @@ en-US:
   non_mtb_exposure_level: Exposure Level
   create_case: Create Case
   cases: Cases
-  self_isolate_unassisted: Unassisted
-  need_assistance: Need Assistance
+  can_self_isolate: Unassisted
+  need_assistance_to_self_isolate: Need Assistance
   self_isolate: Self Isolate
   clinical_simple_investigations: Clinical Simple Investigations
   contact_exposures: Contact Exposures
