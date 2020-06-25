@@ -577,7 +577,8 @@ en-US:
   contact_exposures: Contact Exposures
   interview_at: Interviewed At
   contact_representative: Contact Representative
-  health_care_provider: Health Care Provider
+  contact_representative_relationship_kind: Contact Representative Relationship Kind
+  health_care_provider_contact: Health Care Provider Contact
   event_on: Event On
   case_number: Case Number
   infectious_period_start_at: Infectious Period Start At

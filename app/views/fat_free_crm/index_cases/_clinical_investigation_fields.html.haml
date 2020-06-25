@@ -6,32 +6,30 @@
   / %label #{t :status}:
   / =# f.select(:status, options_for_select(Setting.unroll(:investigation_statuses), f.object.status), {}, class: 'form-control')
   .form-group.one-quarter
-    .label #{t :interview_at}:
-    .form-control.border-0.bg-white
-      = f.datetime_field(:interview_at, {autocomplete: :off, required: true, class: 'date form-control'})
-  .form-group.one-quarter.contact-representative-field
+    %label #{t :interview_at}:
+    = f.datetime_field(:interview_at, {autocomplete: :off, required: true, class: 'date form-control'})
+  .form-group.one-quarter.contact-field
     %label #{t :contact_representative}:
-    .form-control.border-0.bg-white
-      = text_field_tag(:contact_representative_contact, f.object&.contact_representative&.full_name, class: 'form-control')
-      =# f.hidden_field(:contact_representative_contact_id)
-  .form-group.one-quarter.health-care-provider-field
-    %label #{t :health_care_provider}:
-    .form-control.border-0.bg-white
-      = text_field_tag(:health_care_provider, f.object&.health_care_provider&.full_name, class: 'form-control')
-      =# f.hidden_field(:health_care_provider_id)
+    = f.text_field(:contact_representative, required: false, class: 'form-control', value: f.object.contact_representative&.full_name)
+    = f.hidden_field(:contact_representative_id)
   .form-group.one-quarter
-    .label #{t :mtb_projected_return_date}:
-    .form-control.border-0.bg-white
-      = f.date_field(:projected_return_date, class: 'form-control')
+    %label #{t :contact_representative_relationship_kind}:
+    = f.select(:contact_representative_relationship_kind, options_for_select(Setting.unroll(:source_relationship), f.object.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
+  .form-group.one-quarter.contact-field
+    %label #{t :health_care_provider_contact}:
+    = f.text_field(:health_care_provider_contact, required: false, class: 'form-control', value: f.object.health_care_provider_contact&.full_name)
+    = f.hidden_field(:health_care_provider_contact_id)
+  .form-group.one-quarter
+    %label #{t :mtb_projected_return_date}:
+    = f.date_field(:projected_return_date, class: 'form-control')
   .form-group.one-quarter
     %label #{t :health_event}:
     = f.collection_radio_buttons(:health_event, [[:hcp_consult_event], [:hospitalized_event],[:emergency_room_event],[:death_event],[:none_of_the_above]], :first, :first) do |b|
       .form-check
         = b.label(:"data-value" => b.value, style: "cursor:pointer", class: 'form-check-label') { b.radio_button(checked: (f.object.health_event == b.value), class: 'form-check-input') + t(b.text) }
   .form-group.one-quarter
-    .label #{t :event_on}:
-    .form-control.border-0.bg-white
-      = f.date_field(:event_on, class: 'form-control')
+    %label #{t :event_on}:
+    = f.date_field(:event_on, class: 'form-control')
   .one-sixth.shove-down
     = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteInvestigation(this)"
 

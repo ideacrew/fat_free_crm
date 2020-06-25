@@ -1,7 +1,7 @@
 - model = entity.class.name.underscore
 %details.idc-panel.index-case_investigations
   %summary #{t :clinical_simple_investigations}
-  #contact_extra_intro.full-width
+  .full-width
     = f.fields_for :clinical_investigations do |investigation_form|
       = render "fat_free_crm/index_cases/clinical_investigation_fields", f: investigation_form #, entity: entity
 
