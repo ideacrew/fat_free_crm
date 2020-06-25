@@ -569,6 +569,43 @@ en-US:
   non_mtb_exposure_level: Exposure Level
   create_case: Create Case
   cases: Cases
+  self_isolate_unassisted: Unassisted
+  need_assistance: Need Assistance
+  self_isolate: Self Isolate
+  clinical_simple_investigations: Clinical Simple Investigations
+  contact_exposures: Contact Exposures
+  interview_at: Interviewed At
+  contact_representative: Contact Representative
+  health_care_provider: Health Care Provider
+  event_on: Event On
+  case_number: Case Number
+  infectious_period_start_at: Infectious Period Start At
+  infectious_period_end_at: Infectious Period End At
+  isolation_period_start_at: Isolation Period Start At
+  isolation_period_end_at: Isolation Period End At
+  absence_begin_date: Absence Begin Date
+  symptoms: Symptoms
+  symptoms_fever: Fever
+  symptoms_cough: Cough
+  symptoms_shortness_of_breath: Shortness of breath
+  symptoms_diarrhea: Diarrhea
+  symptoms_headache: Headache
+  symptoms_muscle_ache: Muscle ache
+  symptoms_chills: Chills
+  symptoms_sore_throat: Sore throat
+  symptoms_vomiting: Vomiting
+  symptoms_abdominal_pain: Abdominal pain
+  symptoms_loss_of_taste: Loss of taste
+  symptoms_loss_of_smell: Loss of smell
+  symptoms_nasal_congestion: Nasal congestion
+  symptoms_malaise: Malaise
+  symptoms_fatigue: Fatigue
+  health_event: Health Event
+  hcp_consult_event: Healthcare Provider Consultation
+  hospitalized_event: Hospitalized
+  emergency_room_event: Emergency Room Care
+  death_event: Death
+  none_of_the_above: None of the Above
 
   #views -> Indexcases
 

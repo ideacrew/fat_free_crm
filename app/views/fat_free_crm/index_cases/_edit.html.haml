@@ -5,9 +5,9 @@
 
     = f.error_messages object_name: t('index_case')
 
-    = render "fat_free_crm/index_cases/top_section",  f: f, edit: true, entity: @index_case
-    = render "fat_free_crm/index_cases/index_case_investigations", f: f, entity: @index_case
-    = render "fat_free_crm/index_cases/index_case_exposures", f: f, entity: @index_case
+    = render "fat_free_crm/index_cases/top_section",  f: f, edit: true
+    =# render "fat_free_crm/index_cases/contact_exposures", f: f, entity: @index_case
+    = render "fat_free_crm/index_cases/clinical_investigations", f: f, entity: @index_case
     = render "fat_free_crm/entities/permissions",  f: f, edit: true, entity: @index_case
     = hook(:entity_form, self, {f: f, entity: @index_case})
     .buttonbar
