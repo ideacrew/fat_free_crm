@@ -27,11 +27,11 @@
           #notifying-contact-details.one-half.hidden
             .form-group.one-quarter{id: "contact_#{time}"}
               .label #{t :notifying_contact}:
-              = text_field_tag("opportunity[notifying_contact]", nil, class: 'form-control')
+              = text_field_tag("opportunity[notifying_contact]", nil, required: false, class: 'form-control')
               = hidden_field_tag("opportunity[notifying_contact_id]")
             .form-group.one-quarter
               .label #{t :notifying_contact_relationship_kind}:
-              = select_tag("opportunity[notifying_contact_relationship]", options_for_select(Setting.unroll(:source_relationship)), class: 'form-control')
+              = select_tag("opportunity[notifying_contact_relationship]", options_for_select(Setting.unroll(:source_relationship)), { prompt: 'Select Relationship', class: 'form-control'})
         #exposed.idc-panel.full-width.nested
           .form-group.one-quarter
             .label #{t :source_name}:

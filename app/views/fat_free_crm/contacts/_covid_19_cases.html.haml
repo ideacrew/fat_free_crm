@@ -2,28 +2,28 @@
 %details.idc-panel.contact-absences
   %summary #{t :cases}
   #contact_extra_intro.full-width
-    - @contact.exposure_cases.order("started_at DESC").each do |exposure|
-      .label-value-group
-        %div
-        = link_to((t :mtb_exposure), index_case_path(exposure.index_case)) 
-      .label-value-group
-        %div #{t :mtb_exposure_facility}
-        %div 
-          = exposure.facility.name
-      .label-value-group
-        - if exposure.started_at
-          %div #{t :mtb_exposure_started_at}
-          %div 
-            = l(exposure.started_at, format: :long)
-      .label-value-group
-        - if exposure.ended_at
-          %div #{t :mtb_exposure_ended_at}
-          %div 
-            = l(exposure.ended_at, format: :long)
-      .label-value-group
-        %div #{t :mtb_exposure_level}
-        %div 
-          = exposure.level
+    / - @contact.exposure_cases.order("started_at DESC").each do |exposure|
+    /   .label-value-group
+    /     %div
+    /     = link_to((t :mtb_exposure), index_case_path(exposure.index_case)) 
+    /   .label-value-group
+    /     %div #{t :mtb_exposure_facility}
+    /     %div 
+    /       = exposure.facility.name
+    /   .label-value-group
+    /     - if exposure.started_at
+    /       %div #{t :mtb_exposure_started_at}
+    /       %div 
+    /         = l(exposure.started_at, format: :long)
+    /   .label-value-group
+    /     - if exposure.ended_at
+    /       %div #{t :mtb_exposure_ended_at}
+    /       %div 
+    /         = l(exposure.ended_at, format: :long)
+    /   .label-value-group
+    /     %div #{t :mtb_exposure_level}
+    /     %div 
+    /       = exposure.level
     - @contact.contact_opportunities.each do |exposure|
       - next unless exposure.source_relationship 
       .label-value-group
