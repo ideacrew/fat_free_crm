@@ -17,16 +17,6 @@ module FatFreeCrm
           :can_self_isolate
         end
       end
-
-      def self_isolate=(value)
-		[:need_assistance_to_self_isolate, :can_self_isolate].each do |attribute|
-		  if attribute.to_s == value
-            send "#{attribute}=", true
-          else
-            send "#{attribute}=", false
-          end
-        end
-      end
     end
   end
 end
