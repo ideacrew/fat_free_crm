@@ -1,0 +1,60 @@
+/ #- model = entity.class.name.underscore
+/ #= f.hidden_field :_destroy
+/#= f.hidden_field :id, value: f.object&.id
+- nested_form_path = "index_case[clinical_investigations][#{f.index}]"
+.idc-form-group#index-case-investigation
+  / .form-group.one-quarter
+  / %label #{t :status}:
+  / =# f.select(:status, options_for_select(Setting.unroll(:investigation_statuses), f.object.status), {}, class: 'form-control')
+  .form-group.one-quarter
+    .label #{t :interview_at}:
+    .form-control.border-0.bg-white
+      = f.datetime_field(:interview_at, {autocomplete: :off, required: true, class: 'date form-control'})
+  .form-group.one-quarter.contact-representative-field
+    %label #{t :contact_representative}:
+    .form-control.border-0.bg-white
+      = text_field_tag(:contact_representative_contact, f.object&.contact_representative&.full_name, class: 'form-control')
+      =# f.hidden_field(:contact_representative_contact_id)
+  .form-group.one-quarter.health-care-provider-field
+    %label #{t :health_care_provider}:
+    .form-control.border-0.bg-white
+      = text_field_tag(:health_care_provider, f.object&.health_care_provider&.full_name, class: 'form-control')
+      =# f.hidden_field(:health_care_provider_id)
+  .form-group.one-quarter
+    .label #{t :mtb_projected_return_date}:
+    .form-control.border-0.bg-white
+      = f.date_field(:projected_return_date, class: 'form-control')
+  .form-group.one-quarter
+    .label #{t :health_event}:
+    .form-check
+      = radio_button_tag("#{nested_form_path}[health_event]", 'hcp_consult_event', { class: 'form-check-input' })
+      = label_tag("#{nested_form_path}[hcp_consult_event]", t(:hcp_consult_event), { style: "cursor:pointer", class: 'form-check-label' })
+    .form-check
+      = radio_button_tag("#{nested_form_path}[health_event]", 'hospitalized_event', {class: 'form-check-input'})
+      = label_tag("#{nested_form_path}[hospitalized_event]", t(:hospitalized_event), { style: "cursor:pointer", class: 'form-check-label' })
+    .form-check
+      = radio_button_tag("#{nested_form_path}[health_event]", 'emergency_room_event', {class: 'form-check-input'})
+      = label_tag("#{nested_form_path}[emergency_room_event]", t(:emergency_room_event), { style: "cursor:pointer", class: 'form-check-label' })
+    .form-check
+      = radio_button_tag("#{nested_form_path}[health_event]", 'death_event', {class: 'form-check-input'})
+      = label_tag("#{nested_form_path}[death_event]", t(:death_event), { style: "cursor:pointer", class: 'form-check-label' })
+    .form-check
+      = radio_button_tag("#{nested_form_path}[health_event]", 'none_of_the_above', {class: 'form-check-input'})
+      = label_tag("#{nested_form_path}[none_of_the_above]", t(:none_of_the_above), { style: "cursor:pointer", class: 'form-check-label' })
+  .form-group.one-quarter
+    .label #{t :event_on}:
+    .form-control.border-0.bg-white
+      = f.date_field(:event_on, class: 'form-control')
+  .one-sixth.shove-down
+    = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteInvestigation(this)"
+
+:javascript
+  function deleteInvestigation(el) {
+    text = "Are you sure you wish to delete this investigation?"
+    response = confirm(text)
+    if (response == true) {
+      hidden_input_id = el.closest('.idc-form-group').querySelector('input[type="text"]').id.replace('item', '_destroy');
+      el.closest('.idc-form-group').parentNode.querySelector('input[id="' + hidden_input_id + '"]').value = true;
+      el.closest('.idc-form-group').remove();
+    }
+  }

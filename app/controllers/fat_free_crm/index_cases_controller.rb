@@ -136,13 +136,6 @@ module FatFreeCrm
       @exposure = @index_case.exposures.build
     end
 
-    def decrypt_email_link
-      signature = params[:signature]
-      link = verifier.verify(signature)
-
-      redirect_to link
-    end
-
     private
 
     # #----------------------------------------------------------------------------
@@ -190,7 +183,7 @@ module FatFreeCrm
     def index_case_params
       params.require(:index_case).permit(:projected_return_date, 
         index_case_investigation: [:interview_at, :onset_of_symptoms, :infectious_period_start_at, :infectious_period_end_at, :isolation_period_start_at, :isolation_period_end_at, :self_isolate, symptoms: []],
-        clinical_investigation: [:interview_at, :projected_return_date, :health_event, :event_on, :contact_representative, :health_care_provider_contact]
+        clinical_investigations_attributes: [:id, :interview_at, :projected_return_date, :health_event, :event_on, :contact_representative, :health_care_provider_contact]
         )
     end
   end

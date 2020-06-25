@@ -60,7 +60,6 @@ FatFreeCrm::Engine.routes.draw do
       post :unsubscribe
       get :contacts
       get :opportunities
-      get :new_investigation
       get :new_exposure
     end
   end

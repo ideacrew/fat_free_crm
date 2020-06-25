@@ -3,7 +3,15 @@
   %summary #{t :clinical_simple_investigations}
   #contact_extra_intro.full-width
     = f.fields_for :clinical_investigations do |investigation_form|
-      = render "fat_free_crm/index_cases/clinical_investigation", investigation_form: investigation_form #, entity: entity
+      = render "fat_free_crm/index_cases/clinical_investigation_fields", f: investigation_form #, entity: entity
 
   #new_investigation
-    = link_to("#{t :new_investigation}", new_investigation_index_case_path(entity), remote: true, class: 'mt-3 btn btn-primary')
+    = link_to_add_fields "#{t :new_investigation}", f, :clinical_investigations
+
+:javascript
+  $(document).on("click",'form .add_fields',function(event) {
+    event.preventDefault();
+    var time = new Date().getTime();
+  	var regexp = new RegExp($(this).data('id'), 'g');
+  	$(this).before($(this).data('fields').replace(regexp, time));
+  });
