@@ -23,17 +23,21 @@ module FatFreeCrm
   class IndexCase < ActiveRecord::Base
   	belongs_to :user
   	belongs_to :assignee, class_name: "::FatFreeCrm::User", foreign_key: :assigned_to
-    belongs_to :contact, class_name: "::FatFreeCrm::Contact"
 
  		belongs_to :opportunity, class_name: "::FatFreeCrm::Opportunity"
  		has_many :tasks, as: :asset, dependent: :destroy # , :order => 'created_at DESC'
     has_many :emails, as: :mediator
+
+    has_one    :contact_index_case, class_name: "::FatFreeCrm::ContactIndexCase"
+    has_one    :contact, :through => :contact_index_case
 
     has_one  :index_case_investigation, class_name: "::FatFreeCrm::Investigations::IndexCaseSimpleInvestigation"
     has_one  :contact_elicitation_investigation, class_name: "::FatFreeCrm::Investigations::ContactElicitationInvestigation"
     has_many :clinical_investigations, class_name: "::FatFreeCrm::Investigations::ClinicalSimpleInvestigation"
 
     serialize :subscribed_users, Set
+
+    accepts_nested_attributes_for :contact_index_case,  allow_destroy: true
 
   	uses_user_permissions
     acts_as_commentable

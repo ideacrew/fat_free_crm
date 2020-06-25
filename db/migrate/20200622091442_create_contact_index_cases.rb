@@ -5,7 +5,7 @@ class CreateContactIndexCases < ActiveRecord::Migration[6.0]
       t.references :contact
       t.references :index_case
       t.references :notifying_contact
-      
+
       t.string     :notifying_contact_relationship_kind
       t.datetime   :notified_at
       t.datetime   :deleted_at

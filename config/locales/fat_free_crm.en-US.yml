@@ -533,7 +533,8 @@ en-US:
   covid_19_quarantine: In Quarantine
   assignments: Assignments
   new_assignment: New Assignment
-  exposed_contact: Save Case
+  exposed_contact: Save Exposure
+  save_case: Save Case
   case_type: Case Type
   symptom_onset_at: Symptom Onset At
   source_name: Source Name
@@ -606,6 +607,10 @@ en-US:
   emergency_room_event: Emergency Room Care
   death_event: Death
   none_of_the_above: None of the Above
+  notified_at: Notified at
+  self_notified: Self Notified
+  notifying_contact: Notifying Contact
+  notifying_contact_relationship_kind: Notifying Contact Relationship
 
   #views -> Indexcases
 

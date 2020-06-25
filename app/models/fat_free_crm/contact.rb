@@ -57,16 +57,16 @@ module FatFreeCrm
     has_many :contact_exposure_cases, dependent: :destroy
     has_many :exposure_cases, -> { distinct }, through: :contact_exposure_cases
 
+    # exposure_cases -> (0 or 1) index_cases
+
     has_many :tasks, as: :asset, dependent: :destroy # , :order => 'created_at DESC'
     has_one  :business_address, -> { where(address_type: "Business") }, dependent: :destroy, as: :addressable, class_name: "Address"
     has_many :addresses, dependent: :destroy, as: :addressable, class_name: "Address" # advanced search uses this
     has_many :emails, as: :mediator
-    has_many :exposures, class_name: "FatFreeCrm::Exposure"
 
     has_many :identifiers, as: :identifiable, dependent: :destroy
     has_many :assignments, dependent: :destroy
     has_many :absences, dependent: :destroy
-    has_many :index_cases, dependent: :destroy
 
     delegate :campaign, to: :lead, allow_nil: true
 

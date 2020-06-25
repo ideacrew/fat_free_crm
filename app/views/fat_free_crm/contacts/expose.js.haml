@@ -1,6 +1,8 @@
 - entity_name = controller.controller_name.demodulize.singularize.underscore #contact
 - @entity = instance_variable_get("@#{entity_name}")
 - id = dom_id(@entity)
+- time = Time.now.to_i
+- contacts = FatFreeCrm::Contact.all.pluck(:first_name, :last_name, :id).map { |(first_name, last_name, id)| ["#{first_name} #{last_name}", id]}
 
 - if params[:cancel].true? # <--------------------- Hide [Edit]
 
@@ -23,7 +25,7 @@
     -# Hide [Create] form if any.
     crm.hide_form('create_#{entity_name}')
     -# Show [Edit] form.
-    $('##{id}').html('#{ j render(partial: "expose") }');
+    $('##{id}').html('#{ j render(partial: "expose", locals: {time: time}) }');
 
     var input = document.getElementById("opportunity_id");
     input.addEventListener("change", function(event) {
@@ -42,10 +44,29 @@
     }
     })
 
+    var notified_by = document.getElementById("self_notified");
+    var notified_by_inputs = document.getElementById('notifying-contact-details');
+    notified_by.addEventListener("change", function(event) {
+    if (event.currentTarget.checked) {
+    notified_by_inputs.style.display = 'none';
+    } else {
+    notified_by_inputs.style.display = 'grid';
+    }
+    })
+
   - elsif params[:cancel].false?                    # Called from title of the lead landing page...
-    $('#expose_#{entity_name}').html('#{ j render(partial: "expose") }');
+    $('#expose_#{entity_name}').html('#{ j render(partial: "expose", locals: {time: time}) }');
     crm.hide_form('edit_lead');
     crm.flip_form('expose_#{entity_name}');
     crm.set_title('expose_#{entity_name}', "#{t :expose} #{h @entity.full_name}");
 
+  / crm.create_or_select_index_case(#{ request.referer =~ /\/index_case\// || @index_case&.id.blank? });
   $('#new_#{entity_name} input[type!=hidden]').first().focus();
+
+var input = document.querySelector('#contact_#{time} input[type="text"]');
+new Awesomplete(input, {list: #{contacts.to_json.html_safe},
+replace: function(suggestion) {
+this.input.value = suggestion.label;
+this.input.parentElement.nextElementSibling.value = suggestion.value;
+}});
+

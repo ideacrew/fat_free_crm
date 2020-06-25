@@ -2,7 +2,7 @@
 %details.idc-panel.contact-absences
   %summary #{t :cases}
   #contact_extra_intro.full-width
-    - @contact.exposures.order("started_at DESC").each do |exposure|
+    - @contact.exposure_cases.order("started_at DESC").each do |exposure|
       .label-value-group
         %div
         = link_to((t :mtb_exposure), index_case_path(exposure.index_case)) 

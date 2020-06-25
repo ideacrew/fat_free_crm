@@ -13,19 +13,25 @@
         %label #{t :email}:
         .form-control
           = @contact.email
-      - @contact.exposures.each do |exposure|
-        exposed_on
-        = exposure.started_at
-        at
-        = exposure.facility.name
       = fields_for(:opportunity, opportunity = FatFreeCrm::Opportunity.new) do |o|
         .form-group.one-half
           .label #{t :case_type}
           = select_tag("opportunity_id", options_for_select(FatFreeCrm::Opportunity.all.pluck(:name, :id), selected: "Tested Positive"), { class: 'form-control' })
         #tested-positive.idc-panel.full-width.nested
-          .form-group.one-quarter
-            .label #{t :symptom_onset_at}:
-            = datetime_field_tag("opportunity[symptom_onset_at]", nil, autocomplete: :off, required: true, class: 'date form-control', id: 'symptom-onset')
+          .form-group.one-third
+            .label #{t :notified_at}:
+            = datetime_field_tag("opportunity[notified_at]", nil, autocomplete: :off, required: true, class: 'date form-control')
+          .form-group.one-sixth
+            .label #{t :self_notified}:
+            = check_box_tag("self_notified", true, true, class: 'form-control form-control-sm')
+          #notifying-contact-details.one-half.hidden
+            .form-group.one-quarter{id: "contact_#{time}"}
+              .label #{t :notifying_contact}:
+              = text_field_tag("opportunity[notifying_contact]", nil, class: 'form-control')
+              = hidden_field_tag("opportunity[notifying_contact_id]")
+            .form-group.one-quarter
+              .label #{t :notifying_contact_relationship_kind}:
+              = select_tag("opportunity[notifying_contact_relationship]", options_for_select(Setting.unroll(:source_relationship)), class: 'form-control')
         #exposed.idc-panel.full-width.nested
           .form-group.one-quarter
             .label #{t :source_name}:
@@ -43,9 +49,8 @@
             .label #{t :exposure_level}:
             = select_tag("opportunity[exposure_level]", options_for_select(Setting.unroll(:exposure_level)), class: 'form-control')
       .buttonbar.full-width
-        = f.submit t(:exposed_contact), :class => 'btn btn-primary'
+        = f.submit t(:save_case), :class => 'btn btn-primary'
         = link_to_cancel expose_contact_path(@contact), :class => 'btn btn-link'
 
 = javascript_include_tag("awesomplete")
 = stylesheet_link_tag("awesomplete")
-
