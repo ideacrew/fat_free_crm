@@ -50,6 +50,11 @@ module FatFreeCrm
       @previous = IndexCase.my(current_user).find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i if params[:previous].to_s =~ /(\d+)\z/
       get_opportunities
 
+  
+      @index_case.build_index_case_investigation if @index_case.index_case_investigation.blank?
+      # @index_case.clinical_investigations.build if @index_case.clinical_investigations.empty?
+      puts "--->>>#{@index_case.clinical_investigations.inspect}"
+
       respond_with(@index_case)
     end
 
@@ -75,16 +80,8 @@ module FatFreeCrm
       respond_with(@index_case) do |_format|
         # Must set access before user_ids, because user_ids= method depends on access value.
         @index_case.access = params[:index_case][:access] if params[:index_case][:access]
-        if @index_case.update!(resource_params)
-          get_data_for_sidebar
-          @index_case.exposures.each do |exposure|
-            unless exposure.contact.absences.any? { |absence| absence.kind == 'covid_19_quarantine' && exposure.ended_at && absence.end_on > exposure.ended_at }
-              exposure.contact.absences.create(kind: 'covid_19_quarantine',
-                start_on: exposure.ended_at.beginning_of_day,
-                end_on: exposure.ended_at.end_of_day + 13.days)
-            end
-          end
-        end
+        result = IndexCases::Update.new.call(index_case: @index_case, params: index_case_params)
+        get_data_for_sidebar if result.success?
       end
     end
 
@@ -136,17 +133,7 @@ module FatFreeCrm
     end
 
     def new_exposure
-      # TODO: Look into if this is needed here if index case can be nil
-      # index_case = FatFreeCrm::IndexCase.find_by(id: params[:id])
-      # @index_case = index_case.present? ? index_case : FatFreeCrm::IndexCase.new
       @exposure = @index_case.exposures.build
-    end
-
-    def new_investigation
-      # TODO: Look into if this is needed here if index case can be nil
-      # index_case = FatFreeCrm::IndexCase.find_by(id: params[:id])
-      # @index_case = index_case.present? ? index_case : FatFreeCrm::IndexCase.new
-      @investigation = @index_case.investigations.build
     end
 
     def decrypt_email_link
@@ -198,6 +185,13 @@ module FatFreeCrm
       categorized = @index_case_category_total.values.sum
       @index_case_category_total[:all] = IndexCase.my(current_user).count
       @index_case_category_total[:other] = @index_case_category_total[:all] - categorized
+    end
+    
+    def index_case_params
+      params.require(:index_case).permit(:projected_return_date, 
+        index_case_investigation: [:interview_at, :onset_of_symptoms, :infectious_period_start_at, :infectious_period_end_at, :isolation_period_start_at, :isolation_period_end_at, :self_isolate, symptoms: []],
+        clinical_investigation: [:interview_at, :projected_return_date, :health_event, :event_on, :contact_representative, :health_care_provider_contact]
+        )
     end
   end
 end
