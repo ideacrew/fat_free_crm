@@ -76,7 +76,7 @@ module FatFreeCrm
       respond_with(@index_case) do |_format|
         # Must set access before user_ids, because user_ids= method depends on access value.
         @index_case.access = params[:index_case][:access] if params[:index_case][:access]
-        result = IndexCases::Update.new.call(index_case: @index_case, params: index_case_params)
+        result = IndexCases::Update.new.call(index_case: @index_case, params: index_case_filtered_params)
         if result.success?
           if params['absence_begin_date'].present?
             absence = Absences::FindOrCreate.new.call(contact: @index_case.contact, 
@@ -185,8 +185,10 @@ module FatFreeCrm
       @index_case_category_total[:all] = IndexCase.my(current_user).count
       @index_case_category_total[:other] = @index_case_category_total[:all] - categorized
     end
+
+    private
     
-    def index_case_params
+    def index_case_filtered_params
       params.require(:index_case).permit(:projected_return_date, :absence_begin_date, :investigation_kind,
         index_case_investigation: [:interview_at, :onset_of_symptoms, :infectious_period_start_at, :infectious_period_end_at, :isolation_period_start_at, :isolation_period_end_at, :self_isolate, symptoms: []],
         clinical_investigations_attributes: [:id, :interview_at, :projected_return_date, :health_event, :event_on, :contact_representative, :contact_representative_id, :health_care_provider_contact, :health_care_provider_contact_id, :contact_representative_relationship_kind]
