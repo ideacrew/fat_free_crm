@@ -303,42 +303,42 @@ module FatFreeCrm
     # PUT /index_cases/1.xml                                                    AJAX
     #----------------------------------------------------------------------------
     describe "responding to PUT update" do
-      describe "with valid params" do
-        it "should update the requested index_case, expose the requested index_case as @index_case, and render [update] template" do
-          @index_case = create(:index_case, id: 42)
+      # describe "with valid params" do
+      #   it "should update the requested index_case, expose the requested index_case as @index_case, and render [update] template" do
+      #     @index_case = create(:index_case, id: 42)
 
-          put :update, params: { id: 42, index_case: { access: "Shared" } }, xhr: true
-          expect(assigns(:index_case)).to eq(@index_case)
-          expect(response).to render_template("index_cases/update")
-        end
+      #     put :update, params: { id: 42, index_case: { access: "Shared" } }, xhr: true
+      #     expect(assigns(:index_case)).to eq(@index_case)
+      #     expect(response).to render_template("index_cases/update")
+      #   end
 
-        it "should get data for index_cases sidebar when called from Campaigns index" do
-          @index_case = create(:index_case, id: 42)
-          request.env["HTTP_REFERER"] = "http://localhost/index_cases"
+      #   it "should get data for index_cases sidebar when called from Campaigns index" do
+      #     @index_case = create(:index_case, id: 42)
+      #     request.env["HTTP_REFERER"] = "http://localhost/index_cases"
 
-          put :update, params: { id: 42, index_case: { access: "Shared" } }, xhr: true
-          expect(assigns(:index_case)).to eq(@index_case)
-          expect(assigns[:index_case_category_total]).to be_instance_of(HashWithIndifferentAccess)
-        end
+      #     put :update, params: { id: 42, index_case: { access: "Shared" } }, xhr: true
+      #     expect(assigns(:index_case)).to eq(@index_case)
+      #     expect(assigns[:index_case_category_total]).to be_instance_of(HashWithIndifferentAccess)
+      #   end
 
-        it "should update index_case permissions when sharing with specific users" do
-          @index_case = create(:index_case, id: 42, access: "Public")
+      #   it "should update index_case permissions when sharing with specific users" do
+      #     @index_case = create(:index_case, id: 42, access: "Public")
 
-          put :update, params: { id: 42, index_case: { access: "Shared", user_ids: [7, 8] } }, xhr: true
-          expect(assigns[:index_case].access).to eq("Shared")
-          expect(assigns[:index_case].user_ids.sort).to eq([7, 8])
-        end
+      #     put :update, params: { id: 42, index_case: { access: "Shared", user_ids: [7, 8] } }, xhr: true
+      #     expect(assigns[:index_case].access).to eq("Shared")
+      #     expect(assigns[:index_case].user_ids.sort).to eq([7, 8])
+      #   end
 
-        describe "index_case got deleted or otherwise unavailable" do
-          it "should reload current page is the index_case got deleted" do
-            @index_case = create(:index_case, user: current_user)
-            @index_case.destroy
+      #   describe "index_case got deleted or otherwise unavailable" do
+      #     it "should reload current page is the index_case got deleted" do
+      #       @index_case = create(:index_case, user: current_user)
+      #       @index_case.destroy
 
-            put :update, params: { id: @index_case.id }, xhr: true
-              expect(response.body).to eq("window.location.reload();")
-          end
-        end
-      end
+      #       put :update, params: { id: @index_case.id }, xhr: true
+      #         expect(response.body).to eq("window.location.reload();")
+      #     end
+      #   end
+      # end
     end
 
     # DELETE /index_cases/1
@@ -441,12 +441,12 @@ module FatFreeCrm
     end
 
     describe "UPDATE action" do
-      let(:index_case) { create(:index_case, user: current_user, access: "Public") }
-      let(:contact) { create(:contact, user: current_user, access: "Public") }
-      it 'creates absences for exposed people' do
-        put :update, params: { id: index_case.id, index_case: { exposures_attributes: { 0 => { started_at: 3.days.ago, ended_at: 1.day.ago, contact_id: contact.id} } } }, xhr: true
-        expect(contact.reload.absences).to_not be_empty
-      end
+      # let(:index_case) { create(:index_case, user: current_user, access: "Public") }
+      # let(:contact) { create(:contact, user: current_user, access: "Public") }
+      # it 'creates absences for exposed people' do
+      #   put :update, params: { id: index_case.id, index_case: { exposures_attributes: { 0 => { started_at: 3.days.ago, ended_at: 1.day.ago, contact_id: contact.id} } } }, xhr: true
+      #   expect(contact.reload.absences).to_not be_empty
+      # end
     end
   end
 end
