@@ -18,28 +18,28 @@
     .form-group.one-quarter
       %label #{t :interview_at}:
       #interview-at
-        = datetime_field_tag('index_case[index_case_investigation][interview_at]', (@index_case.index_case_investigation.interview_at || Time.now).strftime('%Y-%m-%dT%T'), {autocomplete: :off, required: true, class: 'date form-control'})
+        = datetime_field_tag('index_case[index_case_investigation][interview_at]', (@index_case.index_case_investigation&.interview_at || Time.now).strftime('%Y-%m-%dT%T'), {autocomplete: :off, required: true, class: 'date form-control'})
     .form-group.one-quarter
       %label #{t :symptom_onset_at}:
       #symptom-onset-at
-        = datetime_field_tag("index_case[index_case_investigation][onset_of_symptoms]", @index_case.index_case_investigation.onset_of_symptoms&.strftime('%Y-%m-%dT%T'), autocomplete: :off, required: true, class: 'date form-control')
+        = datetime_field_tag("index_case[index_case_investigation][onset_of_symptoms]", @index_case.index_case_investigation&.onset_of_symptoms&.strftime('%Y-%m-%dT%T'), autocomplete: :off, required: true, class: 'date form-control')
     .form-group.one-half
     .form-group.one-quarter
       %label #{t :isolation_period_start_at}:
       #isolation-period-start
-        = datetime_field_tag("index_case[index_case_investigation][isolation_period_start_at]", @index_case.index_case_investigation.isolation_period_start_at&.strftime('%Y-%m-%dT%T'), autocomplete: :off, required: true, class: 'date form-control')
+        = datetime_field_tag("index_case[index_case_investigation][isolation_period_start_at]", @index_case.index_case_investigation&.isolation_period_start_at&.strftime('%Y-%m-%dT%T'), autocomplete: :off, required: true, class: 'date form-control')
     .form-group.one-quarter
       %label #{t :isolation_period_end_at}:
       #isolation-period-end
-        = datetime_field_tag("index_case[index_case_investigation][isolation_period_end_at]", @index_case.index_case_investigation.isolation_period_end_at&.strftime('%Y-%m-%dT%T'), autocomplete: :off, readonly: :true, class: 'date form-control')
+        = datetime_field_tag("index_case[index_case_investigation][isolation_period_end_at]", @index_case.index_case_investigation&.isolation_period_end_at&.strftime('%Y-%m-%dT%T'), autocomplete: :off, readonly: :true, class: 'date form-control')
     .form-group.one-quarter
       %label #{t :infectious_period_start_at}:
       #infectious-period-start
-        = datetime_field_tag("index_case[index_case_investigation][infectious_period_start_at]", @index_case.index_case_investigation.infectious_period_start_at&.strftime('%Y-%m-%dT%T'), autocomplete: :off, readonly: :true, class: 'date form-control')
+        = datetime_field_tag("index_case[index_case_investigation][infectious_period_start_at]", @index_case.index_case_investigation&.infectious_period_start_at&.strftime('%Y-%m-%dT%T'), autocomplete: :off, readonly: :true, class: 'date form-control')
     .form-group.one-quarter
       %label #{t :infectious_period_end_at}:
       #infectious-period-end
-        = datetime_field_tag("index_case[index_case_investigation][infectious_period_end_at]", @index_case.index_case_investigation.infectious_period_end_at&.strftime('%Y-%m-%dT%T'), autocomplete: :off, readonly: :true, class: 'date form-control')
+        = datetime_field_tag("index_case[index_case_investigation][infectious_period_end_at]", @index_case.index_case_investigation&.infectious_period_end_at&.strftime('%Y-%m-%dT%T'), autocomplete: :off, readonly: :true, class: 'date form-control')
     .form-group.one-quarter
       %label #{t :absence_begin_date}:
       #absence-begin-date
@@ -51,19 +51,19 @@
     .form-group.one-quarter
       %label #{t :window_start_date}:
       #window-start-date
-        = datetime_field_tag("index_case[contact_elicitation_investigation][window_start_date]", (@index_case.contact_elicitation_investigation&.window_start_date || @index_case.index_case_investigation.isolation_period_start_at)&.strftime('%Y-%m-%dT%T'), autocomplete: :off, disabled: :true, class: 'date form-control')
+        = datetime_field_tag("index_case[contact_elicitation_investigation][window_start_date]", (@index_case.contact_elicitation_investigation&.window_start_date || @index_case.index_case_investigation&.isolation_period_start_at)&.strftime('%Y-%m-%dT%T'), autocomplete: :off, disabled: :true, class: 'date form-control')
     .form-group.one-quarter
       %label #{t :window_end_date}:
       #window-end-date
-        = datetime_field_tag("index_case[contact_elicitation_investigation][window_end_date]", (@index_case.contact_elicitation_investigation&.window_end_date || @index_case.index_case_investigation.isolation_period_start_at.try(:+, 2.days))&.strftime('%Y-%m-%dT%T'), autocomplete: :off, disabled: :true, class: 'date form-control')
+        = datetime_field_tag("index_case[contact_elicitation_investigation][window_end_date]", (@index_case.contact_elicitation_investigation&.window_end_date || @index_case.index_case_investigation&.isolation_period_start_at.try(:+, 2.days))&.strftime('%Y-%m-%dT%T'), autocomplete: :off, disabled: :true, class: 'date form-control')
     .form-group.one-third
       %label #{t :self_isolate}:
       = collection_radio_buttons('index_case[index_case_investigation]', 'self_isolate',  [[:can_self_isolate], [:need_assistance_to_self_isolate]], :first, :first) do |b|
         .form-check
-          = b.label(:"data-value" => b.value, class: 'form-check-label') { b.radio_button(checked: (@index_case.index_case_investigation.self_isolate == b.value), class: 'form-check-input') + t(b.text) }
+          = b.label(:"data-value" => b.value, class: 'form-check-label') { b.radio_button(checked: (@index_case.index_case_investigation&.self_isolate == b.value), class: 'form-check-input') + t(b.text) }
     .form-group.one-half
       .label #{t :symptoms}:
       = collection_check_boxes('index_case[index_case_investigation]', 'symptoms',  CovidMostRegistry[:index_case_symptoms].item, :first, :first) do |b|
         .form-check
-          = b.label(:"data-value" => b.value, class: 'form-check-label') { b.check_box(checked: @index_case.index_case_investigation.symptoms.include?(b.value.to_s), class: 'form-check-input') + t('symptoms_' + b.text) }
+          = b.label(:"data-value" => b.value, class: 'form-check-label') { b.check_box(checked: @index_case.index_case_investigation&.symptoms.include?(b.value.to_s), class: 'form-check-input') + t('symptoms_' + b.text) }
     = hook(:index_case_top_section_bottom, self, f: f)
