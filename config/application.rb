@@ -47,7 +47,6 @@ module FatFreeCrm
       :"FatFreeCrm::OpportunityObserver",
       :"FatFreeCrm::TaskObserver",
       :"FatFreeCrm::IndexCaseObserver",
-      :"FatFreeCrm::ExposureObserver",
       :"FatFreeCrm::EntityObserver"
       # :lead_observer, :opportunity_observer, :task_observer, :entity_observer
     ] unless ARGV.join.include?('assets:precompile')
