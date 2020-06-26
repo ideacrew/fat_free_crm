@@ -4,16 +4,22 @@
   .full-width
     = f.fields_for :clinical_investigations do |investigation_form|
       = render "fat_free_crm/index_cases/clinical_investigation_fields", f: investigation_form #, entity: entity
-
   #new_investigation
     = link_to_add_fields "#{t :new_investigation}", f, :clinical_investigations
 
 :javascript
-  $(document).on("click",'form .add_fields',function(event) {
+  var myFunc = function func(element){
+    var new_date = new Date();
+    if ( myFunc.last_call && (myFunc.last_call - new_date) > 0) return true;
+    myFunc.last_call = new Date(new_date.getTime() + 300);
     event.preventDefault();
-    var time = new Date().getTime();
-  	var regexp = new RegExp($(this).data('id'), 'g');
-  	$(this).before($(this).data('fields').replace(regexp, time));
+    var time = new_date.getTime();
+    var regexp = new RegExp(element.data('id'), 'g');
+    console.log(element.data('fields'));
+    element.before(element.data('fields').replace(regexp, time));
     loadContactFields();
+    return false;
+  };
+  $(document).on("click",'form .add_fields',function(event) {
+    myFunc($(this));
   });
-
