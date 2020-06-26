@@ -270,7 +270,7 @@ FatFreeCrm::Engine.routes.draw do
   end
 
   namespace :investigations do
-    get 'clinical_simple_investigations/generate_osha_301'
+    get 'clinical_simple_investigations/generate_osha'
   end
 
   root to: 'home#index'
