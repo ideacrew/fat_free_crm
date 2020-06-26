@@ -74,7 +74,6 @@ module FatFreeCrm
     #----------------------------------------------------------------------------
     def update
       respond_with(@index_case) do |_format|
-        binding.pry
         # Must set access before user_ids, because user_ids= method depends on access value.
         @index_case.access = params[:index_case][:access] if params[:index_case][:access]
         result = IndexCases::Update.new.call(index_case: @index_case, params: index_case_params)
