@@ -20,6 +20,9 @@
       %label #{t :gender}:
       = f.select(:gender, FatFreeCrm::Contact.genders.map { |(w)| [w.humanize, w] }, {}, :class => "form-control")
     .form-group.one-quarter
+      %label #{t :hired_on}:
+      = f.date_field(:hired_on, class: 'form-control')
+    .form-group.one-quarter
       %label #{t :category}:
       = f.select :category, Setting.unroll(:contact_category), { selected: @contact.category || "employee", include_blank: t(:other) }, { class: 'form-control' }
     .form-group.one-third
