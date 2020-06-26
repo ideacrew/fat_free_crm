@@ -14,8 +14,9 @@ module FatFreeCrm
 
     describe "attributes" do
       let(:new_index_case) { IndexCase.new }
+
       it "should respond to the proper has_many classes" do
-        have_many_classes = [:tasks, :investigations, :exposures, :emails]
+        have_many_classes = [:tasks, :clinical_investigations, :emails]
         have_many_classes.each do |model_name_pluralized|
           expect(new_index_case.respond_to?(model_name_pluralized)).to eq(true)
         end
