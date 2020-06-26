@@ -4,9 +4,22 @@ module FatFreeCrm
   describe "/fat_free_crm/index_cases/_new" do
     let(:contact) { create(:contact) }
     let(:index_case) { create(:index_case, contact: contact) }
+    let(:create_registry) { Object.const_set('CovidMostRegistry', {index_case_symptoms: index_case_symptoms}) }
+
+    let(:index_case_symptoms) {
+      double(item: {
+          "fever" => "Fever",
+          "cough" => "Cough",
+          "shortness_of_breath" => "Shortness of Breath",
+          "diarrhea" => "Diarrhea",
+          "headache" => "Headache"
+      })
+    }
 
     before do
       login
+      create_registry
+      index_case.build_index_case_investigation
       assign(:index_case, index_case)
     end
 
