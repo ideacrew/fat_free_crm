@@ -76,7 +76,7 @@
   document.querySelector('#infectious-period-start input[type="datetime-local"]').value = getFormattedDate(symptom_onset_date.setHours(-48))
   }
   })
-
+  function loadContactFields() {
   var contact_inputs = document.querySelectorAll('.contact-field input[type="text"]');
   contact_inputs.forEach(function(input){
   new Awesomplete(input, {list: #{contacts.to_json.html_safe},
@@ -85,4 +85,5 @@
   this.input.parentElement.nextElementSibling.value = suggestion.value;
   }});
   })
-  
+  }
+  loadContactFields();
