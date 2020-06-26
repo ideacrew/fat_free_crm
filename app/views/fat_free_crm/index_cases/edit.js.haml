@@ -32,7 +32,7 @@
     crm.flip_form('edit_#{entity_name}');
     crm.set_title('edit_#{entity_name}', "#{t :edit} #{j @entity.contact.full_name}");
 
-  function getFormattedDate(date){
+  function getFormattedDateTime(date){
   var new_date = new Date(date)
   var dd = new_date.getDate();
   var MM = new_date.getMonth()+1;
@@ -52,20 +52,37 @@
   mm='0'+mm
   }
 
-  formatted_date = yyyy+'-'+MM+'-'+dd+'T'+hh+':'+mm;
+  formatted_date_time = yyyy+'-'+MM+'-'+dd+'T'+hh+':'+mm;
+  return formatted_date_time;
+  }
+
+  function getFormattedDate(date){
+  var new_date = new Date(date)
+  var dd = new_date.getDate();
+  var MM = new_date.getMonth()+1;
+  var yyyy = new_date.getFullYear();
+
+  if(dd<10) {
+  dd='0'+dd
+  }
+  if(MM<10) {
+  MM='0'+MM
+  }
+
+  formatted_date = yyyy+'-'+MM+'-'+dd
   return formatted_date;
   }
 
   function getIsolationPeriodEnd(date) {
-  return getFormattedDate(date.setDate(date.getDate()+14));
+  return getFormattedDateTime(date.setDate(date.getDate()+14));
   }
 
   function getInfectiousPeriodStart(date) {
-  return getFormattedDate(date.setDate(date.getDate()-2));
+  return getFormattedDateTime(date.setDate(date.getDate()-2));
   }
 
   function getWindowEndDate(date) {
-  return getFormattedDate(date.setDate(date.getDate()+2));
+  return getFormattedDateTime(date.setDate(date.getDate()+2));
   }
 
   function getProjectedReturnDate(date) {
@@ -80,7 +97,7 @@
   document.querySelector('#window-start-date input[type="datetime-local"]').value = event.currentTarget.value
   document.querySelector('#isolation-period-end input[type="datetime-local"]').value = getIsolationPeriodEnd(isolation_period_start);
   document.querySelector('#window-end-date input[type="datetime-local"]').value = getWindowEndDate(new Date(event.currentTarget.value));
-  document.querySelector('#projected-return-date input[type="datetime-local"]').value = getProjectedReturnDate(new Date(event.currentTarget.value));
+  document.querySelector('#projected-return-date input[type="date"]').value = getProjectedReturnDate(new Date(event.currentTarget.value));
   }
   })
 

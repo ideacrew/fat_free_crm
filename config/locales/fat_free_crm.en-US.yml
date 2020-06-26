@@ -630,6 +630,8 @@ en-US:
   window_end_date: Window End Date
   mtb_projected_return_date: Projected Return Date
 
+  generate_osha_301: Generate OSHA 301
+
   hospitalized: Hospitalized
   isolated: Isolated
   recovered: Recovered
