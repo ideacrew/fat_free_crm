@@ -60,12 +60,27 @@
   return getFormattedDate(date.setDate(date.getDate()+14));
   }
 
-  var infectious_period_end = document.querySelector('#infectious-period-end input[type="datetime-local"]')
-  infectious_period_end.addEventListener("change", function(event) {
-  var infectious_period_end = new Date(event.currentTarget.value)
-  if (infectious_period_end) {
-  document.querySelector('#isolation-period-start input[type="datetime-local"]').value = event.currentTarget.value
-  document.querySelector('#isolation-period-end input[type="datetime-local"]').value = getIsolationPeriodEnd(infectious_period_end)
+  function getInfectiousPeriodStart(date) {
+  return getFormattedDate(date.setDate(date.getDate()-2));
+  }
+
+  function getWindowEndDate(date) {
+  return getFormattedDate(date.setDate(date.getDate()+2));
+  }
+
+  function getProjectedReturnDate(date) {
+  return getFormattedDate(date.setDate(date.getDate()+15));
+  }
+
+  var isolation_period_start = document.querySelector('#isolation-period-start input[type="datetime-local"]')
+  isolation_period_start.addEventListener("change", function(event) {
+  var isolation_period_start = new Date(event.currentTarget.value)
+  if (isolation_period_start) {
+  document.querySelector('#infectious-period-end input[type="datetime-local"]').value = event.currentTarget.value
+  document.querySelector('#window-start-date input[type="datetime-local"]').value = event.currentTarget.value
+  document.querySelector('#isolation-period-end input[type="datetime-local"]').value = getIsolationPeriodEnd(isolation_period_start);
+  document.querySelector('#window-end-date input[type="datetime-local"]').value = getWindowEndDate(new Date(event.currentTarget.value));
+  document.querySelector('#projected-return-date input[type="datetime-local"]').value = getProjectedReturnDate(new Date(event.currentTarget.value));
   }
   })
 
@@ -73,7 +88,7 @@
   symptom_onset_at.addEventListener("change", function(event) {
   var symptom_onset_date = new Date(event.currentTarget.value)
   if (symptom_onset_date) {
-  document.querySelector('#infectious-period-start input[type="datetime-local"]').value = getFormattedDate(symptom_onset_date.setHours(-48))
+  document.querySelector('#infectious-period-start input[type="datetime-local"]').value = getInfectiousPeriodStart(symptom_onset_date)
   }
   })
   function loadContactFields() {

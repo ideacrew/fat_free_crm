@@ -74,10 +74,21 @@ module FatFreeCrm
     #----------------------------------------------------------------------------
     def update
       respond_with(@index_case) do |_format|
+        binding.pry
         # Must set access before user_ids, because user_ids= method depends on access value.
         @index_case.access = params[:index_case][:access] if params[:index_case][:access]
         result = IndexCases::Update.new.call(index_case: @index_case, params: index_case_params)
-        get_data_for_sidebar if result.success?
+        if result.success?
+          if params['projected_return_date'].present?
+            absence = Absences::FindOrCreate.new.call(contact: @index_case.contact, 
+                                                absence_params: {
+                                                  kind: 'covid_19_isolation',
+                                                  start_on: params['projected_return_date'],
+                                                  end_on: params['projected_return_date'] + 14.days
+                                                })
+          end
+          get_data_for_sidebar
+        end
       end
     end
 
