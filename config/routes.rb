@@ -38,8 +38,6 @@ FatFreeCrm::Engine.routes.draw do
   match '/home/timezone', as: :timezone, via: %i[get put post]
   post '/home/redraw', as: :redraw
 
-  get 'clinical_simple_investigations/generate_osha_301'
-
   resources :comments,       except: %i[new show]
   resources :emails,         only: [:destroy]
   resources :documents,      only: [:index, :new, :create, :destroy]
@@ -269,6 +267,10 @@ FatFreeCrm::Engine.routes.draw do
 
     resources :settings, only: :index
     resources :plugins,  only: :index
+  end
+
+  namespace :investigations do
+    get 'clinical_simple_investigations/generate_osha_301'
   end
 
   root to: 'home#index'

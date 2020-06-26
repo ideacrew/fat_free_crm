@@ -32,7 +32,7 @@
     = f.date_field(:event_on, class: 'form-control')
   - if f.object.persisted?
     .one-quarter.mt-4
-      = link_to("#{t :generate_osha_301}", clinical_simple_investigations_generate_osha_301_path(f.object), remote: true, class: 'btn btn-primary')
+      = link_to("#{t :generate_osha_301}", investigations_clinical_simple_investigations_generate_osha_301_path(f.object), remote: true, class: 'btn btn-primary')
       = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteInvestigation(this)"
   - if !f.object.persisted?
     .one-sixth.shove-down
