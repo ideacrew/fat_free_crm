@@ -20,7 +20,7 @@ module FatFreeCrm
       end
 
       def health_event=(value)
-        [:hcp_consult_event, :hospitalized_event, :emergency_room_event, :death_event, :none_of_the_above].detect do |event_name|
+        [:hcp_consult_event, :hospitalized_event, :emergency_room_event, :death_event, :none_of_the_above].each do |event_name|
           if event_name.to_s == value
             self.send "#{event_name}=", true
           else

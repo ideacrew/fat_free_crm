@@ -13,7 +13,7 @@
     = f.text_field(:contact_representative, required: false, class: 'form-control', value: f.object.contact_representative&.full_name)
     = f.hidden_field(:contact_representative_id)
   .form-group.one-quarter
-    %label #{t :contact_representative_relationship_kind}:
+    %label #{t :contact_representative_relationship}:
     = f.select(:contact_representative_relationship_kind, options_for_select(Setting.unroll(:source_relationship), f.object.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
   .form-group.one-quarter.contact-field
     %label #{t :health_care_provider_contact}:
