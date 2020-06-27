@@ -1,7 +1,7 @@
 module FatFreeCrm
   module Investigations
 
-    class IndexCaseSimpleInvestigation < ApplicationRecord
+    class FacilityCaseSimpleInvestigation < ApplicationRecord
 
       belongs_to :facility_case, class_name: "::FatFreeCrm::FacilityCase"
       belongs_to :contact_representative, class_name: "::FatFreeCrm::Contact"
