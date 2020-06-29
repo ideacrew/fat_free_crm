@@ -26,7 +26,7 @@ module FatFreeCrm
     def show
       @stage = Setting.unroll(:opportunity_stage)
       @comment = Comment.new
-      @timeline = [] #timeline(@index_case)
+      @timeline = timeline(@index_case)
       respond_with(@index_case)
     end
 
