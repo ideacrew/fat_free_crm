@@ -7,7 +7,7 @@
   / =# f.select(:status, options_for_select(Setting.unroll(:investigation_statuses), f.object.status), {}, class: 'form-control')
   .form-group.one-quarter
     %label #{t :interview_at}:
-    = f.datetime_field(:interview_at, {autocomplete: :off, required: true, class: 'date form-control'})
+    = f.datetime_field(:interview_at, {autocomplete: :off, required: true, value:(f.object.interview_at || Time.now).strftime('%Y-%m-%dT%T'), class: 'date form-control'})
   .form-group.one-quarter.contact-field
     %label #{t :contact_representative}:
     = f.text_field(:contact_representative, required: false, class: 'form-control', value: f.object.contact_representative&.full_name)

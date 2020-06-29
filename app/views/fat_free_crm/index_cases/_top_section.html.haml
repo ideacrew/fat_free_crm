@@ -47,7 +47,7 @@
     .form-group.one-quarter
       %label #{t :mtb_projected_return_date}:
       #projected-return-date
-        = date_field_tag("index_case[projected_return_date]", @index_case.projected_return_date&.strftime('%Y-%m-%dT%T'), class: 'form-control')
+        = date_field_tag("index_case[projected_return_date]", @index_case.projected_return_date&.strftime('%Y-%m-%d'), class: 'form-control')
     .form-group.one-quarter
       %label #{t :window_start_date}:
       #window-start-date
