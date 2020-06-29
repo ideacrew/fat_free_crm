@@ -1,6 +1,6 @@
-/ #- model = entity.class.name.underscore
-/ #= f.hidden_field :_destroy
-/#= f.hidden_field :id, value: f.object&.id
+- model = entity.class.name.underscore
+= f.hidden_field :_destroy
+= f.hidden_field :id, value: f.object&.id
 .idc-form-group#index-case-investigation
   / .form-group.one-quarter
   / %label #{t :status}:
@@ -14,7 +14,7 @@
     = f.hidden_field(:contact_representative_id)
   .form-group.one-quarter
     %label #{t :contact_representative_relationship}:
-    = f.select(:contact_representative_relationship_kind, options_for_select(Setting.unroll(:source_relationship), f.object.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
+    = f.select(:contact_representative_relationship_kind, options_for_select(CovidMostRegistry[:contact_relationship].item, f.object.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
   .form-group.one-quarter.contact-field
     %label #{t :health_care_provider_contact}:
     = f.text_field(:health_care_provider_contact, required: false, class: 'form-control', value: f.object.health_care_provider_contact&.full_name)
@@ -43,7 +43,7 @@
     text = "Are you sure you wish to delete this investigation?";
     response = confirm(text);
     if (response == true) {
-      hidden_input_id = el.closest('.idc-form-group').querySelector('input[type="text"]').id.replace('item', '_destroy');
+      hidden_input_id = el.closest('.idc-form-group').querySelector('input[type="datetime-local"]').id.replace('interview_at', '_destroy');
       el.closest('.idc-form-group').parentNode.querySelector('input[id="' + hidden_input_id + '"]').value = true;
       el.closest('.idc-form-group').remove();
     }

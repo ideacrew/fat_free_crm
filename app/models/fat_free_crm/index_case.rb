@@ -31,9 +31,9 @@ module FatFreeCrm
     has_one    :contact_index_case, class_name: "::FatFreeCrm::ContactIndexCase"
     has_one    :contact, :through => :contact_index_case
 
-    has_one  :index_case_investigation, class_name: "::FatFreeCrm::Investigations::IndexCaseSimpleInvestigation"
-    has_one  :contact_elicitation_investigation, class_name: "::FatFreeCrm::Investigations::ContactElicitationInvestigation"
-    has_many :clinical_investigations, class_name: "::FatFreeCrm::Investigations::ClinicalSimpleInvestigation"
+    has_one  :index_case_investigation, dependent: :destroy, class_name: "::FatFreeCrm::Investigations::IndexCaseSimpleInvestigation"
+    has_one  :contact_elicitation_investigation, dependent: :destroy, class_name: "::FatFreeCrm::Investigations::ContactElicitationInvestigation"
+    has_many :clinical_investigations, dependent: :destroy, class_name: "::FatFreeCrm::Investigations::ClinicalSimpleInvestigation"
 
     serialize :subscribed_users, Set
 
