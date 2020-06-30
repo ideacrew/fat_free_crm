@@ -56,11 +56,11 @@ require 'fat_free_crm/view_factory'
 module FatFreeCrm
   class Engine < ::Rails::Engine
     isolate_namespace FatFreeCrm
-    
+
     ActiveSupport.on_load(:action_controller) do
       wrap_parameters format: [:json] if respond_to?(:wrap_parameters)
     end
-    
+
     # To enable root element in JSON for ActiveRecord objects.
     ActiveSupport.on_load(:active_record) do
       self.include_root_in_json = true
@@ -70,8 +70,6 @@ module FatFreeCrm
       "FatFreeCrm::LeadObserver",
       "FatFreeCrm::OpportunityObserver",
       "FatFreeCrm::TaskObserver",
-      "FatFreeCrm::IndexCaseObserver",
-      "FatFreeCrm::ExposureObserver",
       "FatFreeCrm::EntityObserver"
       # :lead_observer, :opportunity_observer, :task_observer, :entity_observer
     ]
@@ -85,7 +83,7 @@ module FatFreeCrm
     config.after_initialize do
       ActionView::Base.include FatFreeCrm::Callback::Helper
       ActionController::Base.include FatFreeCrm::Callback::Helper
-      
+
       if Setting.database_and_table_exists?
         setting_files = [FatFreeCrm::Engine.root.join("config", "settings.default.yml")]
         setting_files << FatFreeCrm::Engine.root.join("config", "settings.yml") unless Rails.env == 'test'
@@ -97,7 +95,7 @@ module FatFreeCrm
         ::I18n.default_locale = Setting.locale
         ::I18n.fallbacks[:en] = [:"en-US"]
         ::I18n.backend.load_translations
-    
+
         translations = { ransack: { attributes: {} } }
         if ActiveRecord::Base.connection.table_exists? 'fat_free_crm_fields'
           FatFreeCrm::CustomField.find_each do |custom_field|
@@ -108,10 +106,10 @@ module FatFreeCrm
             end
           end
         end
-        
+
         ::I18n.backend.store_translations(Setting.locale.to_sym, translations)
       end
-    
+
     end
   end
 end
