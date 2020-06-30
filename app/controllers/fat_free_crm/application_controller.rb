@@ -30,6 +30,8 @@ module FatFreeCrm
     rescue_from ActiveRecord::RecordNotFound, with: :respond_to_not_found
     rescue_from CanCan::AccessDenied,         with: :respond_to_access_denied
 
+    layout 'fat_free_crm/nested'
+
     include ERB::Util # to give us h and j methods
     include FatFreeCrm::I18n
 

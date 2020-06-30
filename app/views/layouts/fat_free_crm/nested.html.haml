@@ -1,4 +1,4 @@
-- content_for(:dashboard_head) do
+- content_for(:head) do
   %meta{ "http-equiv" => "Content-Type", content: "text/html; charset=utf-8" }
   %title COVID-19 Exchange
   == <!-- #{controller.controller_name} : #{controller.action_name} -->
@@ -34,13 +34,14 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   %script{ src: "https://use.fontawesome.com/7b172fda6f.js"}
 
-- content_for(:dashboard_body) do
-  = render "layouts/fat_free_crm/header"
-  - if tabless_layout?
-    = render "layouts/fat_free_crm/tabless"
-  - else
-    = render "layouts/fat_free_crm/tabbed"
-    = render "layouts/fat_free_crm/footer"
+- content_for(:body) do
+  .container
+    = render "layouts/fat_free_crm/header"
+    - if tabless_layout?
+      = render "layouts/fat_free_crm/tabless"
+    - else
+      = render "layouts/fat_free_crm/tabbed"
+      = render "layouts/fat_free_crm/footer"
 
   %script{type: "text/javascript"}
     = "crm.base_url = '#{Setting.base_url}';" unless Setting.base_url.blank?
@@ -48,4 +49,4 @@
     = content_for :javascript_epilogue
     = hook(:javascript_epilogue, self)
 
-= render template: 'layouts/dashboard'
+= render template: 'layouts/application'
