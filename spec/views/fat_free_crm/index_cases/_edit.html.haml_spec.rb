@@ -5,7 +5,7 @@ module FatFreeCrm
     let(:contact) { create(:contact) }
     let(:index_case) { create(:index_case, contact: contact) }
     let!(:investigation) { create(:investigation, index_case: index_case)}
-    let(:create_registry) { Object.const_set('CovidMostRegistry', {index_case_symptoms: index_case_symptoms}) }
+    let(:create_registry) { Object.const_set('CovidMostRegistry', {index_case_symptoms: index_case_symptoms, contact_relationship: contact_relationship}) }
     let(:index_case_symptoms) {
       double(item: {
           "fever" => "Fever",
@@ -13,6 +13,16 @@ module FatFreeCrm
           "shortness_of_breath" => "Shortness of Breath",
           "diarrhea" => "Diarrhea",
           "headache" => "Headache"
+      })
+    }
+
+    let(:contact_relationship) {
+      double(item: {
+          "self" => "Self",
+          "spouse" => "Spouse",
+          "child" => "Child",
+          "friend" => "Friend",
+          "other" => "Other"
       })
     }
 
