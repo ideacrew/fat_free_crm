@@ -1,15 +1,37 @@
+= f.hidden_field :_destroy
+= f.hidden_field :id, value: f.object&.id
 .idc-form-group#contact-elicitation-investigation
   .form-group.one-quarter.contact-field
     %label #{t :contact_representative}:
     = f.text_field(:contact, required: false, class: 'form-control', value: f.object.contact&.full_name)
     = f.hidden_field(:contact_id)
+  = f.fields_for(:contact_exposure_detail, FatFreeCrm::Exposures::ContactSimpleExposure.new) do |exposure_detail_form|
+    .form-group.one-quarter
+      %label #{t :exposure_started_at}:
+      = exposure_detail_form.datetime_field(:exposure_started_at, class: 'form-control')
+    .form-group.one-quarter
+      %label #{t :exposure_ended_at}:
+      = exposure_detail_form.datetime_field(:exposure_ended_at, class: 'form-control')
+    .form-group.one-quarter
+      %label #{t :used_mask}:
+      = exposure_detail_form.check_box(:used_mask, class: 'form-control form-control-sm')
+    .form-group.one-quarter
+      %label #{t :exposure_level}:
+      =# exposure_detail_form.select(:exposure_level, options_for_select(Setting.unroll(:exposure_level)), class: 'form-control')
+  - if f.object.persisted?
+    .one-quarter.mt-4
+      = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteExposure(this)"
+  - if !f.object.persisted?
+    .one-sixth.shove-down
+      = link_to_function(raw("<i class='fa fa-2x fa-trash'></i>"), "this.closest('#contact-elicitation-investigation').remove()")
+
 :javascript
   function deleteExposure(el) {
-    text = "Are you sure you wish to delete this exposure?"
-    response = confirm(text)
+    text = "Are you sure you wish to delete this exposure?";
+    response = confirm(text);
     if (response == true) {
-      hidden_input_id = el.closest('.idc-form-group').querySelector('input[type="datetime-local"]').id.replace('started_at', '_destroy');
-      el.closest('.idc-form-group').parentNode.querySelector('input[id="' + hidden_input_id + '"]').value = true;
-      el.closest('.idc-form-group').remove();
+      hidden_input_id = el.closest('#contact-elicitation-investigation').querySelector('input[type="datetime-local"]').id.replace('exposure_started_at', '_destroy');
+      el.closest('#contact-elicitation-investigation').parentNode.querySelector('input[id="' + hidden_input_id + '"]').value = true;
+      el.closest('#contact-elicitation-investigation').remove();
     }
   }

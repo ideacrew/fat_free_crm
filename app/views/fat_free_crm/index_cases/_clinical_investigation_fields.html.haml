@@ -35,15 +35,15 @@
       = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteInvestigation(this)"
   - if !f.object.persisted?
     .one-sixth.shove-down
-      = link_to_function(raw("<i class='fa fa-2x fa-trash'></i>"), "this.closest('.idc-form-group').remove()")
+      = link_to_function(raw("<i class='fa fa-2x fa-trash'></i>"), "this.closest('#index-case-investigation').remove()")
 
 :javascript
   function deleteInvestigation(el) {
     text = "Are you sure you wish to delete this investigation?";
     response = confirm(text);
     if (response == true) {
-      hidden_input_id = el.closest('.idc-form-group').querySelector('input[type="datetime-local"]').id.replace('interview_at', '_destroy');
-      el.closest('.idc-form-group').parentNode.querySelector('input[id="' + hidden_input_id + '"]').value = true;
-      el.closest('.idc-form-group').remove();
+      hidden_input_id = el.closest('#index-case-investigation').querySelector('input[type="datetime-local"]').id.replace('interview_at', '_destroy');
+      el.closest('#index-case-investigation').parentNode.querySelector('input[id="' + hidden_input_id + '"]').value = true;
+      el.closest('#index-case-investigation').remove();
     }
   }
