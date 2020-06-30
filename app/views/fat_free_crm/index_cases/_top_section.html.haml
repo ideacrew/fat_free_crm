@@ -49,14 +49,8 @@
       #projected-return-date
         = date_field_tag("index_case[projected_return_date]", @index_case.projected_return_date&.strftime('%Y-%m-%d'), class: 'form-control')
     .form-group.one-quarter
-    .form-group.one-third
       %label #{t :self_isolate}:
       = collection_radio_buttons('index_case[index_case_investigation]', 'self_isolate',  [[:can_self_isolate], [:need_assistance_to_self_isolate]], :first, :first) do |b|
         .form-check
           = b.label(:"data-value" => b.value, class: 'form-check-label') { b.radio_button(checked: (@index_case.index_case_investigation&.self_isolate == b.value), class: 'form-check-input') + t(b.text) }
-    .form-group.one-half
-      .label #{t :symptoms}:
-      = collection_check_boxes('index_case[index_case_investigation]', 'symptoms',  CovidMostRegistry[:index_case_symptoms].item, :first, :first) do |b|
-        .form-check
-          = b.label(:"data-value" => b.value, class: 'form-check-label') { b.check_box(checked: @index_case.index_case_investigation&.symptoms.include?(b.value.to_s), class: 'form-check-input') + t('symptoms_' + b.text) }
     = hook(:index_case_top_section_bottom, self, f: f)
