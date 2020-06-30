@@ -525,7 +525,6 @@ DEPENDENCIES
   rb-inotify
   responders
   responds_to_parent
-  rgeo
   rmagick
   rspec-activemodel-mocks
   rspec-rails
