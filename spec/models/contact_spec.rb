@@ -11,7 +11,7 @@ module FatFreeCrm
     describe "attributes" do
       let(:new_contact) { Contact.new }
       it "should respond to the proper has_many classes" do
-        have_many_classes = [:contact_opportunities, :opportunities, :tasks, :identifiers, :assignments, :absences, :exposures, :emails]
+        have_many_classes = [:contact_opportunities, :opportunities, :tasks, :emails]
         have_many_classes.each do |model_name_pluralized|
           expect(new_contact.respond_to?(model_name_pluralized)).to eq(true)
         end

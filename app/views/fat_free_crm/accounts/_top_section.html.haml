@@ -10,9 +10,6 @@
       %label #{t :category}:
       = f.select :category, Setting.unroll(:account_category), { selected: entity.category || "other", include_blank: t(:other) }, { class: 'form-control' }
     .form-group.one-third
-      %label #{t :reports_to_account}:
-      = f.select :reports_to_id, options_from_collection_for_select(accounts - [entity], 'id', 'name', entity.reports_to_id), { include_blank: t(:none) }, class: 'form-control'
-    .form-group.one-third
       %label.req #{t :division_name}:
       = f.text_field(:division_name, class: 'form-control')
 

@@ -1,6 +1,4 @@
 - if @accounts.any?
-	- @accounts.each do |account|
-		- next if account.reports_to.present? && @accounts.map(&:id).include?(account.reports_to_id)
-		= render account
+	= render @accounts
 - else
 	= render "fat_free_crm/shared/empty"

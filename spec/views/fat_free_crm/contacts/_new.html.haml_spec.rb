@@ -24,10 +24,7 @@ module FatFreeCrm
       expect(view).to render_template(partial: "fat_free_crm/contacts/_top_section")
       expect(view).to render_template(partial: "fat_free_crm/contacts/_extra")
       # Edit Custom Field Group only there if custom field group is present
-      # expect(view).to render_template(partial: "fat_free_crm/fields/edit_custom_field_group")
-      expect(rendered).to include("<details class='idc-panel contact-identifiers'>")
-      expect(rendered).to include("<details class='idc-panel contact-assignments'>")
-      expect(rendered).to include("<details class='idc-panel contact-absences'>")
+      expect(view).to render_template(partial: "fat_free_crm/fields/_edit_custom_field_group")
       expect(rendered).to include("<summary>Comment</summary>")
       expect(view).to render_template(partial: "fat_free_crm/contacts/_web")
       expect(rendered).to include('<label for="contact_group_ids">Groups:</label>')

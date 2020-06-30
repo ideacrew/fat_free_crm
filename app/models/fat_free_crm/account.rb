@@ -42,13 +42,6 @@ module FatFreeCrm
     has_many :addresses, dependent: :destroy, as: :addressable, class_name: "Address" # advanced search uses this
     has_many :emails, as: :mediator
 
-    has_and_belongs_to_many :facilities
-
-    has_many :assignments
-
-    has_many :reporting_accounts, foreign_key: 'reports_to_id', class_name: 'FatFreeCrm::Account'
-    belongs_to :reports_to, class_name: 'FatFreeCrm::Account'
-
     serialize :subscribed_users, Set
 
     accepts_nested_attributes_for :billing_address,  allow_destroy: true, reject_if: proc { |attributes| Address.reject_address(attributes) }

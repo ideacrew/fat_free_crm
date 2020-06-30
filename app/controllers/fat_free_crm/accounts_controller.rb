@@ -34,7 +34,6 @@ module FatFreeCrm
     #----------------------------------------------------------------------------
     def new
       @account.attributes = { user: current_user, access: Setting.default_access, assigned_to: nil }
-      get_facilities
       @accounts = get_accounts
 
       if params[:related]
@@ -49,7 +48,6 @@ module FatFreeCrm
     #----------------------------------------------------------------------------
     def edit
       @previous = Account.my(current_user).find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i if params[:previous].to_s =~ /(\d+)\z/
-      get_facilities
       @accounts = get_accounts
 
       respond_with(@account)
@@ -59,8 +57,6 @@ module FatFreeCrm
     #----------------------------------------------------------------------------
     def create
       @comment_body = params[:comment_body]
-      @accounts = get_accounts
-      get_facilities
       respond_with(@account) do |_format|
         if @account.save
           @account.add_comment_by_user(@comment_body, current_user)
@@ -75,7 +71,6 @@ module FatFreeCrm
     # PUT /accounts/1
     #----------------------------------------------------------------------------
     def update
-      get_facilities
       @accounts = get_accounts
       respond_with(@account) do |_format|
         # Must set access before user_ids, because user_ids= method depends on access value.
@@ -139,10 +134,6 @@ module FatFreeCrm
     #----------------------------------------------------------------------------
     def list_includes
       %i[pipeline_opportunities user tags].freeze
-    end
-
-    def get_facilities
-      @facilities = FatFreeCrm::Facility.my(current_user)
     end
 
     #----------------------------------------------------------------------------

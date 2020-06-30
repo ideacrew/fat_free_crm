@@ -42,29 +42,6 @@ FatFreeCrm::Engine.routes.draw do
   resources :emails,         only: [:destroy]
   resources :documents,      only: [:index, :new, :create, :destroy]
 
-  resources :index_cases, id: /\d+/ do
-    collection do
-      get :advanced_search
-      post :filter
-      get :options
-      get :field_group
-      match :auto_complete, via: %i[get post]
-      get :redraw
-      get :versions
-      get :decrypt_email_link
-    end
-    member do
-      put :attach
-      post :discard
-      post :subscribe
-      post :unsubscribe
-      get :contacts
-      get :opportunities
-      get :new_investigation
-      get :new_exposure
-    end
-  end
-
   resources :accounts, id: /\d+/ do
     collection do
       get :advanced_search
@@ -116,11 +93,6 @@ FatFreeCrm::Engine.routes.draw do
       match :auto_complete, via: %i[get post]
       get :redraw
       get :versions
-
-      get :new_identifier
-      get :new_assignment
-      get :new_absence
-      get :new_exposure
     end
     member do
       put :attach
@@ -128,13 +100,6 @@ FatFreeCrm::Engine.routes.draw do
       post :subscribe
       post :unsubscribe
       get :opportunities
-
-      get :new_identifier
-      get :new_assignment
-      get :new_absence
-      get :new_exposure
-      get :expose
-      match :exposed, via: %i[patch put]
     end
   end
 
@@ -239,27 +204,6 @@ FatFreeCrm::Engine.routes.draw do
     resources :tags, except: [:show] do
       member do
         get :confirm
-      end
-    end
-
-    resources :facilities, id: /\d+/ do
-      collection do
-        get :advanced_search
-        post :filter
-        get :options
-        get :field_groups
-        match :auto_complete, via: %i[get post]
-        get :redraw
-        get :versions
-        get :new_level
-      end
-      member do
-        put :attach
-        post :discard
-        post :subscribe
-        post :unsubscribe
-        get :contacts
-        get :new_level
       end
     end
 

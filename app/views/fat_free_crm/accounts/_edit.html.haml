@@ -9,7 +9,6 @@
     = render "fat_free_crm/fields/edit_custom_field_group", f: f, edit: true
     = render "fat_free_crm/accounts/contact_info", f: f, edit: true, entity: @account
     = render "fat_free_crm/fields/groups",         f: f, edit: true, entity: @account
-    = render "fat_free_crm/accounts/account_facilities", f: f, edit: true, facilities: @facilities.sort_by(&:name)
     = render "fat_free_crm/entities/permissions",  f: f, edit: true, entity: @account
     = hook(:entity_form, self, {f: f, entity: @account})
 
