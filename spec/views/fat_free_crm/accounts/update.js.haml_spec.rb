@@ -16,7 +16,6 @@ module FatFreeCrm
       assign(:users, [current_user])
       assign(:account_category_total, Hash.new(1))
       assign(:accounts, [FactoryBot.create(:account)])
-      assign(:facilities, [])
     end
 
     describe "no errors:" do

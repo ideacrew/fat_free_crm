@@ -15,7 +15,6 @@ module FatFreeCrm
       assign(:account, Account.new(user: current_user))
       assign(:users, [current_user])
       assign(:accounts, [FactoryBot.create(:account)])
-      assign(:facilities, [])
     end
 
     it "should toggle empty message div if it exists" do
