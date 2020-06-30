@@ -24,7 +24,7 @@
           = datetime_field_tag("index_case[contact_elicitation_investigation][elicitation_window_closes_at]", (f.object.elicitation_window_closes_at || @index_case.index_case_investigation&.isolation_period_start_at.try(:+, 2.days))&.strftime('%Y-%m-%dT%T'), autocomplete: :off, disabled: :true, class: 'date form-control')
     = f.fields_for :contact_exposure_cases do |contact_exposure_form|
       = render "fat_free_crm/index_cases/contact_exposure_case_fields", f: contact_exposure_form
-    #new_contact_exposure.shove-down
+    #new_contact_exposure.button-space
       = link_to_add_fields "#{t :new_contact_exposure}", f, :contact_exposure_cases
 
 :javascript
