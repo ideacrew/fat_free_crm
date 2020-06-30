@@ -17,37 +17,6 @@ module FatFreeCrm
            from: from_address
     end
 
-    def index_case_notification_to_contact(entity)
-      @entity_url = url_for(entity)
-      @entity_name = entity.contact.full_name
-
-      mail({subject: "COVID-19 Test Positive", to: entity.contact.email, from: from_address})
-    end
-
-    def index_case_notification_to_manager(entity)
-      url = url_for(entity)
-      @signature = create_access_signature(url)
-      @facility =  entity.contact.assignments.current.first&.facility
-      @account = entity.contact.account
-      if @signature.present? && manager_emails.present?
-        mail({to: manager_emails, subject: "COVID-19 Test Positive", from: from_address}) do |format|
-          format.html {render "index_case_notification_to_manager", locals: {index_case: entity}}
-        end
-      end
-    end
-
-    def exposure_notification_to_manager(entity)
-      url = url_for(entity.index_case)
-      @signature = create_access_signature(url)
-      @facility =  entity.index_case.contact.assignments.current.first&.facility
-      @account = entity.index_case.contact.account
-      if @signature.present? && manager_emails.present?
-        mail({to: manager_emails, subject: "COVID-19 Exposure", from: from_address}) do |format|
-          format.html {render "exposure_notification_to_manager"}
-        end
-      end
-    end
-
     private
 
     def secret_key_base

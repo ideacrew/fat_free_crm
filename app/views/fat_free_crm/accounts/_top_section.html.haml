@@ -9,9 +9,6 @@
     .form-group.one-third
       %label #{t :category}:
       = f.select :category, Setting.unroll(:account_category), { selected: entity.category || "other", include_blank: t(:other) }, { class: 'form-control' }
-    .form-group.one-third
-      %label.req #{t :division_name}:
-      = f.text_field(:division_name, class: 'form-control')
 
     - if Setting.background_info && Setting.background_info.include?(:account)
       .form-group.one-third
