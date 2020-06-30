@@ -45,7 +45,6 @@ module FatFreeCrm
       it "should re-render [create] template in :create_account div" do
         assign(:account, build(:account, name: nil)) # make it invalid
         assign(:accounts, [build_stubbed(:account, id: 10)].paginate)
-        assign(:facilities, [build_stubbed(:facility)])
         assign(:users, [current_user])
         render
 

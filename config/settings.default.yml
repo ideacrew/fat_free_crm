@@ -213,6 +213,11 @@
   :url:
     :controller: campaigns
 - :active: false
+  :text: :tab_leads
+  :icon: :fa-tasks
+  :url:
+    :controller: leads
+- :active: false
   :text: :tab_accounts
   :icon: :fa-users
   :url:
@@ -223,10 +228,10 @@
   :url:
     :controller: contacts
 - :active: false
-  :text: :tab_index_cases
-  :icon: :fa-bug
+  :text: :tab_opportunities
+  :icon: :fa-money
   :url:
-    :controller: index_cases
+    :controller: opportunities
 - :active: false
   :text: :tab_opportunities
   :icon: :fa-money
@@ -238,12 +243,6 @@
   :url:
     :controller: users
     :action: opportunities_overview
-- :active: false
-  :text: :tab_connect
-  :icon: :fa-phone
-  :function: "launchCCP()"
-    # :controller: connects
-    # :action: index
 
 :admin_tabs:
 - :active: true
@@ -266,11 +265,6 @@
   :icon: :fa-tags
   :url:
     :controller: admin/tags
-- :active: false
-  :text: :facilities
-  :icon: :fas fa-building
-  :url:
-    :controller: admin/facilities
 #- :active: false
 #  :text: :admin_tab_settings
 #  :icon: :fa-cogs
@@ -321,46 +315,6 @@ contact_category_color:
   :employee    : pink
   :contractor  : bisque
   :customer    : thistle
-
-exposure_level:
-  - :limited
-  - :moderate
-  - :significant
-
-investigation_statuses:
-  - :hospitalized
-  - :isolated
-  - :recovered
-  - :deceased
-
-source_relationship:
-  - :self
-  - :spouse
-  - :partner
-  - :child
-  - :parent
-  - :grandparent
-  - :grandchild
-  - :aunt
-  - :uncle
-  - :nephew
-  - :niece
-  - :friend
-  - :other
-
-index_case_category:
-  - :i
-  - :ii
-  - :iii
-  - :iv
-  - :v
-
-index_case_category_color:
-  :i   : lavender
-  :ii  : paleturquoise
-  :iii : pink
-  :iv  : bisque
-  :v   : thistle
 
 
 # Campaign Status. To add custom status use string value, for example:
