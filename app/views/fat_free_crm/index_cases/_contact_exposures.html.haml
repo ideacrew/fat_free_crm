@@ -1,9 +1,45 @@
 - model = entity.class.name.underscore
-%details.idc-panel.index_case_exposures
-  %summary #{t :contact_exposures}
-  #contact_extra_intro.full-width
-    = # f.fields_for :exposures, entity.contact_elicitation_investigation.exposures.each do |exposure_fields|
-    = # render "fat_free_crm/index_cases/exposure", f: exposure_fields, entity: entity
+.full-width
+  %details.idc-panel.contact_exposures
+    %summary #{t :contact_exposures}
+    .idc-form-group
+      .form-group.one-quarter
+        %label #{t :interview_at}:
+        = f.datetime_field(:interview_at, {autocomplete: :off, required: true, value:(f.object.interview_at || Time.now).strftime('%Y-%m-%dT%T'), class: 'date form-control'})
+      .form-group.one-quarter.contact-field
+        %label #{t :contact_representative}:
+        = f.text_field(:contact_representative, required: false, class: 'form-control', value: f.object.contact_representative&.full_name)
+        = f.hidden_field(:contact_representative_id)
+      .form-group.one-quarter
+        %label #{t :contact_representative_relationship}:
+        = f.select(:contact_representative_relationship_kind, options_for_select(Setting.unroll(:source_relationship), f.object.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
+      .form-group.one-quarter
+      .form-group.one-quarter
+        %label #{t :window_start_date}:
+        #window-start-date
+          = datetime_field_tag("index_case[contact_elicitation_investigation][elicitation_window_opens_at]", (f.object.elicitation_window_opens_at || @index_case.index_case_investigation&.isolation_period_start_at)&.strftime('%Y-%m-%dT%T'), autocomplete: :off, disabled: :true, class: 'date form-control')
+      .form-group.one-quarter
+        %label #{t :window_end_date}:
+        #window-end-date
+          = datetime_field_tag("index_case[contact_elicitation_investigation][elicitation_window_closes_at]", (f.object.elicitation_window_closes_at || @index_case.index_case_investigation&.isolation_period_start_at.try(:+, 2.days))&.strftime('%Y-%m-%dT%T'), autocomplete: :off, disabled: :true, class: 'date form-control')
+    = f.fields_for :contact_exposure_cases do |contact_exposure_form|
+      = render "fat_free_crm/index_cases/contact_exposure_case_fields", f: contact_exposure_form
+    #new_investigation
+      = link_to_add_fields "#{t :new_contact_exposure}", f, :contact_exposure_cases
 
-  #new_exposure
-  = link_to("#{t :new_exposure}", new_exposure_index_case_path(entity), remote: true, class: 'mt-3 btn btn-primary')
+:javascript
+  var myFunc = function func(element){
+    var new_date = new Date();
+    if ( myFunc.last_call && (myFunc.last_call - new_date) > 0) return true;
+    myFunc.last_call = new Date(new_date.getTime() + 300);
+    event.preventDefault();
+    var time = new_date.getTime();
+    var regexp = new RegExp(element.data('id'), 'g');
+    console.log(element.data('fields'));
+    element.before(element.data('fields').replace(regexp, time));
+    loadContactFields();
+    return false;
+  };
+  $(document).on("click",'form .add_fields',function(event) {
+    myFunc($(this));
+  });

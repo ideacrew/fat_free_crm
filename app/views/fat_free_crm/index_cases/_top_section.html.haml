@@ -49,13 +49,6 @@
       #projected-return-date
         = date_field_tag("index_case[projected_return_date]", @index_case.projected_return_date&.strftime('%Y-%m-%d'), class: 'form-control')
     .form-group.one-quarter
-      %label #{t :window_start_date}:
-      #window-start-date
-        = datetime_field_tag("index_case[contact_elicitation_investigation][window_start_date]", (@index_case.contact_elicitation_investigation&.window_start_date || @index_case.index_case_investigation&.isolation_period_start_at)&.strftime('%Y-%m-%dT%T'), autocomplete: :off, disabled: :true, class: 'date form-control')
-    .form-group.one-quarter
-      %label #{t :window_end_date}:
-      #window-end-date
-        = datetime_field_tag("index_case[contact_elicitation_investigation][window_end_date]", (@index_case.contact_elicitation_investigation&.window_end_date || @index_case.index_case_investigation&.isolation_period_start_at.try(:+, 2.days))&.strftime('%Y-%m-%dT%T'), autocomplete: :off, disabled: :true, class: 'date form-control')
     .form-group.one-third
       %label #{t :self_isolate}:
       = collection_radio_buttons('index_case[index_case_investigation]', 'self_isolate',  [[:can_self_isolate], [:need_assistance_to_self_isolate]], :first, :first) do |b|

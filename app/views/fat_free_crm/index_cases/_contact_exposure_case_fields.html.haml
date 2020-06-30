@@ -1,0 +1,15 @@
+.idc-form-group#contact-elicitation-investigation
+  .form-group.one-quarter.contact-field
+    %label #{t :contact_representative}:
+    = f.text_field(:contact, required: false, class: 'form-control', value: f.object.contact&.full_name)
+    = f.hidden_field(:contact_id)
+:javascript
+  function deleteExposure(el) {
+    text = "Are you sure you wish to delete this exposure?"
+    response = confirm(text)
+    if (response == true) {
+      hidden_input_id = el.closest('.idc-form-group').querySelector('input[type="datetime-local"]').id.replace('started_at', '_destroy');
+      el.closest('.idc-form-group').parentNode.querySelector('input[id="' + hidden_input_id + '"]').value = true;
+      el.closest('.idc-form-group').remove();
+    }
+  }

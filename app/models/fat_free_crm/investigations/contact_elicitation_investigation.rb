@@ -13,6 +13,9 @@ module FatFreeCrm
       has_paper_trail versions: {class_name: "FatFreeCrm::Version"}
       acts_as_commentable
       uses_comment_extensions
+
+      accepts_nested_attributes_for :contact_exposure_cases,  allow_destroy: true
+      accepts_nested_attributes_for :facility_facility_cases,  allow_destroy: true
     end
   end
 end

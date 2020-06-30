@@ -612,6 +612,7 @@ en-US:
   self_notified: Self Notified
   notifying_contact: Notifying Contact
   notifying_contact_relationship_kind: Notifying Contact Relationship
+  new_contact_exposure: New Contact Exposure
 
   #views -> Indexcases
 

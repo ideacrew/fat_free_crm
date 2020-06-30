@@ -40,6 +40,7 @@ module FatFreeCrm
     accepts_nested_attributes_for :contact_index_case,  allow_destroy: true
     accepts_nested_attributes_for :clinical_investigations,  allow_destroy: true
     accepts_nested_attributes_for :index_case_investigation,  allow_destroy: true
+    accepts_nested_attributes_for :contact_elicitation_investigation,  allow_destroy: true
 
   	uses_user_permissions
     acts_as_commentable
