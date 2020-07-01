@@ -1,41 +1,42 @@
 = f.hidden_field :_destroy
 = f.hidden_field :id, value: f.object&.id
-.idc-form-group#index-case-investigation
+.card.mt-3#index-case-investigation
   / .form-group.one-quarter
   / %label #{t :status}:
   / =# f.select(:status, options_for_select(Setting.unroll(:investigation_statuses), f.object.status), {}, class: 'form-control')
-  .form-group.one-quarter
-    %label #{t :interview_at}:
-    = f.datetime_field(:interview_at, {autocomplete: :off, required: true, value:(f.object.interview_at || Time.now).strftime('%Y-%m-%dT%T'), class: 'date form-control'})
-  .form-group.one-quarter.contact-field
-    %label #{t :contact_representative}:
-    = f.text_field(:contact_representative, required: false, class: 'form-control', value: f.object.contact_representative&.full_name)
-    = f.hidden_field(:contact_representative_id)
-  .form-group.one-quarter
-    %label #{t :contact_representative_relationship}:
-    = f.select(:contact_representative_relationship_kind, options_for_select(CovidMostRegistry[:contact_relationship].item, f.object.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
-  .form-group.one-quarter.contact-field
-    %label #{t :health_care_provider_contact}:
-    = f.text_field(:health_care_provider_contact, required: false, class: 'form-control', value: f.object.health_care_provider_contact&.full_name)
-    = f.hidden_field(:health_care_provider_contact_id)
-  .form-group.one-quarter
-    %label #{t :mtb_projected_return_date}:
-    = f.date_field(:projected_return_date, class: 'form-control')
-  .form-group.one-quarter
-    %label #{t :health_event}:
-    = f.collection_radio_buttons(:health_event, [[:hcp_consult_event], [:hospitalized_event],[:emergency_room_event],[:death_event],[:none_of_the_above]], :first, :first) do |b|
-      .form-check
-        = b.label(:"data-value" => b.value, style: "cursor:pointer", class: 'form-check-label') { b.radio_button(checked: (f.object.health_event == b.value), class: 'form-check-input') + t(b.text) }
-  .form-group.one-quarter
-    %label #{t :event_on}:
-    = f.date_field(:event_on, class: 'form-control')
-  - if f.object.persisted?
-    .form-group.one-quarter.shove-down
-      = link_to("#{t :generate_osha_301}", investigations_clinical_simple_investigations_generate_osha_path(id: f.object), class: ' btn btn-primary osha-button')
-      = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteInvestigation(this)"
-  - if !f.object.persisted?
-    .one-sixth.shove-down
-      = link_to_function(raw("<i class='fa fa-2x fa-trash'></i>"), "this.closest('#index-case-investigation').remove()")
+  .card-body.idc-form-group
+    .form-group.one-quarter
+      %label #{t :interview_at}:
+      = f.datetime_field(:interview_at, {autocomplete: :off, required: true, value:(f.object.interview_at || Time.now).strftime('%Y-%m-%dT%T'), class: 'date form-control'})
+    .form-group.one-quarter.contact-field
+      %label #{t :contact_representative}:
+      = f.text_field(:contact_representative, required: false, class: 'form-control', value: f.object.contact_representative&.full_name)
+      = f.hidden_field(:contact_representative_id)
+    .form-group.one-quarter
+      %label #{t :contact_representative_relationship}:
+      = f.select(:contact_representative_relationship_kind, options_for_select(CovidMostRegistry[:contact_relationship].item, f.object.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
+    .form-group.one-quarter.contact-field
+      %label #{t :health_care_provider_contact}:
+      = f.text_field(:health_care_provider_contact, required: false, class: 'form-control', value: f.object.health_care_provider_contact&.full_name)
+      = f.hidden_field(:health_care_provider_contact_id)
+    .form-group.one-quarter
+      %label #{t :mtb_projected_return_date}:
+      = f.date_field(:projected_return_date, class: 'form-control')
+    .form-group.one-quarter
+      %label #{t :health_event}:
+      = f.collection_radio_buttons(:health_event, [[:hcp_consult_event], [:hospitalized_event],[:emergency_room_event],[:death_event],[:none_of_the_above]], :first, :first) do |b|
+        .form-check
+          = b.label(:"data-value" => b.value, style: "cursor:pointer", class: 'form-check-label') { b.radio_button(checked: (f.object.health_event == b.value), class: 'form-check-input') + t(b.text) }
+    .form-group.one-quarter
+      %label #{t :event_on}:
+      = f.date_field(:event_on, class: 'form-control')
+    - if f.object.persisted?
+      .form-group.one-quarter.shove-down
+        = link_to("#{t :generate_osha_301}", investigations_clinical_simple_investigations_generate_osha_path(id: f.object), class: ' btn btn-primary osha-button')
+        = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteInvestigation(this)"
+    - if !f.object.persisted?
+      .one-sixth.shove-down
+        = link_to_function(raw("<i class='fa fa-2x fa-trash'></i>"), "this.closest('#index-case-investigation').remove()")
 
 :javascript
   function deleteInvestigation(el) {
