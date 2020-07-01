@@ -613,6 +613,10 @@ en-US:
   notifying_contact: Notifying Contact
   notifying_contact_relationship_kind: Notifying Contact Relationship
   new_contact_exposure: New Contact Exposure
+  contact_exposed: Contact Exposed
+  exposure_started_at: Exposure Started At
+  exposure_ended_at: Exposure Ended At
+  contact_exposure_case: Contact Exposure Case
 
   #views -> Indexcases
 

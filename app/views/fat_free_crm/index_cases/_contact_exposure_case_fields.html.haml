@@ -1,29 +1,32 @@
 = f.hidden_field :_destroy
 = f.hidden_field :id, value: f.object&.id
-.idc-form-group.button-space#contact-elicitation-investigation
-  .form-group.one-quarter.contact-field
-    %label #{t :contact_representative}:
-    = f.text_field(:contact, required: false, class: 'form-control', value: f.object.contact&.full_name)
-    = f.hidden_field(:contact_id)
-  = f.fields_for(:contact_exposure_detail, FatFreeCrm::Exposures::ContactSimpleExposure.new) do |exposure_detail_form|
-    .form-group.one-quarter
-      %label #{t :exposure_started_at}:
-      = exposure_detail_form.datetime_field(:exposure_started_at, class: 'form-control')
-    .form-group.one-quarter
-      %label #{t :exposure_ended_at}:
-      = exposure_detail_form.datetime_field(:exposure_ended_at, class: 'form-control')
-    .form-group.one-quarter
-      %label #{t :used_mask}:
-      = exposure_detail_form.check_box(:used_mask, class: 'form-control form-control-sm')
-    .form-group.one-quarter
-      %label #{t :exposure_level}:
-      = exposure_detail_form.select(:exposure_level, options_for_select(Setting.unroll(:exposure_level), exposure_detail_form.object.exposure_level), {prompt: 'Select Exposure Level'}, class: 'form-control')
-  - if f.object.persisted?
-    .one-quarter.mt-4
-      = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteExposure(this)"
-  - if !f.object.persisted?
-    .one-sixth.shove-down
-      = link_to_function(raw("<i class='fa fa-2x fa-trash'></i>"), "this.closest('#contact-elicitation-investigation').remove()")
+.card.mt-3
+  .card-header
+    #{t :contact_exposure_case}
+  .idc-form-group#contact-elicitation-investigation.card-body
+    .form-group.one-quarter.contact-field
+      %label #{t :contact_exposed}:
+      = f.text_field(:contact, required: false, class: 'form-control', value: f.object.contact&.full_name)
+      = f.hidden_field(:contact_id)
+    = f.fields_for(:contact_exposure_detail, f.object.contact_exposure_detail || FatFreeCrm::Exposures::ContactSimpleExposure.new) do |exposure_detail_form|
+      .form-group.one-quarter
+        %label #{t :exposure_started_at}:
+        = exposure_detail_form.datetime_field(:exposure_started_at, autocomplete: :off, required: true, class: 'date form-control')
+      .form-group.one-quarter
+        %label #{t :exposure_ended_at}:
+        = exposure_detail_form.datetime_field(:exposure_ended_at, autocomplete: :off, required: true, class: 'date form-control')
+      .form-group.one-quarter
+        %label #{t :used_mask}:
+        = exposure_detail_form.check_box(:used_mask, class: 'form-control form-control-sm')
+      .form-group.one-quarter
+        %label #{t :exposure_level}:
+        = exposure_detail_form.select(:exposure_level, options_for_select(Setting.unroll(:exposure_level), exposure_detail_form.object.exposure_level), {prompt: 'Select Exposure Level'}, class: 'form-control')
+    - if f.object.persisted?
+      .one-quarter.mt-4
+        = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteExposure(this)"
+    - if !f.object.persisted?
+      .one-sixth.shove-down
+        = link_to_function(raw("<i class='fa fa-2x fa-trash'></i>"), "this.closest('#contact-elicitation-investigation').remove()")
 
 :javascript
   function deleteExposure(el) {
