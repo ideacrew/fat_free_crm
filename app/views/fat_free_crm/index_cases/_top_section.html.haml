@@ -58,5 +58,5 @@
       = select_tag("index_case[index_case_investigation][work_related]", options_for_select(FatFreeCrm::IndexCase.work_relateds.map { |(w)| [w.humanize, w] }, @index_case.index_case_investigation.work_related), {:class => "form-control"})
     .form-group.one-half
       %label #{t :how_virus_contracted}
-      = text_field_tag("index_case[index_case_investigation][how_virus_contracted]", @index_case.index_case_investigation&.how_virus_contracted, placeholder: 'Enter how virus contracted', class: 'form-control')
+      = text_area_tag("index_case[index_case_investigation][how_virus_contracted]", @index_case.index_case_investigation&.how_virus_contracted, placeholder: 'Enter how virus contracted', class: 'form-control')
     = hook(:index_case_top_section_bottom, self, f: f)

@@ -22,7 +22,7 @@
         %label #{t :exposure_level}:
         = exposure_detail_form.select(:exposure_level, options_for_select(Setting.unroll(:exposure_level), exposure_detail_form.object.exposure_level), {prompt: 'Select Exposure Level'}, class: 'form-control')
     - if f.object.persisted?
-      .one-quarter.mt-4
+      .one-quarter.shove-down
         = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteExposure(this)"
     - if !f.object.persisted?
       .one-sixth.shove-down
@@ -33,7 +33,7 @@
     text = "Are you sure you wish to delete this exposure?";
     response = confirm(text);
     if (response == true) {
-      f_hidden_input_id = el.closest('#contact-elicitation-investigation').querySelector('input[type="datetime-local"]').id.replace('contact_exposure_detail_exposure_started_at', '_destroy');
+      f_hidden_input_id = el.closest('#contact-elicitation-investigation').querySelector('input[type="datetime-local"]').id.replace('contact_exposure_detail_attributes_exposure_started_at', '_destroy');
       el.closest('#contact-elicitation-investigation').parentNode.querySelector('input[id="' + f_hidden_input_id + '"]').value = true;
       el.closest('#contact-elicitation-investigation').remove();
     }
