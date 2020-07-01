@@ -17,8 +17,8 @@ module FatFreeCrm
     EVENTS = %w[all_events create view update destroy]
     DURATION = %w[one_hour one_day two_days one_week two_weeks one_month]
 
-    belongs_to :related, polymorphic: true
-    belongs_to :user, foreign_key: :whodunnit
+    belongs_to :related, polymorphic: true, optional: true
+    belongs_to :user, foreign_key: :whodunnit, optional: true
 
     scope :default_order,  -> { order('created_at DESC') }
     scope :include_events, ->(*events) { where(event: events) }
