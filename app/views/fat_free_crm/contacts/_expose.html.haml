@@ -20,7 +20,7 @@
         #tested-positive.idc-panel.full-width.nested
           .form-group.one-third
             .label #{t :notified_at}:
-            = datetime_field_tag("opportunity[notified_at]", nil, autocomplete: :off, required: true, class: 'date form-control')
+            = datetime_field_tag("opportunity[notified_at]", nil, autocomplete: :off, required: true, class: 'date form-control', id: 'notified-at')
           .form-group.one-sixth
             .label #{t :self_notified}:
             = check_box_tag("self_notified", true, true, class: 'form-control form-control-sm')

@@ -142,6 +142,13 @@ module FatFreeCrm
       @exposure = @index_case.exposures.build
     end
 
+    def decrypt_email_link
+      signature = params[:signature]
+      link = verifier.verify(signature)
+
+      redirect_to link
+    end
+
     private
 
     # #----------------------------------------------------------------------------
@@ -185,8 +192,6 @@ module FatFreeCrm
       @index_case_category_total[:all] = IndexCase.my(current_user).count
       @index_case_category_total[:other] = @index_case_category_total[:all] - categorized
     end
-
-    private
     
     def index_case_filtered_params
       params.require(:index_case).permit(:projected_return_date, :absence_begin_date, :investigation_kind, :user_id,
