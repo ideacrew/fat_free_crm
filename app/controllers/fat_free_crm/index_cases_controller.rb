@@ -190,7 +190,7 @@ module FatFreeCrm
     
     def index_case_filtered_params
       params.require(:index_case).permit(:projected_return_date, :absence_begin_date, :investigation_kind, :user_id,
-        index_case_investigation: [:interview_at, :onset_of_symptoms, :infectious_period_start_at, :infectious_period_end_at, :isolation_period_start_at, :isolation_period_end_at, :self_isolate],
+        index_case_investigation: [:interview_at, :onset_of_symptoms, :infectious_period_start_at, :infectious_period_end_at, :isolation_period_start_at, :isolation_period_end_at, :self_isolate, :work_related, :how_virus_contracted],
         contact_elicitation_investigation_attributes: [:id, :_destroy, :interview_at, :contact_representative, :contact_representative_id, :contact_representative_relationship_kind,
           contact_exposure_cases_attributes: [:id, :_destroy, :contact_id, :contact, contact_exposure_detail_attributes: [:exposure_started_at, :exposure_ended_at, :used_mask, :exposure_level]]
         ],

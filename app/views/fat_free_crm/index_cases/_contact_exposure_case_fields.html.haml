@@ -1,9 +1,9 @@
 = f.hidden_field :_destroy
 = f.hidden_field :id, value: f.object&.id
-.card.mt-3
+.card.mt-3#contact-elicitation-investigation
   .card-header
     #{t :contact_exposure_case}
-  .idc-form-group#contact-elicitation-investigation.card-body
+  .idc-form-group.card-body
     .form-group.one-quarter.contact-field
       %label #{t :contact_exposed}:
       = f.text_field(:contact, required: false, class: 'form-control', value: f.object.contact&.full_name)
@@ -33,8 +33,8 @@
     text = "Are you sure you wish to delete this exposure?";
     response = confirm(text);
     if (response == true) {
-      hidden_input_id = el.closest('#contact-elicitation-investigation').querySelector('input[type="datetime-local"]').id.replace('exposure_started_at', '_destroy');
-      el.closest('#contact-elicitation-investigation').parentNode.querySelector('input[id="' + hidden_input_id + '"]').value = true;
+      f_hidden_input_id = el.closest('#contact-elicitation-investigation').querySelector('input[type="datetime-local"]').id.replace('contact_exposure_detail_exposure_started_at', '_destroy');
+      el.closest('#contact-elicitation-investigation').parentNode.querySelector('input[id="' + f_hidden_input_id + '"]').value = true;
       el.closest('#contact-elicitation-investigation').remove();
     }
   }

@@ -36,6 +36,7 @@ module FatFreeCrm
     has_many :clinical_investigations, dependent: :destroy, class_name: "::FatFreeCrm::Investigations::ClinicalSimpleInvestigation"
 
     serialize :subscribed_users, Set
+    enum work_related: { unknown: 'Unknown', likely: 'Likely', unlikely: 'Unlikely'}
 
     accepts_nested_attributes_for :contact_index_case,  allow_destroy: true
     accepts_nested_attributes_for :clinical_investigations,  allow_destroy: true

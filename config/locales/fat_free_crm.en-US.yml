@@ -641,6 +641,8 @@ en-US:
   isolated: Isolated
   recovered: Recovered
   deceased: Deceased
+  is_work_related?: Is Work Related?
+  how_virus_contracted: How was Virus Contracted?
 
   # Views -> Leads.
   #----------------------------------------------------------------------------
