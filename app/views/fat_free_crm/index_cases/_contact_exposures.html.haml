@@ -6,14 +6,6 @@
       .form-group.one-quarter
         %label #{t :interview_at}:
         = f.datetime_field(:interview_at, {autocomplete: :off, required: true, value:(f.object.interview_at || Time.now).strftime('%Y-%m-%dT%T'), class: 'date form-control'})
-      .form-group.one-quarter.contact-field
-        %label #{t :contact_representative}:
-        = f.text_field(:contact_representative, required: false, class: 'form-control', value: f.object.contact_representative&.full_name)
-        = f.hidden_field(:contact_representative_id)
-      .form-group.one-quarter
-        %label #{t :contact_representative_relationship}:
-        = f.select(:contact_representative_relationship_kind, options_for_select(CovidMostRegistry[:contact_relationship].item, f.object.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
-      .form-group.one-quarter
       .form-group.one-quarter
         %label #{t :window_start_date}:
         #window-start-date
@@ -22,6 +14,14 @@
         %label #{t :window_end_date}:
         #window-end-date
           = f.datetime_field(:elicitation_window_closes_at, value: (f.object.elicitation_window_closes_at || @index_case.index_case_investigation&.isolation_period_start_at.try(:+, 2.days))&.strftime('%Y-%m-%dT%T'), autocomplete: :off, disabled: :true, class: 'date form-control')
+      .form-group.one-quarter
+      .form-group.one-quarter.contact-field
+        %label #{t :contact_representative}:
+        = f.text_field(:contact_representative, required: false, class: 'form-control', value: f.object.contact_representative&.full_name)
+        = f.hidden_field(:contact_representative_id)
+      .form-group.one-quarter
+        %label #{t :contact_representative_relationship}:
+        = f.select(:contact_representative_relationship_kind, options_for_select(CovidMostRegistry[:contact_relationship].item, f.object.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
     = f.fields_for :contact_exposure_cases do |contact_exposure_form|
       = render "fat_free_crm/index_cases/contact_exposure_case_fields", f: contact_exposure_form
     #new_contact_exposure
