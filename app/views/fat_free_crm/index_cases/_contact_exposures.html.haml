@@ -1,6 +1,6 @@
 - model = entity.class.name.underscore
 .full-width
-  %details.idc-panel.contact_exposures
+  %details.idc-panel.contact-exposures
     %summary #{t :contact_exposures}
     .idc-form-group
       .form-group.one-quarter
@@ -35,11 +35,11 @@
     event.preventDefault();
     var time = new_date.getTime();
     var regexp = new RegExp(element.data('id'), 'g');
-    console.log(element.data('fields'));
     element.before(element.data('fields').replace(regexp, time));
-    loadContactFields();
+    var elements = element.siblings('div#contact-elicitation-investigation').find('.contact-field input[type="text"]').toArray();
+    loadContactFields(elements);
     return false;
   };
-  $(document).on("click",'form .add_fields',function(event) {
+  $(document).on("click",'.contact-exposures .add_fields',function(event) {
     myFunc($(this));
   });

@@ -108,8 +108,7 @@
   document.querySelector('#infectious-period-start input[type="datetime-local"]').value = getInfectiousPeriodStart(symptom_onset_date)
   }
   })
-  function loadContactFields() {
-  var contact_inputs = document.querySelectorAll('.contact-field input[type="text"]');
+  function loadContactFields(contact_inputs) {
   contact_inputs.forEach(function(input){
   new Awesomplete(input, {list: #{contacts.to_json.html_safe},
   replace: function(suggestion) {
@@ -118,4 +117,5 @@
   }});
   })
   }
-  loadContactFields();
+  var elements = document.querySelectorAll('.contact-field input[type="text"]');
+  loadContactFields(elements);
