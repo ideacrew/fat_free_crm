@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_26_083512) do
+ActiveRecord::Schema.define(version: 2020_06_30_145515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,14 +200,12 @@ ActiveRecord::Schema.define(version: 2020_06_26_083512) do
     t.bigint "exposure_case_id"
     t.bigint "contact_elicitation_investigation_id"
     t.bigint "facility_id"
-    t.bigint "facility_facility_case_id"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["contact_elicitation_investigation_id"], name: "contact_exposure_cases_contact_elicitation_investigation_id"
     t.index ["contact_id"], name: "index_fat_free_crm_contact_exposure_cases_on_contact_id"
     t.index ["exposure_case_id"], name: "index_fat_free_crm_contact_exposure_cases_on_exposure_case_id"
-    t.index ["facility_facility_case_id"], name: "contact_exposure_cases_facility_facility_case_id"
     t.index ["facility_id"], name: "index_fat_free_crm_contact_exposure_cases_on_facility_id"
   end
 
@@ -378,7 +376,6 @@ ActiveRecord::Schema.define(version: 2020_06_26_083512) do
     t.datetime "exposure_ended_at"
     t.integer "duration_in_minutes"
     t.string "exposure_level"
-    t.string "guidance"
     t.boolean "used_mask"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
@@ -547,7 +544,6 @@ ActiveRecord::Schema.define(version: 2020_06_26_083512) do
     t.boolean "death_event"
     t.boolean "none_of_the_above"
     t.date "event_on"
-    t.string "guidance"
     t.date "projected_return_date"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
@@ -580,7 +576,6 @@ ActiveRecord::Schema.define(version: 2020_06_26_083512) do
     t.datetime "interview_at"
     t.boolean "can_self_quarantine"
     t.boolean "need_assitance_to_self_quarantine"
-    t.string "guidance"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -593,7 +588,6 @@ ActiveRecord::Schema.define(version: 2020_06_26_083512) do
     t.bigint "contact_representative_id"
     t.string "contact_representative_relationship_kind"
     t.datetime "interview_at"
-    t.string "guidance"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -613,11 +607,11 @@ ActiveRecord::Schema.define(version: 2020_06_26_083512) do
     t.datetime "infectious_period_end_at"
     t.datetime "isolation_period_start_at"
     t.datetime "isolation_period_end_at"
-    t.text "symptoms", default: [], array: true
-    t.string "guidance"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "work_related"
+    t.text "how_virus_contracted"
     t.index ["contact_representative_id"], name: "index_case_simple_investigations_contact_representative_id"
     t.index ["index_case_id"], name: "index_case_simple_investigations_index_case_id"
   end

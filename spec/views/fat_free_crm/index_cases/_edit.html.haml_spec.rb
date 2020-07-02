@@ -42,13 +42,13 @@ module FatFreeCrm
       expect(rendered).to include("<div class='remote'>")
       expect(rendered).to include("<label>Phone:</label>")
       expect(rendered).to include("<label>Email:</label>")
-      expect(rendered).to include("<label>Window Start Date:</label>")
-      expect(rendered).to include("<label>Window End Date:</label>")
+      expect(rendered).to include("<label>Symptom Onset At:</label>")
+      expect(rendered).to include("<label>Isolation Period Start At:</label>")
       expect(rendered).to include("<label>Projected Return Date:</label>")
       expect(rendered).to include("<summary>Permissions</summary>")
       expect(rendered).to include('<label for="index_case_group_ids">Groups:</label>')
       # Index Case Invesetigations partial
-      expect(rendered).to include('index-case_investigations')
+      expect(rendered).to include('clinical_investigations')
       # Investigation partial
       expect(rendered).to include("<div id='new_investigation'>")
     end
