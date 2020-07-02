@@ -1,12 +1,12 @@
 = f.hidden_field :_destroy
 = f.hidden_field :id, value: f.object&.id
-.card.mt-3#contact-elicitation-investigation
+.card.mt-3#facility-exposure-details
   .card-header
     #{t :facility_exposure_case}
   .idc-form-group.card-body
     .form-group.one-quarter.facility-field
       %label #{t :facility}:
-      = f.text_field(:facility, required: false, class: 'form-control', value: f.object.facility&.full_name)
+      = f.text_field(:facility, required: false, class: 'form-control', value: f.object.facility&.name)
       = f.hidden_field(:facility_id)
     = f.fields_for(:facility_exposure_detail, f.object.facility_exposure_detail || FatFreeCrm::Exposures::ContactSimpleExposure.new) do |exposure_detail_form|
       .form-group.one-quarter
@@ -20,15 +20,15 @@
         = link_to_function raw("<i class='fa fa-2x fa-trash'></i>"), "deleteExposure(this)"
     - if !f.object.persisted?
       .one-sixth.shove-down
-        = link_to_function(raw("<i class='fa fa-2x fa-trash'></i>"), "this.closest('#contact-elicitation-investigation').remove()")
+        = link_to_function(raw("<i class='fa fa-2x fa-trash'></i>"), "this.closest('#facility-exposure-details').remove()")
 
 :javascript
   function deleteExposure(el) {
     text = "Are you sure you wish to delete this exposure?";
     response = confirm(text);
     if (response == true) {
-      f_hidden_input_id = el.closest('#contact-elicitation-investigation').querySelector('input[type="datetime-local"]').id.replace('facility_exposure_detail_attributes_exposure_started_at', '_destroy');
-      el.closest('#contact-elicitation-investigation').parentNode.querySelector('input[id="' + f_hidden_input_id + '"]').value = true;
-      el.closest('#contact-elicitation-investigation').remove();
+      f_hidden_input_id = el.closest('#facility-exposure-details').querySelector('input[type="datetime-local"]').id.replace('facility_exposure_detail_attributes_exposure_started_at', '_destroy');
+      el.closest('#facility-exposure-details').parentNode.querySelector('input[id="' + f_hidden_input_id + '"]').value = true;
+      el.closest('#facility-exposure-details').remove();
     }
   }

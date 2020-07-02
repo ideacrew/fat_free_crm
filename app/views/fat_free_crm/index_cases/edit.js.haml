@@ -113,6 +113,19 @@
   }
   })
 
+
+  function loadFacilityFields(facility_inputs) {
+  facility_inputs.forEach(function(input){
+  new Awesomplete(input, {list: #{facilities.to_json.html_safe},
+  replace: function(suggestion) {
+  this.input.value = suggestion.label;
+  this.input.parentElement.nextElementSibling.value = suggestion.value;
+  }});
+  })
+  }
+  var facility_elements = document.querySelectorAll('.facility-field input[type="text"]');
+  loadFacilityFields(facility_elements);
+
   function loadContactFields(contact_inputs) {
   contact_inputs.forEach(function(input){
   new Awesomplete(input, {list: #{contacts.to_json.html_safe},
@@ -135,5 +148,7 @@
   element.before(element.data('fields').replace(regexp, time));
   var elements = element.siblings(sibling_element_id).find('.contact-field input[type="text"]').toArray();
   loadContactFields(elements);
+  var facility_elements = element.siblings(sibling_element_id).find('.facility-field input[type="text"]').toArray();
+  loadFacilityFields(facility_elements);
   return false;
   };
