@@ -9,5 +9,5 @@
 
 :javascript
   $(document).on("click",'.clinical-investigations .add_fields',function(event) {
-    myFunc($(this), 'div#index-case-investigation');
+    prependFormWithContactFields($(this), 'div#index-case-investigation');
   });

@@ -94,9 +94,13 @@
   var isolation_period_start = new Date(event.currentTarget.value)
   if (isolation_period_start) {
   document.querySelector('#infectious-period-end input[type="datetime-local"]').value = event.currentTarget.value
-  document.querySelector('#window-start-date input[type="datetime-local"]').value = event.currentTarget.value
+  document.querySelectorAll('#window-start-date input[type="datetime-local"]').forEach(function(input){
+  input.value = event.currentTarget.value;
+  });
+  document.querySelectorAll('#window-end-date input[type="datetime-local"]').forEach(function(input){
+  input.value = getWindowEndDate(new Date(event.currentTarget.value));
+  });
   document.querySelector('#isolation-period-end input[type="datetime-local"]').value = getIsolationPeriodEnd(isolation_period_start);
-  document.querySelector('#window-end-date input[type="datetime-local"]').value = getWindowEndDate(new Date(event.currentTarget.value));
   document.querySelector('#projected-return-date input[type="date"]').value = getProjectedReturnDate(new Date(event.currentTarget.value));
   }
   })
@@ -108,6 +112,7 @@
   document.querySelector('#infectious-period-start input[type="datetime-local"]').value = getInfectiousPeriodStart(symptom_onset_date)
   }
   })
+
   function loadContactFields(contact_inputs) {
   contact_inputs.forEach(function(input){
   new Awesomplete(input, {list: #{contacts.to_json.html_safe},
@@ -119,3 +124,16 @@
   }
   var elements = document.querySelectorAll('.contact-field input[type="text"]');
   loadContactFields(elements);
+
+  var prependFormWithContactFields = function func(element, sibling_element_id){
+  var new_date = new Date();
+  if ( prependFormWithContactFields.last_call && (prependFormWithContactFields.last_call - new_date) > 0) return true;
+  prependFormWithContactFields.last_call = new Date(new_date.getTime() + 300);
+  event.preventDefault();
+  var time = new_date.getTime();
+  var regexp = new RegExp(element.data('id'), 'g');
+  element.before(element.data('fields').replace(regexp, time));
+  var elements = element.siblings(sibling_element_id).find('.contact-field input[type="text"]').toArray();
+  loadContactFields(elements);
+  return false;
+  };

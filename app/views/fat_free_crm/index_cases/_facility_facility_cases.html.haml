@@ -22,5 +22,5 @@
 
 :javascript
   $(document).on("click",'.facility-exposures .add_fields',function(event) {
-    myFunc($(this), 'div#contact-elicitation-investigation');
+    prependFormWithContactFields($(this), 'div#contact-elicitation-investigation');
   });
