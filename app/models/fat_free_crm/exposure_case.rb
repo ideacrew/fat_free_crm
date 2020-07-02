@@ -5,8 +5,8 @@ module FatFreeCrm
   	belongs_to :user
   	belongs_to :assignee, class_name: "::FatFreeCrm::User", foreign_key: :assigned_to
 
-    has_one    :exposure_case_investigation, class_name: "::FatFreeCrm::Investigations::ExposureCaseSimpleInvestigation"
-    has_many   :clinical_investigations, class_name: "::FatFreeCrm::Investigations::ClinicalSimpleInvestigation"
+    has_one    :exposure_case_investigation, dependent: :destroy, class_name: "::FatFreeCrm::Investigations::ExposureCaseSimpleInvestigation"
+    has_many   :clinical_investigations, dependent: :destroy, class_name: "::FatFreeCrm::Investigations::ClinicalSimpleInvestigation"
 
     has_one    :contact_exposure_case, class_name: "::FatFreeCrm::ContactExposureCase"
     has_one    :contact, :through => :contact_exposure_case
@@ -23,6 +23,10 @@ module FatFreeCrm
         ransack('name_cont' => query).result
       end
     }
+
+    accepts_nested_attributes_for :contact_exposure_case,  allow_destroy: true
+    accepts_nested_attributes_for :clinical_investigations,  allow_destroy: true
+    accepts_nested_attributes_for :exposure_case_investigation,  allow_destroy: true
 
     scope :by_window_closes_at, -> { order(:window_closes_at) }
     scope :by_priority,         -> { order("#{table_name}.priority DESC") }

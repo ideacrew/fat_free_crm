@@ -1,54 +1,47 @@
 - model = entity.class.name.underscore
-%details.idc-panel.contact-absences
-  %summary #{t :cases}
-  #contact_extra_intro.full-width
-    / - @contact.exposure_cases.order("started_at DESC").each do |exposure|
-    /   .label-value-group
-    /     %div
-    /     = link_to((t :mtb_exposure), index_case_path(exposure.index_case)) 
-    /   .label-value-group
-    /     %div #{t :mtb_exposure_facility}
-    /     %div 
-    /       = exposure.facility.name
-    /   .label-value-group
-    /     - if exposure.started_at
-    /       %div #{t :mtb_exposure_started_at}
-    /       %div 
-    /         = l(exposure.started_at, format: :long)
-    /   .label-value-group
-    /     - if exposure.ended_at
-    /       %div #{t :mtb_exposure_ended_at}
-    /       %div 
-    /         = l(exposure.ended_at, format: :long)
-    /   .label-value-group
-    /     %div #{t :mtb_exposure_level}
-    /     %div 
-    /       = exposure.level
-    - @contact.contact_opportunities.each do |exposure|
-      - next unless exposure.source_relationship 
-      .label-value-group
-        %div #{t :non_mtb_exposure}
-      .label-value-group
-        %div #{t :non_mtb_exposure_source_name}
-        %div 
-          = exposure.source_name
-      .label-value-group
-        %div #{t :non_mtb_exposure_source_relationship}
-        %div 
-          = exposure.source_relationship
-      .label-value-group
-        - if exposure.source_start_at
-          %div #{t :mtb_exposure_source_start_at}
+%details.idc-panel.contact-case
+  %summary #{t :case_history}
+  - @contact.index_cases.order("created_at DESC").each do |index_case|
+    .card.mt-3
+      .card-body.idc-form-group
+        .label-value-group.one-sixth
+          %div #{t :case_no}
           %div 
-            = l(exposure.source_start_at, format: :long)
-      .label-value-group
-        - if exposure.source_end_at
-          %div #{t :mtb_exposure_source_end_at}
+            = index_case.case_number
+        .label-value-group.one-sixth
+          %div #{t :case_type}
+          = link_to((t :index_case), index_case_path(index_case))
+        .label-value-group.one-sixth
+          %div #{t :work_related?}
+          %div
+            = index_case.index_case_investigation&.work_related
+        .label-value-group.one-sixth
+          %div #{t :status}
+          %div
+            = index_case.clinical_investigations.last&.health_event
+        .label-value-group.one-quarter
+          %div #{t :Projected_days_away_from_work}
+          %div
+  - @contact.exposure_cases.each do |exposure_case|
+    .card.mt-3
+      .card-body.idc-form-group
+        .label-value-group.one-sixth
+          %div #{t :case_no}
           %div 
-            = l(exposure.source_end_at, format: :long)
-      .label-value-group
-        %div #{t :non_mtb_exposure_level}
-        %div 
-          = exposure.exposure_level
+            = exposure_case.case_number
+        .label-value-group.one-sixth
+          %div #{t :case_type}
+          %div {t :exposure_case}
+        .label-value-group.one-sixth
+          %div #{t :work_related?}
+          %div
+            = exposure_case.exposure_case_investigation&.work_related
+        .label-value-group.one-sixth
+          %div #{t :status}
+          %div
+            = exposure_case.clinical_investigations.last&.health_event
+        .label-value-group.one-quarter
+          %div #{t :Projected_days_away_from_work}
+          %div 
 
 

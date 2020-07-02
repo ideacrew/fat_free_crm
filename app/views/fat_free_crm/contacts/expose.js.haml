@@ -35,11 +35,9 @@
     var notifiedAt = document.getElementById('notified-at');
     if (tested_positive) {
     notifiedAt.setAttribute('required', "");
-    tested_positive_inputs.style.display = 'grid';
     exposed_inputs.style.display = 'none';
     } else {
     notifiedAt.removeAttribute('required');
-    tested_positive_inputs.style.display = 'none';
     exposed_inputs.style.display = 'grid';
     }
     })
