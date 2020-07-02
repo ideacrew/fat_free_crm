@@ -620,6 +620,7 @@ en-US:
   facility_exposures: Facility Exposures
   facility_exposure_case: Facility Exposure Case
   new_facility_exposure: New Facility Exposure
+  facility_name: Facility Name
 
   #views -> Indexcases
 
