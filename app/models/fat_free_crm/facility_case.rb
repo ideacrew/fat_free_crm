@@ -1,8 +1,11 @@
 module FatFreeCrm
   class FacilityCase < ActiveRecord::Base
+
   	belongs_to :user
   	belongs_to :assignee, class_name: "::FatFreeCrm::User", foreign_key: :assigned_to
-    belongs_to :facility, class_name: "::FatFreeCrm::Facility"
+
+    has_one    :facility_facility_case, class_name: "::FatFreeCrm::FacilityFacilityCase"
+    has_one    :facility, :through => :facility_facility_case
 
  		has_many   :tasks, as: :asset, dependent: :destroy # , :order => 'created_at DESC'
 
