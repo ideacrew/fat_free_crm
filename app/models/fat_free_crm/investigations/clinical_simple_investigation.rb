@@ -13,6 +13,8 @@ module FatFreeCrm
       acts_as_commentable
       uses_comment_extensions
 
+      default_scope { order(created_at: :asc) }
+
       def health_event
         [:hcp_consult_event, :hospitalized_event, :emergency_room_event, :death_event, :none_of_the_above].detect do |event_name|
           self.send(event_name) == true

@@ -21,18 +21,6 @@
       = link_to_add_fields "#{t :new_facility_exposure}", f, :facility_facility_cases
 
 :javascript
-  var myFacilityExposuresFunc = function func(element){
-    var new_date = new Date();
-    if ( myFacilityExposuresFunc.last_call && (myFacilityExposuresFunc.last_call - new_date) > 0) return true;
-    myFacilityExposuresFunc.last_call = new Date(new_date.getTime() + 300);
-    event.preventDefault();
-    var time = new_date.getTime();
-    var regexp = new RegExp(element.data('id'), 'g');
-    element.before(element.data('fields').replace(regexp, time));
-    var elements = element.siblings('div#contact-elicitation-investigation').find('.contact-field input[type="text"]').toArray();
-    loadContactFields(elements);
-    return false;
-  };
   $(document).on("click",'.facility-exposures .add_fields',function(event) {
-    myFacilityExposuresFunc($(this));
+    myFunc($(this), 'div#contact-elicitation-investigation');
   });

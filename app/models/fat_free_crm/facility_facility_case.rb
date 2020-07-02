@@ -11,5 +11,7 @@ module FatFreeCrm
 
     accepts_nested_attributes_for :facility_exposure_detail,  allow_destroy: true
 
+    default_scope { order(created_at: :asc) }
+  
   end
 end

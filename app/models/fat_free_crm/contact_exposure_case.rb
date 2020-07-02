@@ -11,6 +11,8 @@ module FatFreeCrm
     has_paper_trail versions: {class_name: "FatFreeCrm::Version"}
 
     accepts_nested_attributes_for :contact_exposure_detail,  allow_destroy: true
+    
+    default_scope { order(created_at: :asc) }
 
   end
 end
