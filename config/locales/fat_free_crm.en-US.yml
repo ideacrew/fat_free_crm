@@ -621,6 +621,10 @@ en-US:
   facility_exposure_case: Facility Exposure Case
   new_facility_exposure: New Facility Exposure
   facility_name: Facility Name
+  case_history: Case History
+  case_no: Case No
+  work_related?: Work Related?
+  Projected_days_away_from_work: Projected Days Away From Work
 
   #views -> Indexcases
 
