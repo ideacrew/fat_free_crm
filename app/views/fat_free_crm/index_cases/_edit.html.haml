@@ -32,5 +32,7 @@
     element.before(element.data('fields').replace(regexp, time));
     var elements = element.siblings(sibling_element_id).find('.contact-field input[type="text"]').toArray();
     loadContactFields(elements);
+    var facility_elements = element.siblings(sibling_element_id).find('.facility-field input[type="text"]').toArray();
+    loadFacilityFields(facility_elements);
     return false;
   };

@@ -108,6 +108,19 @@
   document.querySelector('#infectious-period-start input[type="datetime-local"]').value = getInfectiousPeriodStart(symptom_onset_date)
   }
   })
+
+  function loadFacilityFields(facility_inputs) {
+  facility_inputs.forEach(function(input){
+  new Awesomplete(input, {list: #{facilities.to_json.html_safe},
+  replace: function(suggestion) {
+  this.input.value = suggestion.label;
+  this.input.parentElement.nextElementSibling.value = suggestion.value;
+  }});
+  })
+  }
+  var facility_elements = document.querySelectorAll('.facility-field input[type="text"]');
+  loadFacilityFields(facility_elements);
+
   function loadContactFields(contact_inputs) {
   contact_inputs.forEach(function(input){
   new Awesomplete(input, {list: #{contacts.to_json.html_safe},
