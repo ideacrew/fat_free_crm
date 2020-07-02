@@ -72,6 +72,8 @@ Gem::Specification.new do |gem|
   #-----------------------------------------------------------------
   gem.add_development_dependency 'puma'
   gem.add_development_dependency 'pry-byebug'
+  gem.add_development_dependency 'pry-rails'
+  gem.add_development_dependency 'pry-stack_explorer'
   gem.add_development_dependency 'factory_bot_rails'
   gem.add_development_dependency 'capybara'
   gem.add_development_dependency 'capybara-screenshot'

@@ -22,6 +22,10 @@ require 'rails-controller-testing'
 require 'rspec-activemodel-mocks'
 require 'puma'
 
+require 'pry-rails'
+require 'pry-byebug'
+require 'pry-stack_explorer'
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
