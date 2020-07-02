@@ -52,10 +52,10 @@ module FatFreeCrm
     has_many :opportunities, -> { order("fat_free_crm_opportunities.id DESC").distinct }, through: :contact_opportunities
 
     has_many :contact_index_cases, dependent: :destroy
-    has_many :index_cases, -> { distinct }, through: :contact_index_cases
+    has_many :index_cases, through: :contact_index_cases
 
     has_many :contact_exposure_cases, dependent: :destroy
-    has_many :exposure_cases, -> { distinct }, through: :contact_exposure_cases
+    has_many :exposure_cases, through: :contact_exposure_cases
 
     # exposure_cases -> (0 or 1) index_cases
 
