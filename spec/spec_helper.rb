@@ -17,6 +17,10 @@ require 'factory_bot_rails'
 require 'ffaker'
 require 'timecop'
 require 'webdrivers'
+require 'database_cleaner'
+require 'rails-controller-testing'
+require 'rspec-activemodel-mocks'
+require 'puma'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -32,9 +36,15 @@ I18n.locale = 'en-US'
 Paperclip.options[:log] = false
 
 FactoryBot.definition_file_paths << File.join(File.dirname(__FILE__), 'factories')
-FactoryBot.find_definitions
+#FactoryBot.find_definitions
 
 RSpec.configure do |config|
+  [:controller, :view, :request].each do |type|
+    config.include ::Rails::Controller::Testing::TestProcess, :type => type
+    config.include ::Rails::Controller::Testing::TemplateAssertions, :type => type
+    config.include ::Rails::Controller::Testing::Integration, :type => type
+  end
+
   config.infer_spec_type_from_file_location!
 
   config.mock_with :rspec

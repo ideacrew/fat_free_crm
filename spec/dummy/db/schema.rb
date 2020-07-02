@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_100912) do
+ActiveRecord::Schema.define(version: 2020_05_30_105225) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "address_standardizer"
-  enable_extension "address_standardizer_data_us"
-  enable_extension "fuzzystrmatch"
   enable_extension "plpgsql"
-  enable_extension "postgis"
-  enable_extension "postgis_sfcgal"
-  enable_extension "postgis_tiger_geocoder"
-  enable_extension "postgis_topology"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -41,99 +34,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_100912) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
-  end
-
-  create_table "addr", primary_key: "gid", id: :serial, force: :cascade do |t|
-    t.bigint "tlid"
-    t.string "fromhn", limit: 12
-    t.string "tohn", limit: 12
-    t.string "side", limit: 1
-    t.string "zip", limit: 5
-    t.string "plus4", limit: 4
-    t.string "fromtyp", limit: 1
-    t.string "totyp", limit: 1
-    t.integer "fromarmid"
-    t.integer "toarmid"
-    t.string "arid", limit: 22
-    t.string "mtfcc", limit: 5
-    t.string "statefp", limit: 2
-    t.index ["tlid", "statefp"], name: "idx_tiger_addr_tlid_statefp"
-    t.index ["zip"], name: "idx_tiger_addr_zip"
-  end
-
-# Could not dump table "addrfeat" because of following StandardError
-#   Unknown type 'geometry' for column 'the_geom'
-
-# Could not dump table "bg" because of following StandardError
-#   Unknown type 'geometry' for column 'the_geom'
-
-# Could not dump table "county" because of following StandardError
-#   Unknown type 'geometry' for column 'the_geom'
-
-  create_table "county_lookup", primary_key: ["st_code", "co_code"], force: :cascade do |t|
-    t.integer "st_code", null: false
-    t.string "state", limit: 2
-    t.integer "co_code", null: false
-    t.string "name", limit: 90
-    t.index "soundex((name)::text)", name: "county_lookup_name_idx"
-    t.index ["state"], name: "county_lookup_state_idx"
-  end
-
-  create_table "countysub_lookup", primary_key: ["st_code", "co_code", "cs_code"], force: :cascade do |t|
-    t.integer "st_code", null: false
-    t.string "state", limit: 2
-    t.integer "co_code", null: false
-    t.string "county", limit: 90
-    t.integer "cs_code", null: false
-    t.string "name", limit: 90
-    t.index "soundex((name)::text)", name: "countysub_lookup_name_idx"
-    t.index ["state"], name: "countysub_lookup_state_idx"
-  end
-
-# Could not dump table "cousub" because of following StandardError
-#   Unknown type 'geometry' for column 'the_geom'
-
-  create_table "direction_lookup", primary_key: "name", id: :string, limit: 20, force: :cascade do |t|
-    t.string "abbrev", limit: 3
-    t.index ["abbrev"], name: "direction_lookup_abbrev_idx"
-  end
-
-# Could not dump table "edges" because of following StandardError
-#   Unknown type 'geometry' for column 'the_geom'
-
-# Could not dump table "faces" because of following StandardError
-#   Unknown type 'geometry' for column 'the_geom'
-
-  create_table "active_storage_attachments", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
-    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
-  end
-
-  create_table "active_storage_blobs", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
-    t.text "metadata"
-    t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", null: false
-    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
-  end
-
-  create_table "fat_free_crm_absences", force: :cascade do |t|
-    t.bigint "contact_id"
-    t.string "kind"
-    t.date "start_on"
-    t.date "end_on"
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["contact_id"], name: "index_fat_free_crm_absences_on_contact_id"
   end
 
   create_table "fat_free_crm_account_contacts", id: :serial, force: :cascade do |t|
@@ -173,18 +73,8 @@ ActiveRecord::Schema.define(version: 2020_06_10_100912) do
     t.text "subscribed_users"
     t.integer "contacts_count", default: 0
     t.integer "opportunities_count", default: 0
-    t.string "division_name"
-    t.bigint "reports_to_id"
     t.index ["assigned_to"], name: "index_fat_free_crm_accounts_on_assigned_to"
-    t.index ["reports_to_id"], name: "index_fat_free_crm_accounts_on_reports_to_id"
     t.index ["user_id", "name", "deleted_at"], name: "index_fat_free_crm_accounts_on_user_id_and_name_and_deleted_at", unique: true
-  end
-
-  create_table "fat_free_crm_accounts_facilities", id: false, force: :cascade do |t|
-    t.bigint "account_id"
-    t.bigint "facility_id"
-    t.index ["account_id"], name: "index_fat_free_crm_accounts_facilities_on_account_id"
-    t.index ["facility_id"], name: "index_fat_free_crm_accounts_facilities_on_facility_id"
   end
 
   create_table "fat_free_crm_activities", id: :serial, force: :cascade do |t|
@@ -214,24 +104,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_100912) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.point "lonlat"
-    t.string "county"
-    t.integer "state_code"
-    t.integer "county_code"
     t.index ["addressable_id", "addressable_type"], name: "addresses_id_and_type"
-  end
-
-  create_table "fat_free_crm_assignments", force: :cascade do |t|
-    t.bigint "account_id"
-    t.bigint "facility_id"
-    t.bigint "contact_id"
-    t.date "start_on"
-    t.date "end_on"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_fat_free_crm_assignments_on_account_id"
-    t.index ["contact_id"], name: "index_fat_free_crm_assignments_on_contact_id"
-    t.index ["facility_id"], name: "index_fat_free_crm_assignments_on_facility_id"
   end
 
   create_table "fat_free_crm_avatars", id: :serial, force: :cascade do |t|
@@ -289,11 +162,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_100912) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "source_name"
-    t.string "source_relationship"
-    t.datetime "source_start_at"
-    t.datetime "source_end_at"
-    t.string "exposure_level"
     t.index ["contact_id", "opportunity_id"], name: "contact_opportunities_index"
   end
 
@@ -333,15 +201,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_100912) do
     t.string "used_interpreter"
     t.index ["assigned_to"], name: "index_fat_free_crm_contacts_on_assigned_to"
     t.index ["user_id", "last_name", "deleted_at"], name: "id_last_name_deleted", unique: true
-  end
-
-  create_table "fat_free_crm_details", force: :cascade do |t|
-    t.string "name"
-    t.string "kind"
-    t.bigint "unit_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["unit_id"], name: "index_fat_free_crm_details_on_unit_id"
   end
 
   create_table "fat_free_crm_documents", force: :cascade do |t|
@@ -388,34 +247,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_100912) do
     t.datetime "updated_at"
     t.string "state", limit: 16, default: "Expanded", null: false
     t.index ["mediator_id", "mediator_type"], name: "emails_mediator_id_n_type"
-  end
-
-  create_table "fat_free_crm_exposures", force: :cascade do |t|
-    t.bigint "index_case_id"
-    t.datetime "started_at"
-    t.datetime "ended_at"
-    t.string "level"
-    t.bigint "contact_id"
-    t.bigint "facility_id"
-    t.boolean "used_mask"
-    t.bigint "user_id"
-    t.bigint "assigned_to_id"
-    t.text "subscribed_users"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["assigned_to_id"], name: "index_fat_free_crm_exposures_on_assigned_to_id"
-    t.index ["contact_id"], name: "index_fat_free_crm_exposures_on_contact_id"
-    t.index ["facility_id"], name: "index_fat_free_crm_exposures_on_facility_id"
-    t.index ["index_case_id"], name: "index_fat_free_crm_exposures_on_index_case_id"
-    t.index ["user_id"], name: "index_fat_free_crm_exposures_on_user_id"
-  end
-
-  create_table "fat_free_crm_facilities", force: :cascade do |t|
-    t.string "facility_kind"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-    t.string "status"
   end
 
   create_table "fat_free_crm_field_groups", id: :serial, force: :cascade do |t|
@@ -465,56 +296,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_100912) do
     t.index ["user_id"], name: "index_fat_free_crm_groups_users_on_user_id"
   end
 
-  create_table "fat_free_crm_identifiers", force: :cascade do |t|
-    t.string "identifiable_type"
-    t.bigint "identifiable_id"
-    t.string "item"
-    t.string "kind"
-    t.string "key"
-    t.date "start_on"
-    t.date "end_on"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["identifiable_type", "identifiable_id"], name: "identifiable_identifiers"
-  end
-
-  create_table "fat_free_crm_index_cases", force: :cascade do |t|
-    t.bigint "user_id"
-    t.integer "assigned_to"
-    t.string "access"
-    t.string "source"
-    t.string "background_info"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "category"
-    t.bigint "opportunity_id"
-    t.datetime "window_start_date"
-    t.datetime "window_end_date"
-    t.datetime "opened_at"
-    t.datetime "closed_at"
-    t.date "projected_return_date"
-    t.bigint "contact_id"
-    t.text "subscribed_users"
-    t.string "case_number"
-    t.index ["contact_id"], name: "index_fat_free_crm_index_cases_on_contact_id"
-    t.index ["opportunity_id"], name: "index_fat_free_crm_index_cases_on_opportunity_id"
-    t.index ["user_id"], name: "index_fat_free_crm_index_cases_on_user_id"
-  end
-
-  create_table "fat_free_crm_investigations", force: :cascade do |t|
-    t.bigint "index_case_id"
-    t.string "status"
-    t.datetime "conducted_at"
-    t.text "subscribed_users"
-    t.bigint "user_id"
-    t.bigint "assigned_to_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["assigned_to_id"], name: "index_fat_free_crm_investigations_on_assigned_to_id"
-    t.index ["index_case_id"], name: "index_fat_free_crm_investigations_on_index_case_id"
-    t.index ["user_id"], name: "index_fat_free_crm_investigations_on_user_id"
-  end
-
   create_table "fat_free_crm_leads", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "campaign_id"
@@ -547,14 +328,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_100912) do
     t.index ["user_id", "last_name", "deleted_at"], name: "leads_user_id_last_name_deleted_at", unique: true
   end
 
-  create_table "fat_free_crm_levels", force: :cascade do |t|
-    t.string "name"
-    t.bigint "facility_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["facility_id"], name: "index_fat_free_crm_levels_on_facility_id"
-  end
-
   create_table "fat_free_crm_lists", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "url"
@@ -581,11 +354,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_100912) do
     t.datetime "updated_at"
     t.string "background_info"
     t.text "subscribed_users"
-    t.datetime "start_on"
-    t.datetime "end_on"
-    t.bigint "facility_id"
     t.index ["assigned_to"], name: "index_fat_free_crm_opportunities_on_assigned_to"
-    t.index ["facility_id"], name: "index_fat_free_crm_opportunities_on_facility_id"
     t.index ["user_id", "name", "deleted_at"], name: "id_name_deleted", unique: true
   end
 
@@ -603,19 +372,11 @@ ActiveRecord::Schema.define(version: 2020_06_10_100912) do
 
   create_table "fat_free_crm_preferences", id: :serial, force: :cascade do |t|
     t.integer "user_id"
-    t.string "name", limit: 32, default: "", null: false
+    t.string "name", limit: 64, default: "", null: false
     t.text "value"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["user_id", "name"], name: "index_fat_free_crm_preferences_on_user_id_and_name"
-  end
-
-  create_table "fat_free_crm_sections", force: :cascade do |t|
-    t.string "name"
-    t.bigint "level_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["level_id"], name: "index_fat_free_crm_sections_on_level_id"
   end
 
   create_table "fat_free_crm_sessions", id: :serial, force: :cascade do |t|
@@ -663,16 +424,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_100912) do
     t.text "subscribed_users"
     t.index ["assigned_to"], name: "index_fat_free_crm_tasks_on_assigned_to"
     t.index ["user_id", "name", "deleted_at"], name: "index_fat_free_crm_tasks_on_user_id_and_name_and_deleted_at", unique: true
-  end
-
-  create_table "fat_free_crm_units", force: :cascade do |t|
-    t.string "name"
-    t.string "kind"
-    t.string "unitable_type"
-    t.bigint "unitable_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["unitable_type", "unitable_id"], name: "index_fat_free_crm_units_on_unitable_type_and_unitable_id"
   end
 
   create_table "fat_free_crm_users", id: :serial, force: :cascade do |t|
@@ -734,14 +485,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_100912) do
     t.index ["related_id", "related_type"], name: "index_fat_free_crm_versions_on_related_id_and_related_type"
     t.index ["transaction_id"], name: "index_fat_free_crm_versions_on_transaction_id"
     t.index ["whodunnit"], name: "index_fat_free_crm_versions_on_whodunnit"
-  end
-
-  create_table "fat_free_crm_zones", force: :cascade do |t|
-    t.string "name"
-    t.bigint "level_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["level_id"], name: "index_fat_free_crm_zones_on_level_id"
   end
 
   create_table "settings", id: :serial, force: :cascade do |t|
