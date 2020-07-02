@@ -7,6 +7,7 @@
     = render "fat_free_crm/index_cases/top_section",  f: f, edit: true
     = f.fields_for :contact_elicitation_investigation do |investigation|
       = render "fat_free_crm/index_cases/contact_exposures", f: investigation
+      = render "fat_free_crm/index_cases/facility_facility_cases", f: investigation
     = render "fat_free_crm/index_cases/clinical_investigations", f: f, entity: @index_case
     = render "fat_free_crm/entities/permissions",  f: f, edit: true, entity: @index_case
     = hook(:entity_form, self, {f: f, entity: @index_case})

@@ -72,7 +72,8 @@ module FatFreeCrm
       "FatFreeCrm::TaskObserver",
       "FatFreeCrm::IndexCaseObserver",
       "FatFreeCrm::EntityObserver",
-      "FatFreeCrm::ContactExposureCaseObserver"
+      "FatFreeCrm::ContactExposureCaseObserver",
+      "FatFreeCrm::FacilityFacilityCaseObserver"
       # :lead_observer, :opportunity_observer, :task_observer, :entity_observer
     ]
 

@@ -1,0 +1,38 @@
+- model = entity.class.name.underscore
+.full-width
+  %details.idc-panel.facility-exposures
+    %summary #{t :facility_exposures}
+    .idc-form-group
+      .form-group.one-quarter
+        %label #{t :interview_at}:
+        = f.datetime_field(:interview_at, {autocomplete: :off, required: true, value:(f.object.interview_at || Time.now).strftime('%Y-%m-%dT%T'), class: 'date form-control'})
+      .form-group.one-quarter
+        %label #{t :window_start_date}:
+        #window-start-date
+          = f.datetime_field(:elicitation_window_opens_at, value: (f.object.elicitation_window_opens_at || @index_case.index_case_investigation&.isolation_period_start_at)&.strftime('%Y-%m-%dT%T'), autocomplete: :off, disabled: :true, class: 'date form-control')
+      .form-group.one-quarter
+        %label #{t :window_end_date}:
+        #window-end-date
+          = f.datetime_field(:elicitation_window_closes_at, value: (f.object.elicitation_window_closes_at || @index_case.index_case_investigation&.isolation_period_start_at.try(:+, 2.days))&.strftime('%Y-%m-%dT%T'), autocomplete: :off, disabled: :true, class: 'date form-control')
+      .form-group.one-quarter
+    = f.fields_for :facility_facility_cases do |facility_exposure_form|
+      = render "fat_free_crm/index_cases/facility_facility_case_fields", f: facility_exposure_form
+    #new_contact_exposure
+      = link_to_add_fields "#{t :new_facility_exposure}", f, :facility_facility_cases
+
+:javascript
+  var myFacilityExposuresFunc = function func(element){
+    var new_date = new Date();
+    if ( myFacilityExposuresFunc.last_call && (myFacilityExposuresFunc.last_call - new_date) > 0) return true;
+    myFacilityExposuresFunc.last_call = new Date(new_date.getTime() + 300);
+    event.preventDefault();
+    var time = new_date.getTime();
+    var regexp = new RegExp(element.data('id'), 'g');
+    element.before(element.data('fields').replace(regexp, time));
+    var elements = element.siblings('div#contact-elicitation-investigation').find('.contact-field input[type="text"]').toArray();
+    loadContactFields(elements);
+    return false;
+  };
+  $(document).on("click",'.facility-exposures .add_fields',function(event) {
+    myFacilityExposuresFunc($(this));
+  });

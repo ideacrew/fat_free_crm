@@ -617,6 +617,9 @@ en-US:
   exposure_started_at: Exposure Started At
   exposure_ended_at: Exposure Ended At
   contact_exposure_case: Contact Exposure Case
+  facility_exposures: Facility Exposures
+  facility_exposure_case: Facility Exposure Case
+  new_facility_exposure: New Facility Exposure
 
   #views -> Indexcases
 
