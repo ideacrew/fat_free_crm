@@ -132,7 +132,7 @@ module FatFreeCrm
     end
 
     def generate_osha
-      index_cases = FatFreeCrm::IndexCase.all.joins(:index_case_investigation).sort_by(&:case_number)
+      index_cases = FatFreeCrm::IndexCase.joins(:index_case_investigation).where(fat_free_crm_investigations_index_case_simple_investigations: {work_related: "likely"}).order(:case_number)
       osha_form = Accounts::Osha::Form300::Serialize.new.call(index_cases: index_cases)
      
       if osha_form.success?
