@@ -131,6 +131,17 @@ module FatFreeCrm
       end
     end
 
+    def generate_osha
+      index_cases = FatFreeCrm::IndexCase.all.joins(:index_case_investigation).sort_by(&:case_number)
+      osha_form = Accounts::Osha::Form300::Serialize.new.call(index_cases: index_cases)
+     
+      if osha_form.success?
+        send_file osha_form.success, filename: "osha_300.xlsx", disposition: 'attachment'
+      else
+        redirect_to accounts_path, flash: { error: "OSHA-300 generation failed due to #{osha_form.failure.errors.to_h}" }
+      end
+    end
+
     private
 
     #----------------------------------------------------------------------------

@@ -53,9 +53,9 @@ module FatFreeCrm
     has_ransackable_associations %w[contacts opportunity tags exposures emails investigations comments tasks]
     ransack_can_autocomplete
 
-    sortable by: ["created_at DESC", "updated_at DESC"], default: "created_at DESC"
+    sortable by: ["created_at DESC", "updated_at DESC", "case_number DESC"], default: "created_at DESC"
     scope :text_search, ->(query) { ransack('name_or_email_cont' => query).result }
-
+  
     # Attach given attachment to the index_case if it hasn't been attached already.
     #----------------------------------------------------------------------------
     def attach!(attachment)

@@ -75,6 +75,7 @@ FatFreeCrm::Engine.routes.draw do
       get :versions
       get :new_investigation
       get :new_exposure
+      get :generate_osha
     end
     member do
       put :attach

@@ -12,6 +12,8 @@
       = view_buttons
     .create_asset
       = link_to_inline("create_#{model_name}".to_sym, model_path || send("new_#{model_name}_path"), { text: t("create_#{model_name}".to_sym), class: 'btn btn-primary create-asset-button' })
+      - if model_name == "account" && model_klass.all.count > 1 && FatFreeCrm::IndexCase.all.count > 0
+        = link_to("#{t :generate_osha_300}", generate_osha_accounts_path, class: 'btn btn-primary')
     = form_tag "/uploads/upload_#{model_name}", multipart: true, method: :post do
       %button.btn.btn-link.btn-file
         = "Upload"
