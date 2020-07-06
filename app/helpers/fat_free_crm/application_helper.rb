@@ -40,7 +40,12 @@ module FatFreeCrm
       %i[error warning info notice alert].each do |type|
         next unless flash[type]
 
-        html = content_tag(:div, h(flash[type]), id: "flash")
+        if flash[type].respond_to?(:html_safe)
+          html = content_tag(:div, h(flash[type].html_safe), id: "flash")
+        else
+          html = content_tag(:div, h(flash[type]), id: "flash")
+        end
+        
         flash[type] = nil
         return html << content_tag(:script, "crm.flash('#{type}', #{options[:sticky]})".html_safe, type: "text/javascript")
       end
