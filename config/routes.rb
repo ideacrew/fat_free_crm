@@ -64,6 +64,29 @@ FatFreeCrm::Engine.routes.draw do
     end
   end
 
+
+  resources :facility_cases, id: /\d+/ do
+    collection do
+      get :advanced_search
+      post :filter
+      # get :options
+      # get :field_group
+      # match :auto_complete, via: %i[get post]
+      get :redraw
+      # get :versions
+      # get :decrypt_email_link
+    end
+    # member do
+    #   put :attach
+    #   post :discard
+    #   post :subscribe
+    #   post :unsubscribe
+    #   get :contacts
+    #   get :opportunities
+    #   get :new_exposure
+    # end
+  end
+
   resources :accounts, id: /\d+/ do
     collection do
       get :advanced_search

@@ -1,0 +1,14 @@
+= hook(:facility_case_top_section, self, f: f) do
+  .idc-panel
+    .full-width
+      %h3
+        = @facility_case.facility.name
+    .form-group.one-quarter
+      %label #{t :case_number}:
+      .form-control
+        = @facility_case.case_number
+    .form-group.one-quarter
+      %label #{t :interview_at}:
+      #interview-at
+        = datetime_field_tag('facility_case[facility_case_investigation][interview_at]', (@facility_case&.facility_case_investigation&.interview_at || Time.now).strftime('%Y-%m-%dT%T'), {autocomplete: :off, required: true, class: 'date form-control'})
+    = hook(:facility_case_top_section_bottom, self, f: f)

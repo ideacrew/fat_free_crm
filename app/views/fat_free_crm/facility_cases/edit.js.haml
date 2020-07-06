@@ -1,0 +1,129 @@
+- entity_name = controller.controller_name.singularize.underscore #index_case
+- @entity = instance_variable_get("@#{entity_name}")
+- id = dom_id(@entity)
+- contacts = FatFreeCrm::Contact.all.pluck(:first_name, :last_name, :id).map { |(first_name, last_name, id)| ["#{first_name} #{last_name}", id]}
+- facilities = FatFreeCrm::Facility.all.pluck(:name, :id)
+
+- if params[:cancel].true? # <--------------------- Hide [Edit]
+
+  - if called_from_landing_page?
+    crm.flip_form('edit_#{entity_name}');
+    crm.set_title('edit_#{entity_name}', '#{h @entity.contact.full_name}');
+  - else                                            # Called from index page...
+    $('##{id}').replaceWith('#{ j render(partial: entity_name, collection: [ @entity ]) }');
+
+- else # <----------------------------------------  Show [Edit] form.
+
+  - if params[:cancel].blank?                       # Called from index page...
+    - if @previous                                  # Hide open [Edit] form if any.
+      - if @previous.is_a?(@entity.class)
+        $('##{dom_id(@previous)}').replaceWith('#{ j render(partial: entity_name, collection: [ @previous ]) }');
+      - else
+        crm.flick('#{entity_name}_#{@previous}', 'remove');
+    -# Disable onMouseOver for the list item.
+    crm.highlight_off('#{id}');
+    -# Hide [Create] form if any.
+    crm.hide_form('create_#{entity_name}');
+    -# Show [Edit] form.
+    $('##{id}').html('#{ j render(partial: "edit") }');
+
+  - elsif params[:cancel].false?                    # Called from title of the landing page...
+    $('#edit_#{entity_name}').html('#{ j render(partial: "edit") }');
+    crm.flip_form('edit_#{entity_name}');
+    crm.set_title('edit_#{entity_name}', "#{t :edit} #{j @entity.contact.full_name}");
+
+  function getFormattedDateTime(date){
+  var new_date = new Date(date)
+  var dd = new_date.getDate();
+  var MM = new_date.getMonth()+1;
+  var yyyy = new_date.getFullYear();
+  var hh = new_date.getHours();
+  var mm = new_date.getMinutes();
+  if(dd<10) {
+  dd='0'+dd
+  }
+  if(MM<10) {
+  MM='0'+MM
+  }
+  if(hh<10) {
+  hh='0'+hh
+  }
+  if(mm<10) {
+  mm='0'+mm
+  }
+
+  formatted_date_time = yyyy+'-'+MM+'-'+dd+'T'+hh+':'+mm;
+  return formatted_date_time;
+  }
+
+  function getFormattedDate(date){
+  var new_date = new Date(date)
+  var dd = new_date.getDate();
+  var MM = new_date.getMonth()+1;
+  var yyyy = new_date.getFullYear();
+
+  if(dd<10) {
+  dd='0'+dd
+  }
+  if(MM<10) {
+  MM='0'+MM
+  }
+
+  formatted_date = yyyy+'-'+MM+'-'+dd
+  return formatted_date;
+  }
+
+  function getIsolationPeriodEnd(date) {
+  return getFormattedDateTime(date.setDate(date.getDate()+14));
+  }
+
+  function getInfectiousPeriodStart(date) {
+  return getFormattedDateTime(date.setDate(date.getDate()-2));
+  }
+
+  function getWindowEndDate(date) {
+  return getFormattedDateTime(date.setDate(date.getDate()+2));
+  }
+
+  function getProjectedReturnDate(date) {
+  return getFormattedDate(date.setDate(date.getDate()+15));
+  }
+
+  function loadFacilityFields(facility_inputs) {
+  facility_inputs.forEach(function(input){
+  new Awesomplete(input, {list: #{facilities.to_json.html_safe},
+  replace: function(suggestion) {
+  this.input.value = suggestion.label;
+  this.input.parentElement.nextElementSibling.value = suggestion.value;
+  }});
+  })
+  }
+  var facility_elements = document.querySelectorAll('.facility-field input[type="text"]');
+  loadFacilityFields(facility_elements);
+
+  function loadContactFields(contact_inputs) {
+  contact_inputs.forEach(function(input){
+  new Awesomplete(input, {list: #{contacts.to_json.html_safe},
+  replace: function(suggestion) {
+  this.input.value = suggestion.label;
+  this.input.parentElement.nextElementSibling.value = suggestion.value;
+  }});
+  })
+  }
+  var elements = document.querySelectorAll('.contact-field input[type="text"]');
+  loadContactFields(elements);
+
+  var prependFormWithContactFields = function func(element, sibling_element_id){
+  var new_date = new Date();
+  if ( prependFormWithContactFields.last_call && (prependFormWithContactFields.last_call - new_date) > 0) return true;
+  prependFormWithContactFields.last_call = new Date(new_date.getTime() + 300);
+  event.preventDefault();
+  var time = new_date.getTime();
+  var regexp = new RegExp(element.data('id'), 'g');
+  element.before(element.data('fields').replace(regexp, time));
+  var elements = element.siblings(sibling_element_id).find('.contact-field input[type="text"]').toArray();
+  loadContactFields(elements);
+  var facility_elements = element.siblings(sibling_element_id).find('.facility-field input[type="text"]').toArray();
+  loadFacilityFields(facility_elements);
+  return false;
+  };

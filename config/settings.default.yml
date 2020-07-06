@@ -228,6 +228,11 @@
   :url:
     :controller: index_cases
 - :active: false
+  :text: :tab_facility_cases
+  :icon: :fa-bug
+  :url:
+    :controller: facility_cases
+- :active: false
   :text: :tab_opportunities
   :icon: :fa-money
   :url:
@@ -362,6 +367,19 @@ index_case_category_color:
   :iv  : bisque
   :v   : thistle
 
+facility_case_category:
+  - :i
+  - :ii
+  - :iii
+  - :iv
+  - :v
+
+facility_case_category_color:
+  :i   : lavender
+  :ii  : paleturquoise
+  :iii : pink
+  :iv  : bisque
+  :v   : thistle
 
 # Campaign Status. To add custom status use string value, for example:
 #

@@ -1,0 +1,4 @@
+- if (controller.controller_name == 'facility_cases') and (template = template_for_current_view).present?
+  = render('fat_free_crm/' + template, facility_case: facility_case)
+- else
+  = render 'fat_free_crm/facility_cases/index_brief', facility_case: facility_case

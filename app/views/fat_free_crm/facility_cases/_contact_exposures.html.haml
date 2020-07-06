@@ -1,0 +1,25 @@
+- model = entity.class.name.underscore
+.full-width
+  %details.idc-panel.contact-exposures
+    %summary #{t :contact_exposures}
+    .idc-form-group
+      .form-group.one-quarter
+        %label #{t :interview_at}:
+        = f.datetime_field(:interview_at, {autocomplete: :off, required: true, value:(f.object.interview_at || Time.now).strftime('%Y-%m-%dT%T'), class: 'date form-control'})
+      .form-group.one-quarter.contact-field
+        %label #{t :contact_representative}:
+        = f.text_field(:contact_representative, required: false, class: 'form-control', value: f.object.contact_representative&.full_name)
+        = f.hidden_field(:contact_representative_id)
+      .form-group.one-quarter
+        %label #{t :contact_representative_relationship}:
+        = f.select(:contact_representative_relationship_kind, options_for_select(CovidMostRegistry[:contact_relationship].item, f.object.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
+      .form-group.one-quarter   
+    = f.fields_for :contact_exposure_cases do |contact_exposure_form|
+      = render "fat_free_crm/facility_cases/contact_exposure_case_fields", f: contact_exposure_form
+    #new_contact_exposure
+      = link_to_add_fields "#{t :new_contact_exposure}", f, :contact_exposure_cases
+
+:javascript
+  $(document).on("click",'.contact-exposures .add_fields',function(event) {
+    prependFormWithContactFields($(this), 'div#contact-elicitation-investigation');
+  });

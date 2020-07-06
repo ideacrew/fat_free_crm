@@ -24,6 +24,7 @@ en-US:
   tab_leads: Leads
   tab_accounts: Accounts
   tab_index_cases: Index Cases
+  tab_facility_cases: Facility Cases
   tab_contacts: Contacts
   tab_opportunities: Resources
   tab_team: Team
@@ -407,6 +408,8 @@ en-US:
   total_index_cases: Total
   index_cases: Index Cases
   index_cases_small: index cases
+  facility_cases: Facility Cases
+  facility_cases_small: facility cases
   save_index_case: Save Index Case
   index_case: Index Case
   case_number: Case Number
@@ -627,6 +630,7 @@ en-US:
   work_related?: Work Related?
   Projected_days_away_from_work: Projected Days Away From Work
   hired_on: Hired On
+  save_facility_case: Save Facility Case
 
   #views -> Indexcases
 

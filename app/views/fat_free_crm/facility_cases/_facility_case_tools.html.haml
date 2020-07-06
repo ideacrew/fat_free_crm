@@ -1,0 +1,6 @@
+.tools
+  = hook(:facility_case_tools_before, self, facility_case: facility_case)
+  - if can?(:update, facility_case)
+    = link_to_edit(facility_case)
+  - if can?(:destroy, facility_case)
+    = link_to_delete(facility_case)

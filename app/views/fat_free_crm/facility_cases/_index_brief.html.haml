@@ -1,0 +1,5 @@
+%li.highlight.facility_case{id: "facility_case_#{facility_case.id}"}
+  .flex-container
+    %h3= link_to(facility_case.facility&.name, facility_case)
+    = render "fat_free_crm/facility_cases/facility_case_tools", facility_case: facility_case
+  = hook(:facility_case_bottom, self, facility_case: facility_case)

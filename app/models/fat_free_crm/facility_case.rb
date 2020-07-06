@@ -14,6 +14,10 @@ module FatFreeCrm
 
     serialize  :subscribed_users, Set
 
+    accepts_nested_attributes_for :facility_facility_case,  allow_destroy: true
+    accepts_nested_attributes_for :contact_elicitation_investigation,  allow_destroy: true
+    accepts_nested_attributes_for :facility_case_investigation,  allow_destroy: true
+
   	uses_user_permissions
     acts_as_commentable
     uses_comment_extensions
