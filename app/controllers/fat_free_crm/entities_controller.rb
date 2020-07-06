@@ -239,7 +239,6 @@ module FatFreeCrm
 
     def format_errors(errors)
       content_tag(:ul, extract_errors(errors.to_h).map do |msg|
-        binding.pry
         content_tag(:li, msg)
       end.join.html_safe).html_safe
     end
