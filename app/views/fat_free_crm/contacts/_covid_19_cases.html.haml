@@ -17,11 +17,14 @@
             = index_case.index_case_investigation&.work_related
         .label-value-group.one-sixth
           %div #{t :status}
-          %div
-            = index_case.clinical_investigations.last&.health_event
+          - event = index_case.clinical_investigations.last&.health_event
+          - if event.present?
+            %div #{t :"#{index_case.clinical_investigations.last&.health_event}"}
         .label-value-group.one-quarter
           %div #{t :Projected_days_away_from_work}
-          %div
+          - if index_case.projected_return_date.present?
+            %div
+              = away_from_work_days(index_case)
   - @contact.exposure_cases.each do |exposure_case|
     .card.mt-3
       .card-body.idc-form-group

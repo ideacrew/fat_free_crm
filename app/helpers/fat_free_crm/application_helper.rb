@@ -632,6 +632,12 @@ module FatFreeCrm
       "Contact Tracing"
     end
 
+    def away_from_work_days(index_case)
+      isolation_start = index_case.index_case_investigation.isolation_period_start_at.to_date
+      projected_return_date = [index_case.projected_return_date, index_case.clinical_investigations.last&.projected_return_date || index_case.projected_return_date].max.to_date
+      (projected_return_date - isolation_start).to_i
+    end
+
     private
 
     def show_or_index_action

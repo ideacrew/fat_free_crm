@@ -393,6 +393,7 @@ en-US:
   account_with_title_department: ! '%{title}, %{department} at %{account}'
   account_with_title: ! '%{title} in %{account} account'
   reports_to_account: Report To Account
+  generate_osha_300: Generate OSHA 300
 
     # Views -> Index Cases.
   #----------------------------------------------------------------------------
@@ -625,6 +626,7 @@ en-US:
   case_no: Case No
   work_related?: Work Related?
   Projected_days_away_from_work: Projected Days Away From Work
+  hired_on: Hired On
 
   #views -> Indexcases
 

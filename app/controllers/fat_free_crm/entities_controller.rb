@@ -237,6 +237,27 @@ module FatFreeCrm
       Rails.application.credentials.secret_key_base || Rails.application.secrets.secret_key_base
     end
 
+    def format_errors(errors)
+      content_tag(:ul, extract_errors(errors.to_h).map do |msg|
+        binding.pry
+        content_tag(:li, msg)
+      end.join.html_safe).html_safe
+    end
+
+    def extract_errors(errors, parent_key = nil)
+      messages = []
+
+      errors.each do |key, value|
+        if value.is_a?(Hash)
+          messages += extract_errors(value, key)
+        else
+          messages << (parent_key.present? ? "#{parent_key} #{key} #{value.first}" : "#{key} #{value.first}")
+        end
+      end
+
+      return messages.map(&:humanize)
+    end
+
     def verifier
       ActiveSupport::MessageVerifier.new(secret_key_base, serializer: JSON, digest: 'SHA256')
     end

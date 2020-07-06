@@ -7,6 +7,7 @@
 #------------------------------------------------------------------------------
 module FatFreeCrm
   class AccountsController < EntitiesController
+    include ActionView::Helpers::TagHelper
     before_action :get_data_for_sidebar, only: :index
 
     # GET /accounts
@@ -138,7 +139,7 @@ module FatFreeCrm
       if osha_form.success?
         send_file osha_form.success, filename: "osha_300.xlsx", disposition: 'attachment'
       else
-        redirect_to accounts_path, flash: { error: "OSHA-300 generation failed due to #{osha_form.failure.errors.to_h}" }
+        redirect_to accounts_path, flash: { error: "OSHA-300 generation failed due to " + format_errors(osha_form.failure.errors) }
       end
     end
 
