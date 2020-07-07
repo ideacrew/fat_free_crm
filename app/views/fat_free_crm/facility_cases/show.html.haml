@@ -1,0 +1,16 @@
+- if (template = template_for_current_view)
+  = render(template, facility_case: @facility_case)
+- else
+
+  -# default view
+  = styles_for :task, :contact, :opportunity
+  = render 'fat_free_crm/facility_cases/title_bar', facility_case: @facility_case
+  %div#edit_facility_case{ hidden }
+  = render "fat_free_crm/comments/new", commentable: @facility_case
+  = render partial: "fat_free_crm/shared/timeline", collection: @timeline
+  = hook(:show_facility_case_bottom, self, {entity: @facility_case}) do
+    = render partial: "fat_free_crm/tasks/tasks", locals: {object: @facility_case}
+    /= render "fat_free_crm/contacts/contacts", object: @facility_case
+    /= render "fat_free_crm/opportunities/opportunities", object: @facility_case
+    /= render "fat_free_crm/versions/versions", object: @facility_case
+    = load_select_popups_for(@facility_case, :tasks, :contacts, :opportunities)

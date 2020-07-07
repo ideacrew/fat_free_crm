@@ -30,7 +30,7 @@
   - elsif params[:cancel].false?                    # Called from title of the landing page...
     $('#edit_#{entity_name}').html('#{ j render(partial: "edit") }');
     crm.flip_form('edit_#{entity_name}');
-    crm.set_title('edit_#{entity_name}', "#{t :edit} #{j @entity.contact.full_name}");
+    crm.set_title('edit_#{entity_name}', "#{t :edit} #{j @entity.facility.name}");
 
   function getFormattedDateTime(date){
   var new_date = new Date(date)

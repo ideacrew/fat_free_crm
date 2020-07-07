@@ -1,9 +1,12 @@
 = styles_for :facility_case
 
-.space-between.page-heading
-  .title
-    %h1{id: "create_facility_case_title"} #{t controller_name.to_sym}
-    = image_tag("loading.gif", size: :thumb, id: "loading", style: "display: none;")
+
+/ .space-between.page-heading
+/   .title
+/     %h1{id: "create_facility_case_title"} #{t controller_name.to_sym}
+/     = image_tag("loading.gif", size: :thumb, id: "loading", style: "display: none;")
+
+= render 'fat_free_crm/entities/title_bar'
 
 .remote#create_facility_case{ hidden }
 

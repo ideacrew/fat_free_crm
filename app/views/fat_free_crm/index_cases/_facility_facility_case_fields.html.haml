@@ -6,7 +6,7 @@
   .idc-form-group.card-body
     .form-group.one-quarter.facility-field
       %label #{t :facility_name}:
-      = f.text_field(:facility, required: false, class: 'form-control', value: f.object.facility&.name)
+      = f.text_field(:facility, required: true, class: 'form-control', value: f.object.facility&.name)
       = f.hidden_field(:facility_id)
     = f.fields_for(:facility_exposure_detail, f.object.facility_exposure_detail || FatFreeCrm::Exposures::ContactSimpleExposure.new) do |exposure_detail_form|
       .form-group.one-quarter

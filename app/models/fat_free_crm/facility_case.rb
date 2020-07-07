@@ -8,6 +8,7 @@ module FatFreeCrm
     has_one    :facility, :through => :facility_facility_case
 
  		has_many   :tasks, as: :asset, dependent: :destroy # , :order => 'created_at DESC'
+    has_many   :emails, as: :mediator
 
     has_one    :facility_case_investigation, class_name: "::FatFreeCrm::Investigations::FacilityCaseSimpleInvestigation"
     has_one    :contact_elicitation_investigation, class_name: "::FatFreeCrm::Investigations::ContactElicitationInvestigation"
@@ -25,7 +26,7 @@ module FatFreeCrm
     acts_as_taggable_on :tags
     has_paper_trail versions: {class_name: "FatFreeCrm::Version"}, ignore: [:subscribed_users]
 
-    has_ransackable_associations %w[opportunity]
+    has_ransackable_associations %w[opportunity emails]
     ransack_can_autocomplete
 
   	sortable by: ["created_at DESC", "updated_at DESC"], default: "created_at DESC"

@@ -1,0 +1,11 @@
+.entity-heading
+  %h1.title#edit_facility_case_title= h(@facility_case.facility&.name)
+  = image_tag("loading.gif", size: :thumb, id: "loading", style: "display: none;")
+  #confirm{ hidden }
+  .title_tools#menu
+    = link_to_inline(:edit_facility_case, edit_facility_case_path(@facility_case), text: t(:edit))
+    = link_to_function(t(:delete), confirm_delete(@facility_case))
+  .title_tools#buttons
+    = view_buttons
+
+%div#edit_facility_case{ hidden }

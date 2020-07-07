@@ -6,7 +6,7 @@
   .idc-form-group.card-body
     .form-group.one-quarter.contact-field
       %label #{t :contact_exposed}:
-      = f.text_field(:contact, required: false, class: 'form-control', value: f.object.contact&.full_name)
+      = f.text_field(:contact, required: true, class: 'form-control', value: f.object.contact&.full_name)
       = f.hidden_field(:contact_id)
     = f.fields_for(:contact_exposure_detail, f.object.contact_exposure_detail || FatFreeCrm::Exposures::ContactSimpleExposure.new) do |exposure_detail_form|
       .form-group.one-quarter
