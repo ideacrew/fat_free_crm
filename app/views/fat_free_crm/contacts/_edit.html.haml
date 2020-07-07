@@ -20,3 +20,6 @@
     .buttonbar
       = f.submit t(:save_contact), onclick: "crm.save_contact()", :class => 'btn btn-primary'
       = link_to_cancel edit_contact_path(@contact), :class => 'btn btn-link'
+
+  = javascript_include_tag("awesomplete")
+  = stylesheet_link_tag("awesomplete")

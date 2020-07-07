@@ -9,6 +9,14 @@ module FatFreeCrm
       has_paper_trail versions: {class_name: "FatFreeCrm::Version"}
       acts_as_commentable
       uses_comment_extensions
+
+      def self_quarantine
+        if need_assistance_to_self_quarantine
+          :need_assistance_to_self_quarantine
+        else
+          :can_self_quarantine
+        end
+      end
     end
   end
 end

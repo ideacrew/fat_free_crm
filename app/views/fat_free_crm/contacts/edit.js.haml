@@ -1,6 +1,7 @@
 - entity_name = controller.controller_name.demodulize.singularize.underscore #account
 - @entity = instance_variable_get("@#{entity_name}")
 - id = "#{entity_name}_#{@entity.id}"
+- contacts = FatFreeCrm::Contact.all.pluck(:first_name, :last_name, :id).map { |(first_name, last_name, id)| ["#{first_name} #{last_name}", id]}
 
 - if params[:cancel].true? # <--------------------- Hide [Edit]
 
@@ -31,6 +32,31 @@
     $('#edit_#{entity_name}').html('#{ j render(partial: "edit") }');
     crm.flip_form('edit_#{entity_name}');
     crm.set_title('edit_#{entity_name}', "#{t :edit} #{h @entity.full_name}");
+
+  function loadContactFields(contact_inputs) {
+  contact_inputs.forEach(function(input){
+  new Awesomplete(input, {list: #{contacts.to_json.html_safe},
+  replace: function(suggestion) {
+  this.input.value = suggestion.label;
+  this.input.parentElement.nextElementSibling.value = suggestion.value;
+  }});
+  })
+  }
+  var elements = document.querySelectorAll('.contact-field input[type="text"]');
+  loadContactFields(elements);
+
+  var prependFormWithContactFields = function func(element, sibling_element_id){
+  var new_date = new Date();
+  if ( prependFormWithContactFields.last_call && (prependFormWithContactFields.last_call - new_date) > 0) return true;
+  prependFormWithContactFields.last_call = new Date(new_date.getTime() + 300);
+  event.preventDefault();
+  var time = new_date.getTime();
+  var regexp = new RegExp(element.data('id'), 'g');
+  element.before(element.data('fields').replace(regexp, time));
+  var elements = element.siblings(sibling_element_id).find('.contact-field input[type="text"]').toArray();
+  loadContactFields(elements);
+  return false;
+  };
 
   var facility_and_level = #{raw FatFreeCrm::Level.all.group_by(&:facility_id).reduce({}) { |result, (facility_id, levels)| result.merge facility_id => levels.map(&:attributes) }.to_json}
   var assignments = document.querySelector('.contact-assignments')

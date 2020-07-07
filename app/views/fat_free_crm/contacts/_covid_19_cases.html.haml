@@ -25,6 +25,8 @@
           - if index_case.projected_return_date.present?
             %div
               = away_from_work_days(index_case)
+        .form-group.one-column.shove-down
+          = link_to("#{t :view}", index_case_path(index_case), class: 'btn btn-primary')
   - @contact.exposure_cases.each do |exposure_case|
     .card.mt-3
       .card-body.idc-form-group
@@ -46,5 +48,10 @@
         .label-value-group.one-quarter
           %div #{t :Projected_days_away_from_work}
           %div 
-
+        .form-group.one-column.shove-down
+          %button.btn.btn-primary{id: "exposureCaseEditButton"  ,"data-target" => "#edit-exposure-case-form_#{exposure_case.id}", "data-toggle" => "collapse", type: "button"}
+            #{t :edit}
+      %div.collapse.navbar-collapse{id: "edit-exposure-case-form_#{exposure_case.id}"}
+        = f.fields_for(:exposure_cases, exposure_case) do |exposure_case_form|
+          = render "fat_free_crm/contacts/exposure_case_investigation", f: exposure_case_form, exposure_case: exposure_case, contact: entity
 

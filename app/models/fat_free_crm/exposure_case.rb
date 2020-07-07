@@ -15,6 +15,8 @@ module FatFreeCrm
 
     serialize :subscribed_users, Set
 
+    enum work_related: { unknown: 'Unknown', likely: 'Likely', unlikely: 'Unlikely'}
+
     # Search by name OR id
     scope :text_search, lambda { |query|
       if query.match?(/\A\d+\z/)

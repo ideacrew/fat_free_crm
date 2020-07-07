@@ -53,7 +53,9 @@ module FatFreeCrm
     def edit
       @account = @contact.account || Account.new(user: current_user)
       @previous = Contact.my(current_user).find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i if params[:previous].to_s =~ /(\d+)\z/
-
+      @contact.exposure_cases.each do |exposure_case|
+        exposure_case.build_exposure_case_investigation
+      end
       respond_with(@contact)
     end
 
@@ -139,11 +141,6 @@ module FatFreeCrm
     def new_absence
       @contact ||= FatFreeCrm::Contact.new
       @absence = @contact.absences.build
-    end
-
-    def new_exposure
-      @contact ||= FatFreeCrm::Contact.new
-      @exposure = @contact.opportunities.build
     end
 
     # PUT /contacts/1/expose

@@ -11,7 +11,7 @@ module FatFreeCrm
       uses_comment_extensions
 
       def self_isolate
-		if need_assistance_to_self_isolate
+        if need_assistance_to_self_isolate
           :need_assistance_to_self_isolate
         else
           :can_self_isolate
