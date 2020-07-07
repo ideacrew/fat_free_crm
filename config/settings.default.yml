@@ -213,6 +213,11 @@
   :url:
     :controller: campaigns
 - :active: false
+  :text: :tab_facilities
+  :icon: :fa-building
+  :url:
+    :controller: facilities
+- :active: false
   :text: :tab_accounts
   :icon: :fa-users
   :url:

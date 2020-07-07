@@ -1,0 +1,21 @@
+= styles_for :facility
+
+- model_name = controller_name.singularize
+
+.space-between.page-heading
+  .title
+    %h1{id: "create_#{model_name}_title"} #{t controller_name.to_sym}
+
+= render '/fat_free_crm/shared/search'
+
+.remote#options{ hidden }
+
+%ul.list#facilities
+  - if @facilities.any?
+    - @facilities.each do |facility|
+      = render "fat_free_crm/facilities/facility_lite", facility: facility
+  - else
+    = render "fat_free_crm/shared/empty"
+
+#paginate= render "fat_free_crm/shared/paginate_with_per_page", path: "admin_facilities"
+#export= render "fat_free_crm/shared/export"

@@ -8,6 +8,9 @@ module FatFreeCrm
     has_and_belongs_to_many :accounts
     has_many :contacts, through: :accounts
 
+    has_many :facility_facility_cases, dependent: :destroy
+    has_many :facility_cases, through: :facility_facility_cases
+
     scope :contact_contact, -> { self.accounts.sum(&:contact_count) }
 
     uses_user_permissions

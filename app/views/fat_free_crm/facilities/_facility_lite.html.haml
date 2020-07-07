@@ -1,0 +1,7 @@
+%li.highlight.facility{id: "facility_#{facility.name}"}
+  .flex-container
+    %h3= link_to(facility.name, admin_facility_path(facility))
+    .tools
+      = hook(:facility_tools_before, self, facility: facility)
+      = link_to_create_facility_case(facility)
+  = hook(:facility_bottom, self, facility: facility)

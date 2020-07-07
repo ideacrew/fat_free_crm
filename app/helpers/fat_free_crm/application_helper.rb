@@ -439,6 +439,14 @@ module FatFreeCrm
         class: 'btn btn-sm idc-convert-button')
     end
 
+    def link_to_create_facility_case(facility)
+      link_to(t(:create_case), create_case_facility_path(facility),
+        method: :post,
+        with:   "{ previous: crm.find_form('create_facility_case') }",
+        remote: true, 
+        class: 'btn btn-sm idc-convert-button')
+    end
+
     def entity_filter_checkbox(name, value, count)
       checked = (session["#{controller_name}_filter"].present? ? session["#{controller_name}_filter"].split(",").include?(value.to_s) : count.to_i.positive?)
       url = url_for(action: :filter)

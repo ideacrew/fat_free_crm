@@ -64,7 +64,6 @@ FatFreeCrm::Engine.routes.draw do
     end
   end
 
-
   resources :facility_cases, id: /\d+/ do
     collection do
       get :advanced_search
@@ -85,6 +84,18 @@ FatFreeCrm::Engine.routes.draw do
     #   get :opportunities
     #   get :new_exposure
     # end
+  end
+
+  resources :facilities, id: /\d+/ do
+    collection do
+      get :advanced_search
+      post :filter
+      get :redraw
+    end
+
+    member do 
+      post :create_case
+    end
   end
 
   resources :accounts, id: /\d+/ do
