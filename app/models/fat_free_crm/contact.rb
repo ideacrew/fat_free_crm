@@ -179,6 +179,12 @@ module FatFreeCrm
         exposure_case = self.exposure_cases.find(attrs[:id])
         next unless exposure_case
         exposure_attributes = attrs
+
+        if attrs[:exposure_case_investigation_attributes][:self_quarantine]
+          quarantine_preference = exposure_attributes['exposure_case_investigation_attributes'].delete('self_quarantine')
+          exposure_attributes['exposure_case_investigation_attributes'][quarantine_preference] = true
+        end
+
         if attrs[:clinical_investigations_attributes]
           clinical_investigations_nested_params = attrs[:clinical_investigations_attributes].to_h.inject({}) do |data, (index, attributes)|
 
@@ -194,6 +200,7 @@ module FatFreeCrm
           exposure_attributes[:clinical_investigations_attributes] = convert_to_params(clinical_investigations_nested_params).permit!
         end
 
+        exposure_case.build_exposure_case_investigation if exposure_case.exposure_case_investigation.blank?
         exposure_case.update(exposure_attributes)
       end
 

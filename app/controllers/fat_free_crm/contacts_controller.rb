@@ -54,7 +54,7 @@ module FatFreeCrm
       @account = @contact.account || Account.new(user: current_user)
       @previous = Contact.my(current_user).find_by_id(Regexp.last_match[1]) || Regexp.last_match[1].to_i if params[:previous].to_s =~ /(\d+)\z/
       @contact.exposure_cases.each do |exposure_case|
-        exposure_case.build_exposure_case_investigation
+        exposure_case.build_exposure_case_investigation if exposure_case.exposure_case_investigation.blank?
       end
       respond_with(@contact)
     end

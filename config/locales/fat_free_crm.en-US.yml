@@ -638,7 +638,8 @@ en-US:
   case_reference: External Case Reference Number
   self_quarantine: Self Quarantine
   can_self_quarantine: Unassisted
-  need_assitance_to_self_quarantine: Need Assistance
+  need_assistance_to_self_quarantine: Need Assistance
+  exposure_case: Exposure Case
 
   #views -> Indexcases
 

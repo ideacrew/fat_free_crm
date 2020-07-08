@@ -6,22 +6,22 @@
     %label #{t :case_number}:
     .form-control
       = exposure_case.case_number
-  .form-group.one-quarter
-    %label #{t :interview_at}:
-    #interview-at
-      = datetime_field_tag('exposure_case[exposure_case_investigation][interview_at]', (exposure_case.exposure_case_investigation&.interview_at || Time.now).strftime('%Y-%m-%dT%T'), {autocomplete: :off, required: true, class: 'date form-control'})
-  .form-group.one-third
-    %label #{t :self_quarantine}:
-    = collection_radio_buttons('exposure_case[exposure_case_investigation]', 'self_quarantine',  [[:can_self_quarantine], [:need_assitance_to_self_quarantine]], :first, :first) do |b|
-      .form-check
-        = b.label(:"data-value" => b.value, class: 'form-check-label') { b.radio_button(checked: (exposure_case.exposure_case_investigation&.self_quarantine == b.value), class: 'form-check-input') + t(b.text) }
-  .form-group.one-quarter
-    %label #{t :is_work_related?}:
-    = select_tag("exposure_case[exposure_case_investigation][work_related]", options_for_select(FatFreeCrm::ExposureCase.work_relateds.map { |(w)| [w.humanize, w] }, exposure_case.exposure_case_investigation&.work_related), {:class => "form-control"})
+  = f.fields_for(:exposure_case_investigation, f.object.exposure_case_investigation || FatFreeCrm::Investigations::ExposureCaseSimpleInvestigation.new) do |form|
+    .form-group.one-quarter
+      %label #{t :interview_at}:
+      #interview-at
+        = form.datetime_field(:interview_at, value: (form.object&.interview_at || Time.now).strftime('%Y-%m-%dT%T'), autocomplete: :off, required: true, class: 'date form-control')
+    .form-group.one-third
+      %label #{t :self_quarantine}:
+      = form.collection_radio_buttons(:self_quarantine,  [[:can_self_quarantine], [:need_assistance_to_self_quarantine]], :first, :first) do |b|
+        .form-check
+          = b.label(:"data-value" => b.value, class: 'form-check-label') { b.radio_button(checked: (exposure_case.exposure_case_investigation&.self_quarantine == b.value), class: 'form-check-input') + t(b.text) }
+    .form-group.one-quarter
+      %label #{t :is_work_related?}:
+      = form.select(:work_related, FatFreeCrm::ExposureCase.work_relateds.map { |(w)| [w.humanize, w] }, {selected:exposure_case.exposure_case_investigation&.work_related}, :class => "form-control")
   .form-group.one-quarter
     %label #{t :projected_return_date}:
     #projected-return-date
-      = date_field_tag("exposure_case[projected_return_date]", exposure_case.projected_return_date&.strftime('%Y-%m-%d'), class: 'form-control')
+      = f.date_field(:projected_return_date, value: exposure_case.projected_return_date&.strftime('%Y-%m-%d'), class: 'form-control')
     
 = render "fat_free_crm/contacts/clinical_investigations", f: f, contact: contact, exposure_case: exposure_case
-
