@@ -633,6 +633,9 @@ en-US:
   hired_on: Hired On
   save_facility_case: Save Facility Case
   create_facility_case: Create Facility Case
+  reported_by: Case Reported By
+  reported_at: Case Reported At
+  case_reference: External Case Reference Number
 
   #views -> Indexcases
 
