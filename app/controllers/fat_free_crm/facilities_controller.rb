@@ -36,6 +36,8 @@ module FatFreeCrm
     def create_case
       @facility_index = get_facilities.index(@facility)
       @facility.facility_facility_cases.create
+
+      redirect_to facility_cases_path, flash: {notice: 'Facility Case Created Successfully.'}
     end
 
     # POST /facilities/filter                                                  AJAX

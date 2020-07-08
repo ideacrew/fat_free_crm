@@ -443,7 +443,7 @@ module FatFreeCrm
       link_to(t(:create_case), create_case_facility_path(facility),
         method: :post,
         with:   "{ previous: crm.find_form('create_facility_case') }",
-        remote: true, 
+        remote: false,
         class: 'btn btn-sm idc-convert-button')
     end
 
