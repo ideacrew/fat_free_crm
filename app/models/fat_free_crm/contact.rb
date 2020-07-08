@@ -170,7 +170,33 @@ module FatFreeCrm
     # Backend handler for [Update Contact] form (see contact/update).
     #----------------------------------------------------------------------------
     def update_with_account_and_permissions(params)
+      exposure_cases_attributes = params[:contact].delete('exposure_cases_attributes')
+
       save_account(params)
+
+      exposure_cases = exposure_cases_attributes.values
+      exposure_cases.each do |attrs|
+        exposure_case = self.exposure_cases.find(attrs[:id])
+        next unless exposure_case
+        exposure_attributes = attrs
+        if attrs[:clinical_investigations_attributes]
+          clinical_investigations_nested_params = attrs[:clinical_investigations_attributes].to_h.inject({}) do |data, (index, attributes)|
+
+            elements = attributes.tap do |params|
+              attributes[:contact_representative] = find_contact(attributes[:contact_representative_id])
+              attributes[:health_care_provider_contact] = find_contact(attributes[:health_care_provider_contact_id])
+            end
+
+            data[index] = convert_to_params(elements)
+            data
+          end
+
+          exposure_attributes[:clinical_investigations_attributes] = convert_to_params(clinical_investigations_nested_params).permit!
+        end
+
+        exposure_case.update(exposure_attributes)
+      end
+
       # Must set access before user_ids, because user_ids= method depends on access value.
       self.access = params[:contact][:access] if params[:contact][:access]
       self.attributes = params[:contact]
@@ -254,6 +280,16 @@ module FatFreeCrm
                     else
                       nil
                     end
+    end
+
+    def find_contact(contact_id)
+      return nil if contact_id.blank?
+
+      FatFreeCrm::Contact.find(contact_id)
+    end
+
+    def convert_to_params(data)
+      ActionController::Parameters.new(data)
     end
 
     ActiveSupport.run_load_hooks(:fat_free_crm_contact, self)

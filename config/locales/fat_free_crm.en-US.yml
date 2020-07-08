@@ -636,6 +636,9 @@ en-US:
   reported_by: Case Reported By
   reported_at: Case Reported At
   case_reference: External Case Reference Number
+  self_quarantine: Self Quarantine
+  can_self_quarantine: Unassisted
+  need_assitance_to_self_quarantine: Need Assistance
 
   #views -> Indexcases
 
