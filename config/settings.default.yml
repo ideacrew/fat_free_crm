@@ -233,11 +233,6 @@
   :url:
     :controller: opportunities
 - :active: false
-  :text: :tab_opportunities
-  :icon: :fa-money
-  :url:
-    :controller: opportunities
-- :active: false
   :text: :tab_team
   :icon: :fa-globe
   :url:

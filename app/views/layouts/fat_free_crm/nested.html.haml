@@ -1,22 +1,20 @@
-- content_for(:head) do
-  %meta{ "http-equiv" => "Content-Type", content: "text/html; charset=utf-8" }
-  %title COVID-19 Exchange
+- content_for(:main_head) do
   == <!-- #{controller.controller_name} : #{controller.action_name} -->
-  
-  %link{ :rel => "stylesheet", 
-    :href => "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css", 
-    :integrity => "sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh", 
-    :crossorigin => "anonymous" }
+  = javascript_include_tag 'application'
 
-  = stylesheet_link_tag :application
-  = hook(:stylesheet_includes, self) do
-    #{yield :stylesheet_includes}
+  -# %link{ :rel => "stylesheet", 
+  -#   :href => "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css", 
+  -#   :integrity => "sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh", 
+  -#   :crossorigin => "anonymous" }
+
+  -# = stylesheet_link_tag :application
+  -# = hook(:stylesheet_includes, self) do
+  -#   #{yield :stylesheet_includes}
   -# %style= yield :styles
 
-  %link{ :href => "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap", 
-    :rel => "stylesheet" }
+  -# %link{ :href => "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap", 
+  -#   :rel => "stylesheet" }
 
-  = csrf_meta_tag
   = hook(:javascript_includes, self)
 
   :javascript
@@ -34,8 +32,8 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   %script{ src: "https://use.fontawesome.com/7b172fda6f.js"}
 
-- content_for(:body) do
-  .container
+- content_for(:main_body) do
+  %div
     = render "layouts/fat_free_crm/header"
     - if tabless_layout?
       = render "layouts/fat_free_crm/tabless"
@@ -49,4 +47,4 @@
     = content_for :javascript_epilogue
     = hook(:javascript_epilogue, self)
 
-= render template: 'layouts/application'
+= render template: 'layouts/main'
