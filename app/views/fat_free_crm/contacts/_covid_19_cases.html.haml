@@ -17,7 +17,7 @@
             = index_case.index_case_investigation&.work_related.to_s.humanize
         .label-value-group.one-sixth
           %div #{t :status}
-          - event = index_case.clinical_investigations.last&.health_event
+          - event = index_case.clinical_investigations.last&.health_event&.to_sym
           - if event.present?
             %div #{t :"#{index_case.clinical_investigations.last&.health_event}"}
         .label-value-group.one-quarter
@@ -44,7 +44,7 @@
         .label-value-group.one-sixth
           %div #{t :status}
           %div
-            = t(exposure_case.clinical_investigations.last&.health_event.to_sym)
+            = t(exposure_case.clinical_investigations.last&.health_event&.to_sym)
         .label-value-group.one-quarter
           %div #{t :Projected_days_away_from_work}
           %div 
