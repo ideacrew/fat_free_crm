@@ -53,6 +53,8 @@ en-US:
   office: Commercial Office
   branch_office: Commercial Office & Full Service Branch 
   corporate_office: Corporate Office
+  atm: ATM
+  kiosk: Kiosk
 
   isolation: Isolation
 
@@ -490,6 +492,9 @@ en-US:
   employee: Employee
   contractor: Contractor
   customer: Customer
+  health_care_provider: Health Care Provider
+  contact_representative: Contact Representative
+  public_health_agency_representative: Public Health Agency Representative
   create_contact: Create Contact
   department: Department
   department_small: ! '%{value} department'
@@ -536,6 +541,8 @@ en-US:
   pto: PTO
   covid_19_isolation:  Isolation Due To Covid
   covid_19_quarantine: In Quarantine
+  tested_positive: Tested Positive
+  exposed: Exposed
   assignments: Assignments
   new_assignment: New Assignment
   exposed_contact: Save Exposure

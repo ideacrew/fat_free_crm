@@ -154,15 +154,10 @@ module FatFreeCrm
     # PUT /contacts/1/exposed
     #----------------------------------------------------------------------------
     def exposed
-      @opportunity = FatFreeCrm::Opportunity.find(params[:opportunity_id])
-      if @opportunity.name == "Tested Positive"
+      if params[:case_type] == "tested_positive"
         @created_record = ::IndexCases::Create.new.call(@contact, params.permit!).value!
       else
         @created_record = ::ExposureCases::Create.new.call(@contact, params.permit!).value!
-        # @contact.contact_opportunities.create(params[:opportunity].permit!.merge(opportunity: @opportunity).except(:symptom_onset_at))
-        # @contact.absences.create(kind: 'covid_19_quarantine',
-        #   start_on: @created_record.source_start_at.beginning_of_day,
-        #   end_on: @created_record.source_start_at.end_of_day + 13.days)
       end
 
       respond_with(@contact)

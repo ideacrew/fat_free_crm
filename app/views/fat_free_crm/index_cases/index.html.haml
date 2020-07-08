@@ -14,8 +14,6 @@
 %ul.list#index_cases
   - if @index_cases.any?
     = render @index_cases
-  - else
-    = render "fat_free_crm/shared/empty"
 
 #paginate= render "fat_free_crm/shared/paginate_with_per_page"
 #export= render "fat_free_crm/shared/export"
