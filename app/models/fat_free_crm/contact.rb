@@ -174,36 +174,15 @@ module FatFreeCrm
 
       save_account(params)
 
-      exposure_cases = exposure_cases_attributes.values
-      exposure_cases.each do |attrs|
-        exposure_case = self.exposure_cases.find(attrs[:id])
-        next unless exposure_case
-        exposure_attributes = attrs
+      exposure_cases = exposure_cases_attributes&.values
+      if exposure_cases
+        exposure_cases.each do |attrs|
+          exposure_case = self.exposure_cases.find(attrs[:id])
+          next unless exposure_case
 
-        if attrs[:exposure_case_investigation_attributes][:self_quarantine]
-          quarantine_preference = exposure_attributes['exposure_case_investigation_attributes'].delete('self_quarantine')
-          exposure_attributes['exposure_case_investigation_attributes'][quarantine_preference] = true
+          ExposureCases::Update.new.call(exposure_case: exposure_case, params: attrs)
         end
-
-        if attrs[:clinical_investigations_attributes]
-          clinical_investigations_nested_params = attrs[:clinical_investigations_attributes].to_h.inject({}) do |data, (index, attributes)|
-
-            elements = attributes.tap do |params|
-              attributes[:contact_representative] = find_contact(attributes[:contact_representative_id])
-              attributes[:health_care_provider_contact] = find_contact(attributes[:health_care_provider_contact_id])
-            end
-
-            data[index] = convert_to_params(elements)
-            data
-          end
-
-          exposure_attributes[:clinical_investigations_attributes] = convert_to_params(clinical_investigations_nested_params).permit!
-        end
-
-        exposure_case.build_exposure_case_investigation if exposure_case.exposure_case_investigation.blank?
-        exposure_case.update(exposure_attributes)
       end
-
       # Must set access before user_ids, because user_ids= method depends on access value.
       self.access = params[:contact][:access] if params[:contact][:access]
       self.attributes = params[:contact]
@@ -287,16 +266,6 @@ module FatFreeCrm
                     else
                       nil
                     end
-    end
-
-    def find_contact(contact_id)
-      return nil if contact_id.blank?
-
-      FatFreeCrm::Contact.find(contact_id)
-    end
-
-    def convert_to_params(data)
-      ActionController::Parameters.new(data)
     end
 
     ActiveSupport.run_load_hooks(:fat_free_crm_contact, self)
