@@ -27,21 +27,6 @@
     -# Show [Edit] form.
     $('##{id}').html('#{ j render(partial: "expose", locals: {time: time}) }');
 
-    var input = document.getElementById("opportunity_id");
-    input.addEventListener("change", function(event) {
-    var exposed_inputs = document.getElementById('exposed');
-    var tested_positive_inputs = document.getElementById('tested-positive');  
-    var tested_positive = event.currentTarget.querySelector("option:checked").text == "Tested Positive";
-    var notifiedAt = document.getElementById('notified-at');
-    if (tested_positive) {
-    notifiedAt.setAttribute('required', "");
-    exposed_inputs.style.display = 'none';
-    } else {
-    notifiedAt.removeAttribute('required');
-    exposed_inputs.style.display = 'grid';
-    }
-    })
-
     var notified_by = document.getElementById("self_notified");
     var notified_by_inputs = document.getElementById('notifying-contact-details');
     var notified_by_contact = document.querySelector('#contact_#{time} input[type="text"]');
@@ -51,7 +36,7 @@
     notified_by_inputs.style.display = 'none';
     } else {
     notified_by_contact.setAttribute('required', "");
-    notified_by_inputs.style.display = 'grid';
+    notified_by_inputs.style.display = 'contents';
     }
     })
 

@@ -302,6 +302,10 @@ absence_category:
   - :covid_19_isolation
   - :covid_19_quarantine
 
+case_type:
+  - :tested_positive
+  - :exposed
+
 identifier_category:
   - :employee_id
 
@@ -324,6 +328,9 @@ contact_category:
   - :employee
   - :contractor
   - :customer
+  - :health_care_provider
+  - :contact_representative
+  - :public_health_agency_representative
 
 contact_category_color:
   :executive   : lavender
