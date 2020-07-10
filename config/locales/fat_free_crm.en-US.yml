@@ -638,6 +638,7 @@ en-US:
   work_related?: Work Related?
   Projected_days_away_from_work: Projected Days Away From Work
   hired_on: Hired On
+  born_on: Born On
   save_facility_case: Save Facility Case
   create_facility_case: Create Facility Case
   reported_by: Case Reported By

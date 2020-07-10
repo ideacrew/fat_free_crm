@@ -1,10 +1,7 @@
 - entities = controller.controller_name # index_cases
 - @entities = instance_variable_get("@#{entities}")
 
-- if @entities.any?
-  $('##{entities}').html('#{ j render(@entities) }');
-- else
-  $('##{entities}').html('#{ j render(partial: "fat_free_crm/shared/empty") }');
+$('##{entities}').html('#{ j render(@entities) }');
 
 $('#paginate').html('#{ j render(partial: "fat_free_crm/shared/paginate_with_per_page") }');
 $('#export').html('#{ j render(partial: "fat_free_crm/shared/export") }');

@@ -1,5 +1,6 @@
-= f.hidden_field :_destroy
-= f.hidden_field :id, value: f.object&.id
+- if f.object&.persisted?
+  = f.hidden_field :_destroy
+  = f.hidden_field :id, value: f.object&.id
 .card.mt-3#exposure-case-clinical-investigation
   .card-body.idc-form-group
     .form-group.one-quarter
