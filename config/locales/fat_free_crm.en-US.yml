@@ -862,6 +862,7 @@ en-US:
   select_existing: select existing
   delete: Delete
   discard: Discard
+  view: View
   edit: Edit
   items_total: ! '%{count} total.'
   less: Less...
