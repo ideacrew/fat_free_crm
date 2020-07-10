@@ -17,6 +17,9 @@
       %label #{t :preferred_name}:
       = f.text_field :preferred_name, :class => "form-control"
     .form-group.one-quarter
+      %label #{t :born_on}:
+      = f.date_field(:born_on, class: 'form-control')
+    .form-group.one-quarter
       %label #{t :gender}:
       = f.select(:gender, FatFreeCrm::Contact.genders.map { |(w)| [w.humanize, w] }, {}, :class => "form-control")
     .form-group.one-quarter

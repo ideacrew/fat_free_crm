@@ -1,5 +1,6 @@
-= f.hidden_field :_destroy
-= f.hidden_field :id, value: f.object&.id
+- if f.object.persisted?
+  = f.hidden_field :_destroy
+  = f.hidden_field :id, value: f.object&.id
 .card.mt-3#contact-elicitation-investigation
   .card-header
     #{t :contact_exposure_case}
