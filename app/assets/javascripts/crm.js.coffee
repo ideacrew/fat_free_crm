@@ -334,8 +334,8 @@
         @hide_hint destination, source.val()  unless source.attr("hint") is "true"
 
       # Country dropdown needs special treatment ;-)
-      country = $("#" + from + "_attributes_country").select2("data")
-      $("#" + to + "_attributes_country").select2("data", country, true)
+      country = $("#" + from + "_attributes_country").val()
+      $("#" + to + "_attributes_country").val(country)
 
 
     #----------------------------------------------------------------------------
