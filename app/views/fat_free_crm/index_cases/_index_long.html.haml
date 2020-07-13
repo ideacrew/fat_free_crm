@@ -18,7 +18,7 @@
     = " | ".html_safe << link_to_email(index_case.email) if index_case.email.present?
     - if index_case.toll_free_phone? || index_case.phone?
       .phone-number
-        = " | ".html_safe << t(:phone_small) << ": " << (index_case.toll_free_phone? ? index_case.toll_free_phone : index_case.phone) 
+        = " | ".html_safe << t(:phone_small) << ": " << formatted_phone_number((index_case.toll_free_phone? ? index_case.toll_free_phone : index_case.phone))
   - if index_case.tags.present?
     .tags= tags_for_index(index_case)
 

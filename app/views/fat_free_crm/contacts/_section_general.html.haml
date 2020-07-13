@@ -13,7 +13,7 @@
       %div=contact.email
     %span
       %b=t(:phone)
-      %div.phone-number=contact.phone
+      %div.phone-number=formatted_phone_number(contact.phone)
     %span
       = t(:account) do
         %b= account_with_url_for(contact)

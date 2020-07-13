@@ -6,7 +6,7 @@
     .form-group.one-quarter
       %label #{t :phone}:
       .form-control
-        = @index_case.contact.phone
+        = formatted_phone_number(@index_case.contact.phone)
     .form-group.one-half
       %label #{t :email}:
       .form-control
