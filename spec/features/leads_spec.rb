@@ -12,6 +12,10 @@ feature 'Leads', '
   As a user
   I want to manage leads
 ' do
+
+  let(:create_registry) { Object.const_set('CovidMostRegistry', {google_api: google_api}) }
+  let(:google_api) { double(setting:  double(item: ENV['GOOGLE_API_KEY']))}
+
   before(:each) do
     self.class.include FatFreeCrm::Engine.routes.url_helpers
     do_login_if_not_already(first_name: 'Bill', last_name: 'Murray')
@@ -29,6 +33,7 @@ feature 'Leads', '
 
   scenario 'should create a new lead', js: true do
     with_versioning do
+      create_registry
       visit leads_page
       click_link 'Create Lead'
       expect(page).to have_selector('#lead_first_name', visible: true)
@@ -80,6 +85,7 @@ feature 'Leads', '
   scenario 'should view and edit a lead', js: true do
     create(:lead, first_name: "Mr", last_name: "Lead", email: "mr_lead@example.com")
     with_versioning do
+      create_registry
       visit leads_page
       click_link 'Mr Lead'
       expect(page).to have_content('Mr Lead')

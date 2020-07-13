@@ -25,12 +25,16 @@
 #  deleted_at       :datetime
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require 'spec_helper'
 
 module FatFreeCrm
-describe Address do
-  it "should create a new instance given valid attributes" do
-    Address.create!(street1: "street1", street2: "street2", city: "city", state: "state", zipcode: "zipcode", country: "country", full_address: "fa", address_type: "Lead", addressable: create(:lead))
-  end
-end
+	describe Address do
+	  let(:create_registry) { Object.const_set('CovidMostRegistry', {google_api: google_api}) }
+	  let(:google_api) { double(setting:  double(item: ENV['GOOGLE_API_KEY']))}
+
+	  it "should create a new instance given valid attributes" do
+	    create_registry
+	    FatFreeCrm::Address.create!(street1: "street1", street2: "street2", city: "city", state: "state", zipcode: "zipcode", country: "country", full_address: "fa", address_type: "Lead", addressable: create(:lead))
+	  end
+	end
 end
