@@ -35,7 +35,7 @@ feature 'Accounts', '
       select 'Branch', from: 'account_category'
       select 'Myself', from: 'account_assigned_to'
       find("summary", text: 'Contact Information').click
-      fill_in 'account_phone', with: '+1 2345 6789'
+      fill_in 'account_phone', with: '+1 112233 6789'
       fill_in 'account_website', with: 'http://www.example.com'
       find("summary", text: 'Comment').click
       fill_in 'comment_body', with: 'This account is very important'
