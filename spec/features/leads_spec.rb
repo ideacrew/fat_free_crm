@@ -40,7 +40,7 @@ feature 'Leads', '
       fill_in 'lead_first_name', with: 'Mr'
       fill_in 'lead_last_name', with: 'Lead'
       fill_in 'lead_email', with: 'mr_lead@example.com'
-      fill_in 'lead_phone', with: '+44 1234 567890'
+      fill_in 'lead_phone', with: '+18 000000000'
       expand_status
       find("select", id: "lead_assigned_to", wait: 10).select('Myself')
       #select 'Myself', from: 'lead_assigned_to'
