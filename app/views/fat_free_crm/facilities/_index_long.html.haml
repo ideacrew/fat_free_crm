@@ -18,7 +18,7 @@
     = " | ".html_safe << link_to_email(facility.email) if facility.email.present?
     - if facility.toll_free_phone? || facility.phone?
       .phone-number
-        = " | ".html_safe << t(:phone_small) << ": " << (facility.toll_free_phone? ? facility.toll_free_phone : facility.phone) 
+        = " | ".html_safe << t(:phone_small) << ": " << (facility.toll_free_phone? ? formatted_phone_number(facility.toll_free_phone) : formatted_phone_number(facility.phone)) 
   - if facility.tags.present?
     .tags= tags_for_index(facility)
 

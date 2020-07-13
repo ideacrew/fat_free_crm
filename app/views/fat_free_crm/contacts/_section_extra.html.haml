@@ -13,7 +13,7 @@
       %div= contact.alt_email
     %span
       %b= t(:mobile)
-      .phone-number= contact.mobile
+      .phone-number=formatted_phone_number(contact.mobile)
     %span
       %b= t(:fax)
       %div= contact.fax

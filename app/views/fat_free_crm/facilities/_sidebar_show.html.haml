@@ -13,10 +13,10 @@
 
   %div
     - if @facility.toll_free_phone
-      #{t :phone_toll_free}: <b class="phone-number">#{@facility.toll_free_phone}</b><br />
+      #{t :phone_toll_free}: <b class="phone-number">#{formatted_phone_number(@facility.toll_free_phone)}</b><br />
 
     - if @facility.phone
-      #{t :phone}: <b class="phone-number">#{@facility.phone}</b><br />
+      #{t :phone}: <b class="phone-number">#{formatted_phone_number(@facility.phone)}</b><br />
 
     - if @facility.fax
       #{t :fax}: <b>#{@facility.fax}</b><br />

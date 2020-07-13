@@ -7,6 +7,7 @@
 #------------------------------------------------------------------------------
 module FatFreeCrm
   module ContactsHelper
+    include ::FatFreeCrm::ApplicationHelper
     include ::FatFreeCrm::AccountsHelper
     include ::FatFreeCrm::AddressesHelper
     include ::FatFreeCrm::OpportunitiesHelper
@@ -20,8 +21,8 @@ module FatFreeCrm
       summary << contact.department if contact.department?
       summary.last += " #{t(:at)} #{contact.account.name}" if contact.account&.name?
       summary << contact.email if contact.email.present?
-      summary << "#{t(:phone_small)}: #{contact.phone}" if contact.phone.present?
-      summary << "#{t(:mobile_small)}: #{contact.mobile}" if contact.mobile.present?
+      summary << "#{t(:phone_small)}: #{formatted_phone_number(contact.phone)}" if contact.phone.present?
+      summary << "#{t(:mobile_small)}: #{formatted_phone_number(contact.mobile)}" if contact.mobile.present?
       summary.join(', ')
     end
   end

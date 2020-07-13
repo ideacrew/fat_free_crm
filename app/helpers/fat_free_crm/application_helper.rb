@@ -218,6 +218,20 @@ module FatFreeCrm
       end
     end
 
+    def formatted_phone_number(phone_number)
+      return nil if phone_number.blank?
+
+      cleaned = ('' + phone_number).gsub(/[^0-9]/, "")
+      matched_number = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
+
+      if matched_number
+        intlCode = (matched_number[1] ? '+1 ' : '')
+        return [intlCode, '(', matched_number[2], ') ', matched_number[3], '-', matched_number[4]].join('')
+      end
+
+      return nil
+    end
+
     #----------------------------------------------------------------------------
     def jumpbox(current)
       tabs = %i[campaigns accounts leads contacts opportunities]
