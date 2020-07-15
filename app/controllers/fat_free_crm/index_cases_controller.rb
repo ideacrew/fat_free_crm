@@ -196,11 +196,12 @@ module FatFreeCrm
     def index_case_filtered_params
       params.require(:index_case).permit(:projected_return_date, :absence_begin_date, :investigation_kind, :user_id,
         index_case_investigation: [:interview_at, :onset_of_symptoms, :infectious_period_start_at, :infectious_period_end_at, :isolation_period_start_at, :isolation_period_end_at, :self_isolate, :work_related, :how_virus_contracted],
-        contact_elicitation_investigation_attributes: [:id, :_destroy, :interview_at, :contact_representative, :contact_representative_id, :contact_representative_relationship_kind,
+        contact_elicitation_investigation_attributes: [:id, :_destroy, :interview_at, :contact_representative, :contact_representative_id, :contact_representative_first_name, :contact_representative_last_name, :contact_representative_relationship_kind,
           contact_exposure_cases_attributes: [:id, :_destroy, :contact_id, :contact, contact_exposure_detail_attributes: [:exposure_started_at, :exposure_ended_at, :used_mask, :exposure_level]],
           facility_facility_cases_attributes: [:id, :_destroy, :facility_id, :facility, facility_exposure_detail_attributes: [:exposure_started_at, :exposure_ended_at]]
         ],
-        clinical_investigations_attributes: [:id, :_destroy, :interview_at, :projected_return_date, :health_event, :event_on, :contact_representative, :contact_representative_id, :health_care_provider_contact, :health_care_provider_contact_id, :contact_representative_relationship_kind]
+        clinical_investigations_attributes: [:id, :_destroy, :interview_at, :projected_return_date, :health_event, :event_on, :contact_representative, :contact_representative_id, :contact_representative_first_name, :contact_representative_last_name,
+                                             :health_care_provider_contact, :health_care_provider_contact_id, :health_care_provider_contact_first_name, :health_care_provider_contact_last_name, :contact_representative_relationship_kind]
         )
     end
   end

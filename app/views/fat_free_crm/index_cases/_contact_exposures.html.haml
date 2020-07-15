@@ -3,7 +3,7 @@
   %details.idc-panel.contact-exposures
     %summary #{t :contact_exposures}
     .idc-form-group
-      .form-group.one-quarter
+      .form-group.one-third
         %label #{t :interview_at}:
         = f.datetime_field(:interview_at, {autocomplete: :off, required: true, value:(f.object.interview_at || Time.now).strftime('%Y-%m-%dT%T'), class: 'date form-control'})
       .form-group.one-quarter
@@ -14,12 +14,9 @@
         %label #{t :window_end_date}:
         #window-end-date
           = f.datetime_field(:elicitation_window_closes_at, value: (f.object.elicitation_window_closes_at || @index_case.index_case_investigation&.isolation_period_start_at.try(:+, 2.days))&.strftime('%Y-%m-%dT%T'), autocomplete: :off, disabled: :true, class: 'date form-control')
-      .form-group.one-quarter
-      .form-group.one-quarter.contact-field
-        %label #{t :contact_representative}:
-        = f.text_field(:contact_representative, required: false, class: 'form-control', value: f.object.contact_representative&.full_name)
-        = f.hidden_field(:contact_representative_id)
-      .form-group.one-quarter
+      .form-group.one-half.contact-select-create
+        = contact_select_or_create(f, label_name: :contact_representative, attribute_name: :contact_representative, selected_value: f.object&.contact_representative&.full_name)
+      .form-group.one-third
         %label #{t :contact_representative_relationship}:
         = f.select(:contact_representative_relationship_kind, options_for_select(CovidMostRegistry[:contact_relationship].item, f.object.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
     = f.fields_for :contact_exposure_cases do |contact_exposure_form|
@@ -30,4 +27,8 @@
 :javascript
   $(document).on("click",'.contact-exposures .add_fields',function(event) {
     prependFormWithContactFields($(this), 'div#contact-elicitation-investigation');
+    var create_or_select_contact_elements = $(this).siblings().last()[0].querySelectorAll('.contact-select-create');
+    create_or_select_contact_elements.forEach( function(selector) {
+      crm.create_or_select_contact(selector);
+    });
   });

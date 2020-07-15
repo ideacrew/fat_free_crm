@@ -6,20 +6,16 @@
     .form-group.one-quarter
       %label #{t :interview_at}:
       = f.datetime_field(:interview_at, {autocomplete: :off, required: true, value:(f.object&.interview_at || Time.now).strftime('%Y-%m-%dT%T'), class: 'date form-control'})
-    .form-group.one-quarter.contact-field
-      %label #{t :contact_representative}:
-      = f.text_field(:contact_representative, required: false, class: 'form-control', value: f.object&.contact_representative&.full_name)
-      = f.hidden_field(:contact_representative_id)
+    .form-group.one-half.contact-select-create
+      = contact_select_or_create(f, label_name: :contact_representative, attribute_name: :contact_representative,  selected_value: f.object&.contact_representative&.full_name)
     .form-group.one-quarter
       %label #{t :contact_representative_relationship}:
       = f.select(:contact_representative_relationship_kind, options_for_select(CovidMostRegistry[:contact_relationship].item, f.object&.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
     .form-group.one-quarter
       %label #{t :mtb_projected_return_date}:
       = f.date_field(:projected_return_date, class: 'form-control')
-    .form-group.one-quarter.contact-field
-      %label #{t :health_care_provider_contact}:
-      = f.text_field(:health_care_provider_contact, required: false, class: 'form-control', value: f.object&.health_care_provider_contact&.full_name)
-      = f.hidden_field(:health_care_provider_contact_id)
+    .form-group.one-half.contact-select-create
+      = contact_select_or_create(f, label_name: :health_care_provider_contact, attribute_name: :health_care_provider_contact, selected_value: f.object&.health_care_provider_contact&.full_name)
     .form-group.one-quarter
       %label #{t :health_event}:
       = f.collection_radio_buttons(:health_event, [[:hcp_consult_event], [:hospitalized_event],[:emergency_room_event],[:death_event],[:none_of_the_above]], :first, :first) do |b|
@@ -34,14 +30,3 @@
     - if !f.object&.persisted?
       .one-sixth.shove-down
         = link_to_function(raw("<i class='fa fa-2x fa-trash'></i>"), "this.closest('#exposure-case-clinical-investigation').remove()")
-
-:javascript
-  function deleteClinicalInvestigation(el) {
-    text = "Are you sure you wish to delete this investigation?";
-    response = confirm(text);
-    if (response == true) {
-      hidden_input_id = el.closest('#exposure-case-clinical-investigation').querySelector('input[type="datetime-local"]').id.replace('interview_at', '_destroy');
-      el.closest('#exposure-case-clinical-investigation').parentNode.querySelector('input[id="' + hidden_input_id + '"]').value = true;
-      el.closest('#exposure-case-clinical-investigation').remove();
-    }
-  }

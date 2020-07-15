@@ -139,6 +139,78 @@
       else
         @show_select_account() # accounts dropdown
 
+    # Hide contacts search box and show create new contact edit field instead.
+    #----------------------------------------------------------------------------
+    show_create_contact: (link) ->
+      contact_create = $(link).parents(".contact-select-create").find('.contact_create')
+      contact_select = $(link).parents(".contact-select-create").find('.contact_select')
+
+      $(link).parents(".contact-select-create").find("#contact_disabled_title").hide()
+      $(link).parents(".contact-select-create").find("#contact_create_title").show()
+      $(link).parents(".contact-select-create").find("#contact_select_title").hide()
+      contact_select.prop('disabled', true)
+      contact_select.find('#awesomplete_contact_select').prop('required', false)
+      contact_select.hide()
+      contact_create.find('#contact_first_name').prop('disabled', false)
+      contact_create.find('#contact_first_name').html ""
+      contact_create.find('#contact_first_name').show()
+      contact_create.find('#contact_first_name').prop('required', true)
+      contact_create.find('#contact_last_name').prop('disabled', false)
+      contact_create.find('#contact_last_name').html ""
+      contact_create.find('#contact_last_name').show()
+      contact_create.find('#contact_last_name').prop('required', true)
+
+
+    # Hide create contact edit field and show contacts search box instead.
+    #----------------------------------------------------------------------------
+    show_select_contact: (link) ->
+      contact_create = $(link).parents(".contact-select-create").find('.contact_create')
+      contact_select = $(link).parents(".contact-select-create").find('.contact_select')
+
+      $(link).parents(".contact-select-create").find("#contact_disabled_title").hide()
+      $(link).parents(".contact-select-create").find("#contact_create_title").hide()
+      $(link).parents(".contact-select-create").find("#contact_select_title").show()
+      contact_create.find('#contact_first_name').hide()
+      contact_create.find('#contact_first_name').prop('disabled', true)
+      contact_create.find('#contact_first_name').prop('required', false )
+      contact_create.find('#contact_last_name').hide()
+      contact_create.find('#contact_last_name').prop('disabled', true)
+      contact_create.find('#contact_last_name').prop('required', false )
+      contact_select.prop('disabled', false)
+      contact_select.show()
+      contact_select.prop('required', true)
+
+
+    # Show contacts search box and disable it to prevent changing the contact.
+    #----------------------------------------------------------------------------
+    show_disabled_select_contact: ->
+      $("#contact_disabled_title").show()
+      $("#contact_create_title").hide()
+      $("#contact_select_title").hide()
+      $("#notifying_contact_first_name").hide()
+      $("#notifying_contact_first_name").prop('disabled', true)
+      $("#notifying_contact_first_name").prop('required', false)
+      $("#notifying_contact_last_name").hide()
+      $("#notifying_contact_last_name").prop('disabled', true)
+      $("#notifying_contact_last_name").prop('required', false)
+
+      # Disable contact select but enable hidden
+      # contact_id select so that value is POSTed
+      $("#notifying_contact").prop('disabled', false)
+      $("#notifying_contact").prop('required', true)
+
+
+    #----------------------------------------------------------------------------
+    create_or_select_contact: (selector) ->
+      $(selector).find("#contact_disabled_title").hide()
+      $(selector).find("#contact_create_title").hide()
+      $(selector).find("#contact_select_title").show()
+      $(selector).find('.contact_create').find('#contact_first_name').hide()
+      $(selector).find('.contact_create').find('#contact_first_name').prop('disabled', true)
+      $(selector).find('.contact_create').find('#contact_first_name').prop('required', false )
+      $(selector).find('.contact_create').find('#contact_last_name').hide()
+      $(selector).find('.contact_create').find('#contact_last_name').prop('disabled', true)
+      $(selector).find('.contact_create').find('#contact_last_name').prop('required', false )
 
     #----------------------------------------------------------------------------
     create_contact: ->

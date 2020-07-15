@@ -8,6 +8,20 @@
     = link_to_add_fields "#{t :new_investigation}", f, :clinical_investigations
 
 :javascript
+  function deleteInvestigation(el) {
+    text = "Are you sure you wish to delete this investigation?";
+    response = confirm(text);
+    if (response == true) {
+      hidden_input_id = el.closest('#index-case-investigation').querySelector('input[type="datetime-local"]').id.replace('interview_at', '_destroy');
+      el.closest('#index-case-investigation').parentNode.querySelector('input[id="' + hidden_input_id + '"]').value = true;
+      el.closest('#index-case-investigation').remove();
+    }
+  }
+
   $(document).on("click",'.clinical-investigations .add_fields',function(event) {
     prependFormWithContactFields($(this), 'div#index-case-investigation');
+    var create_or_select_contact_elements = $(this).siblings().last()[0].querySelectorAll('.contact-select-create');
+    create_or_select_contact_elements.forEach( function(selector) {
+      crm.create_or_select_contact(selector);
+    });
   });

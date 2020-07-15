@@ -29,18 +29,24 @@
 
     var notified_by = document.getElementById("self_notified");
     var notified_by_inputs = document.getElementById('notifying-contact-details');
-    var notified_by_contact = document.querySelector('#contact_#{time} input[type="text"]');
+    var notified_by_contact = document.querySelector('#contact-awesomplete-field input[type="text"]');
     notified_by.addEventListener("change", function(event) {
     if (event.currentTarget.checked) {
     notified_by_contact.removeAttribute('required');
+    notified_by_contact.disabled = true;
+    document.querySelector('#contact_first_name').disabled = true
+    document.querySelector('#contact_last_name').disabled = true
     notified_by_inputs.style.display = 'none';
     } else {
     notified_by_contact.setAttribute('required', "");
+    notified_by_contact.disabled = false;
+    document.querySelector('#contact_first_name').disabled = false
+    document.querySelector('#contact_last_name').disabled = false
     notified_by_inputs.style.display = 'contents';
     }
     })
 
-    var contact_input = document.querySelector('#contact_#{time} input[type="text"]');
+    var contact_input = document.querySelector('#contact-awesomplete-field input[type="text"]');
     new Awesomplete(contact_input, {list: #{contacts.to_json.html_safe},
     replace: function(suggestion) {
     this.input.value = suggestion.label;
@@ -53,5 +59,10 @@
     crm.flip_form('expose_#{entity_name}');
     crm.set_title('expose_#{entity_name}', "#{t :expose} #{h @entity.full_name}");
 
-  / crm.create_or_select_index_case(#{ request.referer =~ /\/index_case\// || @index_case&.id.blank? });
   $('#new_#{entity_name} input[type!=hidden]').first().focus();
+
+  var create_or_select_contact_elements = document.querySelectorAll('.contact-select-create');
+  create_or_select_contact_elements.forEach( function(selector) {
+  crm.create_or_select_contact(selector);
+  });
+

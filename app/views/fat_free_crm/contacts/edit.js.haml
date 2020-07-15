@@ -42,7 +42,7 @@
   }});
   })
   }
-  var elements = document.querySelectorAll('.contact-field input[type="text"]');
+  var elements = document.querySelectorAll('#contact-awesomplete-field input[type="text"]');
   loadContactFields(elements);
 
   var prependFormWithContactFields = function func(element, sibling_element_id){
@@ -53,7 +53,7 @@
   var time = new_date.getTime();
   var regexp = new RegExp(element.data('id'), 'g');
   element.before(element.data('fields').replace(regexp, time));
-  var elements = element.siblings(sibling_element_id).find('.contact-field input[type="text"]').toArray();
+  var elements = element.siblings(sibling_element_id).find('#contact-awesomplete-field input[type="text"]').toArray();
   loadContactFields(elements);
   return false;
   };
@@ -77,3 +77,8 @@
   }
   });
   crm.create_or_select_account(#{ request.referer =~ /\/accounts\// || @account.id.blank? });
+
+  var create_or_select_contact_elements = document.querySelectorAll('.contact-select-create');
+  create_or_select_contact_elements.forEach( function(selector) {
+  crm.create_or_select_contact(selector);
+  });

@@ -618,6 +618,33 @@ module FatFreeCrm
         form.text_field(:name, style: 'display:none;', class: "form-control" )
     end
 
+    def contact_select(form, options = {})
+      content_tag(:div, class: "contact_select", style: "display:flex;", id: "contact-awesomplete-field" ) do
+        form.text_field(options[:attribute_name], value: (options[:selected_value] || nil), id:'awesomplete_contact_select', required: false, class: 'form-control') +
+        form.hidden_field(("#{options[:attribute_name]}"+"_id").to_sym)
+      end
+    end
+
+    # Select an existing contact or create a new one.
+    #----------------------------------------------------------------------------
+    def contact_select_or_create(form, options={}, &_block)
+      content_tag(:label, class: 'label') do
+        t(options[:label_name]).html_safe +
+          content_tag(:span, id: 'contact_create_title') do
+            " (#{t :create_new} #{t :or} <a href='#' onclick='crm.show_select_contact(this); return false;'>#{t :select_existing}</a>):".html_safe
+          end +
+          content_tag(:span, id: 'contact_select_title') do
+            " (<a href='#' onclick='crm.show_create_contact(this); return false;'>#{t :create_new}</a> #{t :or} #{t :select_existing}):".html_safe
+          end +
+          content_tag(:span, ':', id: 'contact_disabled_title')
+      end +
+        contact_select(form, options) +
+        content_tag(:div, class: "contact_create", style: "display:flex;") do
+          text_field_tag(("#{form.object_name}#{options[:attribute_name]}_first_name"), nil, id: 'contact_first_name', required: false, placeholder: "Please Enter First Name", class: "form-control mr-3" ) +
+          text_field_tag(("#{form.object_name}#{options[:attribute_name]}_last_name"), nil, id: 'contact_last_name', required: false, placeholder: "Please Enter Last Name", class: "form-control" )
+        end
+    end
+
     # "title, department at Account name" used in index_brief and index_long
     # - a helper so it is easy to override in plugins that allow for several accounts
     #----------------------------------------------------------------------------

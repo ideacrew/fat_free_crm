@@ -40,7 +40,7 @@ feature 'Leads', '
       fill_in 'lead_first_name', with: 'Mr'
       fill_in 'lead_last_name', with: 'Lead'
       fill_in 'lead_email', with: 'mr_lead@example.com'
-      fill_in 'lead_phone', with: '+18 000000000'
+      fill_in 'lead_phone', with: '+18000000000'
       expand_status
       find("select", id: "lead_assigned_to", wait: 10).select('Myself')
       #select 'Myself', from: 'lead_assigned_to'
@@ -62,7 +62,7 @@ feature 'Leads', '
 
       expect(summary_element).to have_content('Contacted')
       expect(summary_element).to have_content('mr_lead@example.com')
-      expect(summary_element).to have_content('+44 1234 567890')
+      expect(summary_element).to have_content('+18000000000')
       expect(main_element).to have_content('This is an important lead.')
 
       click_link "Dashboard"
