@@ -6,10 +6,8 @@
       .form-group.one-quarter
         %label #{t :interview_at}:
         = f.datetime_field(:interview_at, {autocomplete: :off, required: true, value:(f.object.interview_at || Time.now).strftime('%Y-%m-%dT%T'), class: 'date form-control'})
-      .form-group.one-quarter.contact-field
-        %label #{t :contact_representative}:
-        = f.text_field(:contact_representative, required: false, class: 'form-control', value: f.object.contact_representative&.full_name)
-        = f.hidden_field(:contact_representative_id)
+      .form-group.one-half.contact-select-create
+        = contact_select_or_create(f, label_name: :contact_representative, attribute_name: :contact_representative,selected_value: f.object&.contact_representative&.full_name)
       .form-group.one-quarter
         %label #{t :contact_representative_relationship}:
         = f.select(:contact_representative_relationship_kind, options_for_select(CovidMostRegistry[:contact_relationship].item, f.object.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')

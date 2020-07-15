@@ -154,7 +154,7 @@ module FatFreeCrm
     # PUT /contacts/1/exposed
     #----------------------------------------------------------------------------
     def exposed
-      if params[:case_type] == "tested_positive"
+      if params[:cases][:case_type] == "tested_positive"
         @created_record = ::IndexCases::Create.new.call(@contact, params.permit!).value!
       else
         @created_record = ::ExposureCases::Create.new.call(@contact, params.permit!).value!

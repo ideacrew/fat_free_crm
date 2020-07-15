@@ -187,8 +187,8 @@ module FatFreeCrm
 
     def facility_case_filtered_params
       params.require(:facility_case).permit(:projected_return_date, :absence_begin_date, :investigation_kind, :user_id,
-        facility_case_investigation_attributes: [:interview_at, :contact_representative, :contact_representative_id, :case_reference],
-        contact_elicitation_investigation_attributes: [:id, :_destroy, :interview_at, :contact_representative, :contact_representative_id, :contact_representative_relationship_kind,
+        facility_case_investigation_attributes: [:interview_at, :contact_representative, :contact_representative_id, :contact_representative_first_name, :contact_representative_last_name,  :case_reference],
+        contact_elicitation_investigation_attributes: [:id, :_destroy, :interview_at, :contact_representative, :contact_representative_id, :contact_representative_first_name, :contact_representative_last_name, :contact_representative_relationship_kind,
           contact_exposure_cases_attributes: [:id, :_destroy, :contact_id, :contact, contact_exposure_detail_attributes: [:exposure_started_at, :exposure_ended_at, :used_mask, :exposure_level]]
         ],
         facility_facility_case_attributes: [:id, facility_exposure_detail_attributes: [:exposure_started_at, :exposure_ended_at]])

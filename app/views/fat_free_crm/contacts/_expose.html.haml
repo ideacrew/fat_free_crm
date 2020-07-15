@@ -14,24 +14,23 @@
         .form-control
           = @contact.email
       = fields_for(:cases) do |c|
-        .form-group.one-half
-          .label #{t :case_type}
-          = select_tag(:case_type, options_for_select(Setting.unroll(:case_type), selected: "tested_positive"), { class: 'form-control' })
+        .form-group.one-third
+        .form-group.one-third
+          %label #{t :case_type}
+          = c.select(:case_type, Setting.unroll(:case_type), { selected: "tested_positive" }, class: 'form-control' )
         #tested-positive.idc-panel.full-width.nested
           .form-group.one-third
-            .label #{t :notified_at}:
-            = datetime_field_tag(:notified_at, nil, autocomplete: :off, required: true, class: 'date form-control', id: 'notified-at')
+            %label #{t :notified_at}:
+            = c.datetime_field(:notified_at, autocomplete: :off, required: true, class: 'date form-control', id: 'notified-at')
           .form-group.one-sixth 
-            .label #{t :self_notified}:
-            = check_box_tag("self_notified", true, true, class: 'form-control form-control-sm')
+            %label #{t :self_notified}:
+            = c.check_box(:self_notified, {class: 'form-control form-control-sm', id: "self_notified", checked: true}, 'true', 'false')
           #notifying-contact-details.hidden
-            .form-group.one-quarter{id: "contact_#{time}"}
-              .label #{t :notifying_contact}:
-              = text_field_tag(:notifying_contact, nil, required: false, class: 'form-control')
-              = hidden_field_tag(:notifying_contact_id)
+            .form-group.one-half.contact-select-create
+              = contact_select_or_create(c, label_name: :notifying_contact, attribute_name: :notifying_contact)
             .form-group.one-quarter
-              .label #{t :notifying_contact_relationship_kind}:
-              = select_tag(:notifying_contact_relationship, options_for_select(CovidMostRegistry[:contact_relationship].item), { prompt: 'Select Relationship', class: 'form-control'})
+              %label #{t :notifying_contact_relationship_kind}:
+              = c.select(:notifying_contact_relationship, CovidMostRegistry[:contact_relationship].item, { prompt: 'Select Relationship' }, class: 'form-control')
       .buttonbar.full-width
         = f.submit t(:save_case), :class => 'btn btn-primary'
         = link_to_cancel expose_contact_path(@contact), :class => 'btn btn-link'

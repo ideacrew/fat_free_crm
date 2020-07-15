@@ -43,7 +43,7 @@ feature 'Accounts', '
 
       expect(find('ul#accounts')).to have_content('My new account')
       find('ul#accounts').click_link('My new account') # avoid recent items link
-      expect(page).to have_content('+1 2345 6789')
+      expect(page).to have_content('+1 112233 6789')
       expect(page).to have_content('http://www.example.com')
       expect(page).to have_content('This account is very important')
       expect(page).to have_content('Branch')
