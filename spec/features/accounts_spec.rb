@@ -43,7 +43,7 @@ feature 'Accounts', '
 
       expect(find('ul#accounts')).to have_content('My new account')
       find('ul#accounts').click_link('My new account') # avoid recent items link
-      expect(page).to have_content('+1 112233 6789')
+      expect(page).to have_content('+1 (112) 233-6789')
       expect(page).to have_content('http://www.example.com')
       expect(page).to have_content('This account is very important')
       expect(page).to have_content('Branch')
@@ -60,7 +60,7 @@ feature 'Accounts', '
     click_link_and_await_form_load('Create Account', "form.new_account")
 
     find("summary", text: 'Contact Information').click
-    fill_in 'account_phone', with: '+1 2345 6789'
+    fill_in 'account_phone', with: '+1 112233 6789'
 
     find("summary", text: 'Comment').click
     fill_in 'comment_body', with: 'This account is very important'
@@ -69,7 +69,7 @@ feature 'Accounts', '
     find("summary", text: "Contact Information").click
     find("summary", text: "Comment").click
 
-    expect(page).to have_field("account_phone", with: '+1 2345 6789')
+    expect(page).to have_field("account_phone", with: '+1 112233 6789')
     expect(page).to have_field("comment_body", with: 'This account is very important')
   end
 
