@@ -19,30 +19,28 @@
     .full-width.levels
       = f.fields_for :levels, @facility.levels.each do |level_fields|
         = render 'fat_free_crm/facilities/level', f: level_fields, entity: @facility
-
       #new_level
-
-    :javascript
-      function deleteLevel(el) {
-        text = "Are you sure you wish to delete this absence?"
-        response = confirm(text)
-        if (response == true) {
-          hidden_input_id = el.closest('.level_info').querySelector('input[type="text"]').id.replace('item', '_destroy');
-          el.closest('.full-width').parentNode.querySelector('input[id="' + hidden_input_id + '"]').value = true;
-          el.closest('.level_info').remove();
-        }
-      }
 
     - if entity.new_record?
       = link_to("New Level", new_level_admin_facilities_path, remote: true, class: 'mt-3 btn btn-primary one-sixth')
     -else
       = link_to("New Level", new_level_admin_facility_path(@facility), remote: true, class: 'mt-3 btn btn-primary one-sixth')
-
-    .form-group.full-width
+    %div.full-width
       %label #{t :accounts}:
-      = f.collection_check_boxes(:account_ids, @accounts, :id, :name ) do |b|
-        .d-block
+      .idc-form-group
+        = f.collection_check_boxes(:account_ids, @accounts, :id, :name, :item_wrapper_class => 'form-group one-third') do |b|
           = b.check_box
           = b.label
 
     = hook(:facility_top_section_bottom, self, f: f)
+
+:javascript
+  function deleteLevel(el) {
+    text = "Are you sure you wish to delete this absence?"
+    response = confirm(text)
+    if (response == true) {
+      hidden_input_id = el.closest('.level_info').querySelector('input[type="text"]').id.replace('item', '_destroy');
+      el.closest('.full-width').parentNode.querySelector('input[id="' + hidden_input_id + '"]').value = true;
+      el.closest('.level_info').remove();
+    }
+  }
