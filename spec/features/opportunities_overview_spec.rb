@@ -13,6 +13,8 @@ feature 'Opportunities Overview', "
   I want to see an overview of opportunities broken down by user
 " do
   background do
+    create_registry
+    allow(CovidMostRegistry).to receive(:feature_enabled?).with(:call_center).and_return(true)
     self.class.include FatFreeCrm::Engine.routes.url_helpers
     @me = create(:user)
 

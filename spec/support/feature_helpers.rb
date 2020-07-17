@@ -29,4 +29,9 @@ module FeatureHelpers
   def do_login_if_not_already(options = {})
     do_login(options) unless @user.present?
   end
+
+  def create_registry
+    google_api = double(setting:  double(item: ENV['GOOGLE_API_KEY']))
+    @create_registry ||= Object.const_set('CovidMostRegistry', {google_api: google_api} )
+  end
 end

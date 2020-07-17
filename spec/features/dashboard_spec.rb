@@ -13,6 +13,8 @@ feature 'Dashboard', '
   I want to see a dashboard
 ' do
   background do
+    create_registry
+    allow(CovidMostRegistry).to receive(:feature_enabled?).with(:call_center).and_return(true)
     @me = create(:user)
     login_as_user(@me)
 

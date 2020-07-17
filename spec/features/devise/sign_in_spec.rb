@@ -9,6 +9,8 @@ require 'features/acceptance_helper'
 
 feature 'Devise Sign-in' do
   background do
+    create_registry
+    allow(CovidMostRegistry).to receive(:feature_enabled?).with(:call_center).and_return(true)
     self.class.include FatFreeCrm::Engine.routes.url_helpers
     Setting.user_signup = :needs_approval
     @user = create :user,
