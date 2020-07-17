@@ -221,7 +221,7 @@ module FatFreeCrm
     def formatted_phone_number(phone_number)
       return nil if phone_number.blank?
 
-      cleaned = ('' + phone_number).gsub(/[^0-9]/, "")
+      cleaned = ('' + phone_number).gsub(/[^0-9]/, "")[1..-1]
       matched_number = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
 
       if matched_number
