@@ -159,7 +159,7 @@ module FatFreeCrm
               { method: :delete,
               remote: true,
               confirm: confirm, 
-              class: 'btn btn-link btn-sm idc-delete-button'}
+              class: 'btn btn-sm idc-delete-button'}
             )
     end
 

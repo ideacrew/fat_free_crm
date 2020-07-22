@@ -33,8 +33,8 @@
 .idc-panel
   %h4.full-width#title
     #{t :recent_activity}
-    %small.title_tools
-      = link_to_inline(:options, url_for(action: :options), text: t(:options))
+  .title_tools
+    = link_to_inline(:options, url_for(action: :options), text: t(:options))
   = image_tag("loading.gif", size: :thumb, id: "loading", style: "display: none;")
   .remote.full-width#options{ hidden }
   %ul.list.full-width#activities
