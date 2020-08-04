@@ -1,7 +1,7 @@
 class CreateWellnessStatus < ActiveRecord::Migration[6.0]
 
   def change
-    create_table :fat_free_crm_wellness_status do |t|
+    create_table :fat_free_crm_wellness_statuses do |t|
       t.references :contact
 
       t.string :key

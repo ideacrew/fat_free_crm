@@ -6,7 +6,6 @@ class CreateDeclarations < ActiveRecord::Migration[6.0]
 
       t.string :key
       t.text :item
-      t.text :answer
       t.string :title
       t.string :description
       t.string :kind
