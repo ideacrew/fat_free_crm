@@ -33,7 +33,7 @@ feature 'Accounts', '
       expect(page).to have_content('Create Account')
       click_link 'Create Account'
       expect(page).to have_selector('#account_name', visible: true)
-      fill_in 'account_name', with: 'My new account'
+      fill_in 'account_name', with: 'My New Account'
       select 'Branch', from: 'account_category'
       select 'Myself', from: 'account_assigned_to'
       find("summary", text: 'Contact Information').click
@@ -43,16 +43,16 @@ feature 'Accounts', '
       fill_in 'comment_body', with: 'This account is very important'
       click_submit_and_await_form_transition("Create Account", "form.new_account")
 
-      expect(find('ul#accounts')).to have_content('My new account')
-      find('ul#accounts').click_link('My new account') # avoid recent items link
+      expect(find('ul#accounts')).to have_content('My New Account')
+      find('ul#accounts').click_link('My New Account') # avoid recent items link
       expect(page).to have_content('+1 (112) 233-6789')
       expect(page).to have_content('http://www.example.com')
       expect(page).to have_content('This account is very important')
       expect(page).to have_content('Branch')
 
       click_link "Dashboard"
-      expect(page).to have_content("Bill Murray created account My new account")
-      expect(page).to have_content("Bill Murray created comment on My new account")
+      expect(page).to have_content("Bill Murray created account My New Account")
+      expect(page).to have_content("Bill Murray created comment on My New Account")
     end
   end
 
@@ -79,7 +79,7 @@ feature 'Accounts', '
     create(:account, name: "A new account")
     with_versioning do
       visit accounts_page
-      find('ul#accounts').click_link('A new account')
+      find('ul#accounts').click_link('A New Account')
       expect(page).to have_content('A new account')
       click_link 'Edit'
       fill_in 'account_name', with: 'An updated account'
@@ -93,7 +93,7 @@ feature 'Accounts', '
   scenario 'should delete an account', js: true do
     create(:account, name: "My new account")
     visit accounts_page
-    find('ul#accounts').click_link('My new account')
+    find('ul#accounts').click_link('My New Account')
     click_link 'Delete'
     expect(page).to have_content('Are you sure you want to delete this account?')
     click_link 'Yes'

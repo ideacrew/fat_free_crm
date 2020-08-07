@@ -38,7 +38,7 @@ feature 'Contacts', '
       expect(page).to have_selector('select#account_id', visible: false)
       expect(page).to have_selector('#contact_first_name', visible: true)
       fill_in 'contact_first_name', with: 'Testy'
-      fill_in 'contact_last_name', with: 'McTest'
+      fill_in 'contact_last_name', with: 'Mctest'
       fill_in 'contact_email', with: "testy.mctest@example.com"
       fill_in 'contact_phone', with: '+44 1234 567890'
       find("summary", text: 'Comment').click
@@ -47,15 +47,15 @@ feature 'Contacts', '
 
       sleep 2
 
-      expect(contacts_element).to have_content('Testy McTest')
+      expect(contacts_element).to have_content('Testy Mctest')
 
-      contacts_element.click_link 'Testy McTest'
+      contacts_element.click_link 'Testy Mctest'
       sleep(3) # avoid CI failure
       expect(main_element).to have_content('This is a very important person.')
 
       click_link "Dashboard"
-      expect(activities_element).to have_content('Bill Murray created contact Testy McTest')
-      expect(activities_element).to have_content('Bill Murray created comment on Testy McTest')
+      expect(activities_element).to have_content('Bill Murray created contact Testy Mctest')
+      expect(activities_element).to have_content('Bill Murray created comment on Testy Mctest')
     end
   end
 
@@ -71,10 +71,10 @@ feature 'Contacts', '
   end
 
   scenario 'should view and edit a contact', js: true do
-    create(:contact, first_name: "Testy", last_name: "McTest", account: create(:account, name: "Toast"))
+    create(:contact, first_name: "Testy", last_name: "Mctest", account: create(:account, name: "Toast"))
     with_versioning do
       visit contacts_page
-      click_link 'Testy McTest'
+      click_link 'Testy Mctest'
       click_link 'Edit'
       select = find('select', id: "account_id",  visible: true)
       expect(select).to have_text("Toast")

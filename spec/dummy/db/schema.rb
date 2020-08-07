@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_30_145515) do
+ActiveRecord::Schema.define(version: 2020_08_01_200512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -147,6 +147,18 @@ ActiveRecord::Schema.define(version: 2020_06_30_145515) do
     t.index ["level_id"], name: "index_fat_free_crm_assignments_on_level_id"
   end
 
+  create_table "fat_free_crm_attestations", force: :cascade do |t|
+    t.bigint "wellness_status_id"
+    t.string "key"
+    t.string "title"
+    t.string "description"
+    t.boolean "is_attested"
+    t.datetime "attested_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["wellness_status_id"], name: "index_fat_free_crm_attestations_on_wellness_status_id"
+  end
+
   create_table "fat_free_crm_avatars", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.string "entity_type"
@@ -203,10 +215,14 @@ ActiveRecord::Schema.define(version: 2020_06_30_145515) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "notifying_contact_id"
+    t.string "notifying_contact_relationship_kind"
+    t.datetime "notified_at"
     t.index ["contact_elicitation_investigation_id"], name: "contact_exposure_cases_contact_elicitation_investigation_id"
     t.index ["contact_id"], name: "index_fat_free_crm_contact_exposure_cases_on_contact_id"
     t.index ["exposure_case_id"], name: "index_fat_free_crm_contact_exposure_cases_on_exposure_case_id"
     t.index ["facility_id"], name: "index_fat_free_crm_contact_exposure_cases_on_facility_id"
+    t.index ["notifying_contact_id"], name: "contact_exposure_case_notifying_contact_id"
   end
 
   create_table "fat_free_crm_contact_index_cases", force: :cascade do |t|
@@ -277,6 +293,18 @@ ActiveRecord::Schema.define(version: 2020_06_30_145515) do
     t.index ["user_id", "last_name", "deleted_at"], name: "id_last_name_deleted", unique: true
   end
 
+  create_table "fat_free_crm_declarations", force: :cascade do |t|
+    t.bigint "attestation_id"
+    t.string "key"
+    t.text "item"
+    t.string "title"
+    t.string "description"
+    t.string "kind"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["attestation_id"], name: "index_fat_free_crm_declarations_on_attestation_id"
+  end
+
   create_table "fat_free_crm_details", force: :cascade do |t|
     t.string "name"
     t.string "kind"
@@ -336,7 +364,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_145515) do
     t.bigint "user_id"
     t.bigint "contact_id"
     t.integer "assigned_to"
-    t.integer "case_number"
+    t.integer "case_number", default: -> { "nextval('case_number_seq'::regclass)" }
     t.datetime "opened_at"
     t.datetime "closed_at"
     t.string "investigation_kind"
@@ -385,12 +413,10 @@ ActiveRecord::Schema.define(version: 2020_06_30_145515) do
 
   create_table "fat_free_crm_exposures_facility_simple_exposures", force: :cascade do |t|
     t.bigint "facility_facility_case_id"
-    t.integer "contact_exposure_investigation_priority"
     t.string "facility_congregate_setting"
     t.datetime "exposure_started_at"
     t.datetime "exposure_ended_at"
     t.integer "duration_in_minutes"
-    t.boolean "used_mask"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -416,27 +442,29 @@ ActiveRecord::Schema.define(version: 2020_06_30_145515) do
     t.bigint "user_id"
     t.bigint "facility_id"
     t.integer "assigned_to"
-    t.integer "case_number"
+    t.integer "case_number", default: -> { "nextval('case_number_seq'::regclass)" }
     t.datetime "opened_at"
     t.datetime "closed_at"
     t.string "investigation_kind"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "access"
+    t.text "subscribed_users"
     t.index ["facility_id"], name: "index_fat_free_crm_facility_cases_on_facility_id"
     t.index ["user_id"], name: "index_fat_free_crm_facility_cases_on_user_id"
   end
 
   create_table "fat_free_crm_facility_facility_cases", force: :cascade do |t|
     t.bigint "facility_id"
-    t.bigint "faciltiy_case_id"
+    t.bigint "facility_case_id"
     t.bigint "contact_elicitation_investigation_id"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["contact_elicitation_investigation_id"], name: "facility_facility_cases_contact_elicitation_investigation_id"
+    t.index ["facility_case_id"], name: "index_fat_free_crm_facility_facility_cases_on_facility_case_id"
     t.index ["facility_id"], name: "index_fat_free_crm_facility_facility_cases_on_facility_id"
-    t.index ["faciltiy_case_id"], name: "index_fat_free_crm_facility_facility_cases_on_faciltiy_case_id"
   end
 
   create_table "fat_free_crm_field_groups", id: :serial, force: :cascade do |t|
@@ -565,6 +593,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_145515) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "facility_case_id"
     t.index ["contact_representative_id"], name: "contact_elicitation_investigation_contact_representative_id"
     t.index ["index_case_id"], name: "contact_elicitation_investigation_index_case_id"
   end
@@ -575,10 +604,11 @@ ActiveRecord::Schema.define(version: 2020_06_30_145515) do
     t.string "contact_representative_relationship_kind"
     t.datetime "interview_at"
     t.boolean "can_self_quarantine"
-    t.boolean "need_assitance_to_self_quarantine"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "work_related"
+    t.boolean "need_assistance_to_self_quarantine"
     t.index ["contact_representative_id"], name: "exposure_case_simple_investigations_contact_representative_id"
     t.index ["exposure_case_id"], name: "exposure_case_simple_investigations_exposure_case_id"
   end
@@ -586,11 +616,11 @@ ActiveRecord::Schema.define(version: 2020_06_30_145515) do
   create_table "fat_free_crm_investigations_facility_case_simple_investigations", force: :cascade do |t|
     t.bigint "facility_case_id"
     t.bigint "contact_representative_id"
-    t.string "contact_representative_relationship_kind"
     t.datetime "interview_at"
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "case_reference"
     t.index ["contact_representative_id"], name: "facility_case_simple_investigations_contact_representative_id"
     t.index ["facility_case_id"], name: "facility_case_simple_investigations_facility_case_id"
   end
@@ -835,6 +865,18 @@ ActiveRecord::Schema.define(version: 2020_06_30_145515) do
     t.index ["related_id", "related_type"], name: "index_fat_free_crm_versions_on_related_id_and_related_type"
     t.index ["transaction_id"], name: "index_fat_free_crm_versions_on_transaction_id"
     t.index ["whodunnit"], name: "index_fat_free_crm_versions_on_whodunnit"
+  end
+
+  create_table "fat_free_crm_wellness_statuses", force: :cascade do |t|
+    t.bigint "contact_id"
+    t.string "key"
+    t.string "status"
+    t.string "category"
+    t.datetime "begin_on"
+    t.datetime "expire_on"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contact_id"], name: "index_fat_free_crm_wellness_statuses_on_contact_id"
   end
 
   create_table "fat_free_crm_zones", force: :cascade do |t|
