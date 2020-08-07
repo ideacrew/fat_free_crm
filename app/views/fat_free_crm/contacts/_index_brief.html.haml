@@ -1,7 +1,7 @@
 %li.brief.highlight.contact{id: "contact_#{contact.id}"}
   .flex-container
-    %h3
-      = link_to_if can?(:read, contact), contact.full_name(current_user.preference[:contacts_naming]), contact
+    %h5
+      = link_to_if can?(:read, contact), contact.full_name(current_user.preference[:contacts_naming])&.titleize, contact
     = render "fat_free_crm/contacts/contact_tools", contact: contact
   = render "fat_free_crm/contacts/lead_referral", contact: contact
   = hook(:contact_bottom, self, contact: contact)

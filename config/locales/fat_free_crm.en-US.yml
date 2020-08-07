@@ -586,6 +586,7 @@ en-US:
   need_assistance_to_self_isolate: Need Assistance
   self_isolate: Self Isolate
   clinical_simple_investigations: Clinical Simple Investigations
+  clinical_investigations: Clinical Investigations
   contact_exposures: Contact Exposures
   interview_at: Interviewed At
   contact_representative: Contact Representative
@@ -637,6 +638,8 @@ en-US:
   case_no: Case No
   work_related?: Work Related?
   Projected_days_away_from_work: Projected Days Away From Work
+  projected_return_date: Projected Return Date
+  related_index_case: Related Index Case
   hired_on: Hired On
   born_on: Born On
   save_facility_case: Save Facility Case

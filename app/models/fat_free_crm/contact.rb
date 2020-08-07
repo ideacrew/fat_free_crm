@@ -183,6 +183,14 @@ module FatFreeCrm
           next unless exposure_case
 
           ExposureCases::Update.new.call(exposure_case: exposure_case, params: attrs)
+          if attrs['absence_begin_date'].present?
+            Absences::FindOrCreate.new.call(contact: self, 
+                                            absence_params: {
+                                              kind: 'covid_19_quarantine',
+                                              start_on: Date.parse(attrs['absence_begin_date']),
+                                              end_on: Date.parse(attrs['absence_begin_date']) + 14.days
+                                            })
+          end
         end
       end
       # Must set access before user_ids, because user_ids= method depends on access value.

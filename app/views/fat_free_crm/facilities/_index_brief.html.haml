@@ -2,9 +2,9 @@
 %li.highlight.facility{id: "facility_#{facility.name}"}
   .flex-container
     - if params[:controller].include?("admin")
-      %h3= link_to(facility.name, admin_facility_path(facility))
+      %h5= link_to(facility.name&.titleize, admin_facility_path(facility))
     -else
-      %h3= facility.name
+      %h5= facility.name&.titleize
     = render "/fat_free_crm/facilities/facility_tools", facility: facility
   = hook(:facility_bottom, self, facility: facility)  
 

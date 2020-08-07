@@ -511,6 +511,31 @@ table.asset_attributes {
   font-size: 0.75rem;
 }
 
+.btn-group-xs > .btn, .btn-xs {
+  padding: .5rem .4rem;
+  font-size: .875rem;
+  line-height: .5;
+  border-radius: .2rem;
+}
+
+.form-control-xs {
+  height: calc(1em + .275rem + 2px) !important;
+  padding: .125rem .25rem !important;
+  font-size: .75rem !important;
+  line-height: 1.5;
+  border-radius: .2rem;
+}
+
+.flex-container {
+  h5 {
+    margin-bottom: 0rem;
+  }
+}
+
+input[readonly][type="datetime-local"] {
+  padding-right: 0;
+}
+
 .page-heading {
   margin-bottom: var(--s2);
 }

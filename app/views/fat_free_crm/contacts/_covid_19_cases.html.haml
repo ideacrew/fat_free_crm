@@ -24,30 +24,45 @@
           %div #{t :Projected_days_away_from_work}
           - if index_case.projected_return_date.present?
             %div
-              = away_from_work_days(index_case)
+              = index_case_away_from_work_days(index_case)
         .form-group.one-column.shove-down
           = link_to("#{t :view}", index_case_path(index_case), class: 'btn btn-primary')
   - @contact.exposure_cases.each do |exposure_case|
     .card.mt-3
       .card-body.idc-form-group
-        .label-value-group.one-sixth
+        .label-value-group.one-column
           %div #{t :case_no}
-          %div 
+          %br
+          %div
             = exposure_case.case_number
         .label-value-group.one-sixth
           %div #{t :case_type}
+          %br
           %div #{t :exposure_case}
         .label-value-group.one-sixth
           %div #{t :work_related?}
+          %br
           %div
             = exposure_case.exposure_case_investigation&.work_related.to_s.humanize
-        .label-value-group.one-sixth
+        .label-value-group.one-column
           %div #{t :status}
+          %br
           %div
-            = t(exposure_case.clinical_investigations.last&.health_event&.to_sym)
+            = t(exposure_case.clinical_investigations.last&.health_event&.to_sym || :unknown)
         .label-value-group.one-quarter
           %div #{t :Projected_days_away_from_work}
-          %div 
+          - if exposure_case.projected_return_date.present?
+            %div
+              = exposure_case_away_from_work_days(exposure_case)
+        .label-value-group.one-sixth
+          %div #{t :related_index_case}
+          %br
+          %div
+            - index_case = exposure_case&.contact_exposure_case&.contact_elicitation_investigation&.index_case
+            - if index_case
+              = link_to(index_case.contact&.full_name&.titleize, index_case_path(index_case))
+            - else
+              = "Self Exposed"
         .form-group.one-column.shove-down
           %button.btn.btn-primary{id: "exposureCaseEditButton"  ,"data-target" => "#edit-exposure-case-form_#{exposure_case.id}", "data-toggle" => "collapse", type: "button"}
             #{t :edit}

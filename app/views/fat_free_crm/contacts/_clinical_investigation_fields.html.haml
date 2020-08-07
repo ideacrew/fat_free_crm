@@ -10,7 +10,7 @@
       = contact_select_or_create(f, label_name: :contact_representative, attribute_name: :contact_representative,  selected_value: f.object&.contact_representative&.full_name)
     .form-group.one-quarter
       %label #{t :contact_representative_relationship}:
-      = f.select(:contact_representative_relationship_kind, options_for_select(CovidMostRegistry[:contact_relationship].item, f.object&.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
+      = f.select(:contact_representative_relationship_kind, options_for_select(CovidMostRegistry[:contact_relationship].item.values, f.object&.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
     .form-group.one-quarter
       %label #{t :mtb_projected_return_date}:
       = f.date_field(:projected_return_date, class: 'form-control')

@@ -10,7 +10,7 @@
         = contact_select_or_create(f, label_name: :contact_representative, attribute_name: :contact_representative,selected_value: f.object&.contact_representative&.full_name)
       .form-group.one-quarter
         %label #{t :contact_representative_relationship}:
-        = f.select(:contact_representative_relationship_kind, options_for_select(CovidMostRegistry[:contact_relationship].item, f.object.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
+        = f.select(:contact_representative_relationship_kind, options_for_select(CovidMostRegistry[:contact_relationship].item.values, f.object.contact_representative_relationship_kind), {prompt: 'Select Relationship'}, class: 'form-control')
       .form-group.one-quarter   
     = f.fields_for :contact_exposure_cases do |contact_exposure_form|
       = render "fat_free_crm/facility_cases/contact_exposure_case_fields", f: contact_exposure_form

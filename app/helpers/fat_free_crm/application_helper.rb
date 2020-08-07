@@ -146,7 +146,7 @@ module FatFreeCrm
               options[:url] || polymorphic_url(record, action: :edit),
               remote:  true,
               onclick: "this.href = this.href.split('?')[0] + '?previous='+encodeURI(crm.find_form('edit_#{j name}'));".html_safe,
-              class: 'btn btn-secondary btn-sm'
+              class: 'btn btn-secondary btn-xs'
             )
     end
 
@@ -159,7 +159,7 @@ module FatFreeCrm
               { method: :delete,
               remote: true,
               confirm: confirm, 
-              class: 'btn btn-sm idc-delete-button'}
+              class: 'btn btn-link btn-xs idc-delete-button'}
             )
     end
 
@@ -681,10 +681,16 @@ module FatFreeCrm
       "Contact Tracing"
     end
 
-    def away_from_work_days(index_case)
+    def index_case_away_from_work_days(index_case)
       isolation_start = index_case.index_case_investigation.isolation_period_start_at.to_date
       projected_return_date = [index_case.projected_return_date, index_case.clinical_investigations.last&.projected_return_date || index_case.projected_return_date].max.to_date
       (projected_return_date - isolation_start).to_i
+    end
+
+    def exposure_case_away_from_work_days(exposure_case)
+      quarantine_start = exposure_case.updated_at.to_date
+      projected_return_date = [exposure_case.projected_return_date, exposure_case.clinical_investigations.last&.projected_return_date || exposure_case.projected_return_date].max.to_date
+      (projected_return_date - quarantine_start).to_i
     end
 
     private

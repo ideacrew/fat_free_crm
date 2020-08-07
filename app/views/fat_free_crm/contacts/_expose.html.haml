@@ -24,13 +24,13 @@
             = c.datetime_field(:notified_at, autocomplete: :off, required: true, class: 'date form-control', id: 'notified-at')
           .form-group.one-sixth 
             %label #{t :self_notified}:
-            = c.check_box(:self_notified, {class: 'form-control form-control-sm', id: "self_notified", checked: true}, 'true', 'false')
+            = c.check_box(:self_notified, {class: 'form-control form-control-xs', id: "self_notified", checked: true}, 'true', 'false')
           #notifying-contact-details.hidden
             .form-group.one-half.contact-select-create
               = contact_select_or_create(c, label_name: :notifying_contact, attribute_name: :notifying_contact)
             .form-group.one-quarter
               %label #{t :notifying_contact_relationship_kind}:
-              = c.select(:notifying_contact_relationship, CovidMostRegistry[:contact_relationship].item, { prompt: 'Select Relationship' }, class: 'form-control')
+              = c.select(:notifying_contact_relationship, CovidMostRegistry[:contact_relationship].item.values, { prompt: 'Select Relationship' }, class: 'form-control')
       .buttonbar.full-width
         = f.submit t(:save_case), :class => 'btn btn-primary'
         = link_to_cancel expose_contact_path(@contact), :class => 'btn btn-link'

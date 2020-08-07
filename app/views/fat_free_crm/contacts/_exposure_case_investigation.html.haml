@@ -1,7 +1,7 @@
 .idc-panel
   .full-width
     %h3
-      = exposure_case.contact.full_name
+      = exposure_case.contact.full_name&.titleize
   .form-group.one-sixth
     %label #{t :case_number}:
     .form-control
@@ -20,8 +20,18 @@
       %label #{t :is_work_related?}:
       = form.select(:work_related, FatFreeCrm::ExposureCase.work_relateds.map { |(w)| [w.humanize, w] }, {selected:exposure_case.exposure_case_investigation&.work_related}, :class => "form-control")
   .form-group.one-quarter
+    %label #{t :absence_begin_date}:
+    #absence-begin-date
+      = date_field_tag("#{f.object_name}[absence_begin_date]", nil, class: 'form-control')
+  .form-group.one-quarter
     %label #{t :projected_return_date}:
     #projected-return-date
       = f.date_field(:projected_return_date, value: exposure_case.projected_return_date&.strftime('%Y-%m-%d'), class: 'form-control')
+  .form-group.one-quarter
+    %label #{t :exposure_started_at}:
+    = datetime_field_tag(:exposure_started_at, exposure_case&.contact_exposure_case&.contact_exposure_detail&.exposure_started_at.strftime('%Y-%m-%dT%T'), readonly: :true, class: 'date form-control')
+  .form-group.one-quarter
+    %label #{t :exposure_ended_at}:
+    = datetime_field_tag(:exposure_ended_at, exposure_case&.contact_exposure_case&.contact_exposure_detail&.exposure_ended_at.strftime('%Y-%m-%dT%T'), readonly: :true, class: 'date form-control')
     
 = render "fat_free_crm/contacts/clinical_investigations", f: f, contact: contact, exposure_case: exposure_case

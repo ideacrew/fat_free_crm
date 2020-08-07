@@ -1,7 +1,7 @@
 - amount = facility.pipeline_opportunities.map(&:weighted_amount).sum
 %li.highlight.facility{id: "facility_#{facility.name}"}
   .flex-container
-    %h3= link_to(facility.name, facility)
+    %h5= link_to(facility.name&.titleize, facility)
     = render "fat_free_crm/facilities/facility_tools", facility: facility
   .idc-details
     = facility.location + ", " unless facility.location.blank?

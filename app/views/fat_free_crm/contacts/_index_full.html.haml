@@ -1,8 +1,8 @@
 %li.full.highlight.contact{id: "contact_#{contact.id}"}
   -# = avatar_for(contact, size: "30x30")
   .flex-container
-    %h3
-      = link_to_if can?(:read, contact), contact.full_name(current_user.preference[:contacts_naming]), contact
+    %h5
+      = link_to_if can?(:read, contact), contact.full_name(current_user.preference[:contacts_naming])&.titleize, contact
     = render "fat_free_crm/contacts/contact_tools", contact: contact
   %span
     - if contact.title? && contact.department?

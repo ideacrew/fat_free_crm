@@ -18,6 +18,10 @@
     border-top: 1px solid var(--neutral-030);
   }
 
+  ul {
+    margin-bottom: 0rem;
+  }
+
   li .remote {
     grid-column: 1 / -1;
   }

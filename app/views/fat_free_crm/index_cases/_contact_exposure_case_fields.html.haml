@@ -16,9 +16,9 @@
       .form-group.one-quarter
         %label #{t :exposure_ended_at}:
         = exposure_detail_form.datetime_field(:exposure_ended_at, autocomplete: :off, required: true, class: 'date form-control')
-      .form-group.one-quarter
+      .form-group.one-sixth
         %label #{t :used_mask}:
-        = exposure_detail_form.check_box(:used_mask, class: 'form-control form-control-sm')
+        = exposure_detail_form.check_box(:used_mask, class: 'form-control form-control-xs')
       .form-group.one-quarter
         %label #{t :exposure_level}:
         = exposure_detail_form.select(:exposure_level, options_for_select(Setting.unroll(:exposure_level), exposure_detail_form.object.exposure_level), {prompt: 'Select Exposure Level'}, class: 'form-control')
