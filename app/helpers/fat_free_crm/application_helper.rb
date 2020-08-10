@@ -688,7 +688,7 @@ module FatFreeCrm
     end
 
     def exposure_case_away_from_work_days(exposure_case)
-      quarantine_start = exposure_case.updated_at.to_date
+      quarantine_start = exposure_case.created_at.to_date
       projected_return_date = [exposure_case.projected_return_date, exposure_case.clinical_investigations.last&.projected_return_date || exposure_case.projected_return_date].max.to_date
       (projected_return_date - quarantine_start).to_i
     end
