@@ -1,0 +1,37 @@
+<%= content_for :head do %>
+  <%= yield :main_head %>
+<% end %>
+
+<%= content_for :body do %>
+  <header class="header">
+    <button class="navbar-toggler" type="button" id="menu-toggle"><span class="navbar-toggler-icon"></span></button>
+    <% if defined? LedgerReduxRegistry %>
+      <a class="nav-link" href="/"><%= @client_name || LedgerReduxRegistry[:client_name].item %> <%= get_section_title %></a>
+    <% end %>
+    <div>
+      <% if current_user %>
+        <span><%= "Welcome, #{current_user.username}! " %></span>
+        <%= link_to 'Profile',  fat_free_crm.profile_path %><span>|</span>
+        <%= link_to 'Admin',    fat_free_crm.admin_path %><span>|</span>
+        <%= link_to 'Logout',   fat_free_crm.destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to 'Login', fat_free_crm.new_user_session_path %><span>
+      <% end %>
+    </div>
+  </header>
+
+  <ul id="sidebar-wrapper" class="sidebar-wrapper">
+    <li><a href="/" class="list-group-item list-group-item-action">Home</a></li>
+    <li><a href="/accounts" class="list-group-item list-group-item-action">Accounts</a></li>
+    <li><a href="/crm" class="list-group-item list-group-item-action">CRM</a></li>
+    <li><a href="/call_centers" class="list-group-item list-group-item-action">Call Center</a></li>
+    <li><a href="/reports" class="list-group-item list-group-item-action">Reports</a></li>
+    <li><a href="/configurations" class="list-group-item list-group-item-action">Configure</a></li>
+  </ul>
+
+  <main>
+    <%= content_for?(:main_body) ? yield(:main_body) : yield %>
+  </main>
+<% end %>
+
+<%= render template: 'layouts/application' %>

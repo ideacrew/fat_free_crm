@@ -7,7 +7,7 @@
   -#   :integrity => "sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh", 
   -#   :crossorigin => "anonymous" }
 
-  -# = stylesheet_link_tag :application
+  = stylesheet_link_tag :application
   -# = hook(:stylesheet_includes, self) do
   -#   #{yield :stylesheet_includes}
   -# %style= yield :styles
@@ -47,4 +47,4 @@
     = content_for :javascript_epilogue
     = hook(:javascript_epilogue, self)
 
-= render template: 'layouts/main'
+= render template: '/layouts/main'
