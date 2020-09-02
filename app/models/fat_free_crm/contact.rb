@@ -84,6 +84,7 @@ module FatFreeCrm
     accepts_nested_attributes_for :assignments, allow_destroy: true
     accepts_nested_attributes_for :absences, allow_destroy: true
     accepts_nested_attributes_for :exposure_cases, allow_destroy: true
+    accepts_nested_attributes_for :wellness_statuses, allow_destroy: true
 
     scope :created_by,  ->(user) { where(user_id: user.id) }
     scope :assigned_to, ->(user) { where(assigned_to: user.id) }
