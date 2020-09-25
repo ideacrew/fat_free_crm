@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <span align="left"><%= Date.today.strftime('%m/%d/%Y') %></span><br><br>
+  <body>
+    <b>Subject: Daily Attestation Remainder</b>
+    <br /><br />
+    <div> Dear <strong><%= contact.full_name&.titleize %></strong>,</div>
+    <br /><br />
+    <div>
+      Can you please submit an attestation today before starting to work. If you feel like you no need to attest today select attestation not required with a reason and submit the attestation.
+    </div>
+    <br />
+    You can start attestation by visiting <a href="https://worksafe-lite.ideacrew.com" target="_blank">WorkRadar</a>
+  </body>
+</html>

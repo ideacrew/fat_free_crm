@@ -48,6 +48,12 @@ module FatFreeCrm
       end
     end
 
+    def daily_attestation_remainder(contact)
+      mail({to: contact.email, subject: "Daily Attestation Remainder", from: from_address}) do |format|
+        format.html {render "daily_attestation_remainder_to_contact", locals: {contact: contact} }
+      end
+    end
+
     private
 
     def secret_key_base
