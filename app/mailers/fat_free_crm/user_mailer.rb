@@ -49,7 +49,7 @@ module FatFreeCrm
     end
 
     def daily_attestation_remainder(contact)
-      mail({to: contact.email, subject: "Daily Attestation Remainder", from: from_address}) do |format|
+      mail({to: contact.email, subject: "Daily Attestation Remainder", from: "WorkRadar"}) do |format|
         format.html {render "daily_attestation_remainder_to_contact", locals: {contact: contact} }
       end
     end
@@ -74,7 +74,7 @@ module FatFreeCrm
 
     def manager_emails
      #TODO need to update to manager of that contact
-      ['harshavardhan.ellanki@ideacrew.com', 'angus.irvine@ideacrew.com', 'trevor.garner@ideacrew.com']
+      ['angus.irvine@ideacrew.com', 'trevor.garner@ideacrew.com']
     end
   end
 end
